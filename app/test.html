@@ -115,7 +115,8 @@
             if (d) {
                 $("#editName").val(d.name);
                 $("#textDataDes").val(d.des);
-                FormatData(d.data)
+                var data=FormatData(d.data)
+                if(!data)return;
                 RefreshData()
             }
 
@@ -136,7 +137,8 @@
             if (!editName) {
                 $("#editName").val(d[0].name);
                 $("#textDataDes").val(d[0].des);
-                FormatData(d[0].data)
+                var data=FormatData(d[0].data)
+                if(!data)return;
                 editName = d[0].name
             }
             d.forEach(function (i) {
@@ -150,13 +152,14 @@
         }
         function FormatData(data) {
             try {
+                if(!data)throw 'data null'
                 if (typeof data == 'string') {
                     data = new Function('return ' + data)()
                 }
                 $('.textData').val(JSON.stringify(data, 0, 4))
                 return data;
             } catch (error) {
-
+                log(e.message)
             }
 
         }
@@ -170,6 +173,7 @@
                 var des = $("#textDataDes").val();
                 var data = $('.textData').val();
                 data = FormatData(data)
+                if(!data)return;
                 var mbData = GetMbData('mbData')
                 d = mbData.find(function (x) { return x.name == editName })
                 if (d) {
@@ -191,8 +195,6 @@
             $("#wx_delete").click(function () {
                 var editName = $("#editName").val();
                 if (!editName) return log('请输入名称')
-                var data = $('.textData').val();
-                data = FormatData(data)
                 var mbData = GetMbData('mbData')
                 //mbData.splice(array.findIndex(item => item === 2), 1);
                 d = mbData.findIndex(function (x) { return x.name == editName })
