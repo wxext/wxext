@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11" id="mixia_vpid">
+    <title>e小天|功能测试</title>
+    <meta name=keywords content="e小天|功能测试">
+    <meta name=description content="e小天|功能测试">
+    <link rel="shortcut icon" href="../logo.png">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .none {
+            display: none;
+        }
+
+        .alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 300px;
+            max-width: 600px;
+            transform: translate(-50%, -50%);
+            z-index: 99999;
+            text-align: center;
+            padding: 15px;
+            border-radius: 3px;
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .alert-info {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>功能测试</h1>
+        <div class="row">
+            <h6 id="tip" style="color:red;"></h6>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <div class="row">
+                    <div class="col-md-4">
+                        <textarea id="textDataDes" class="form-control" rows="4" placeholder="描述"></textarea>
+                        <textarea class="textData form-control" rows="16"></textarea>
+                    </div>
+                    <div class="col-md-4">
+                        <button id="wx_new" type="button" class="btn btn-primary btn-block">请求</button>
+
+                        <input type="text" class="form-control" id="editName" placeholder="名称">
+                        <button id="wx_update" type="button" class="btn btn-info btn-block">保存</button>
+                        <ul id="list" class="list-unstyled"></ul>
+                        <button id="wx_export" type="button" class="btn btn-warning btn-block">导出</button>
+                        <button id="wx_import" type="button" class="btn btn-warning btn-block">导入</button>
+                        <button id="wx_delete" type="button" class="btn btn-warning btn-block">删除当前名称</button>
+                        <button id="wx_deleteAll" type="button" class="btn btn-warning btn-block">清空缓存数据</button>
+                    </div>
+                    <div class="col-md-4">
+                        <textarea class="textResult form-control" rows="20"></textarea>
+                    </div>
+                </div>
+                <div class="mypidDiv none"></div>
+                <div class="loginDiv none">
+                    <h5>请扫描登陆(<span class='pid'></span>)</h5>
+                    <div class='loginQR'></div>
+                    <hr />
+                </div>
+                <div id="app"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
+
+    <script>
+        function GetMbData() {
+            var d = localStorage.getItem('mbData')
+            if (!d) return [];
+            return JSON.parse(d)
+        }
+        function SaveMbData(d) {
+            if (!d) return;
+            localStorage.setItem('mbData', JSON.stringify(d))
+        }
+        function RefreshEdit(id) {
+            var d = GetMbData('mbData')
+            d = d.find(function (x) { return x.id == id })
+            if (d) {
+                $("#editName").val(d.name);
+                $("#textDataDes").val(d.des);
+                FormatData(d.data)
+                RefreshData()
+            }
+
+        }
+        function initData() {
+            if (localStorage.getItem('mbData')) return RefreshData();
+            $.getJSON("testData.json", function (data) {
+                localStorage.setItem('mbData', JSON.stringify(data))
+                RefreshData()
+            })
+        }
+        function RefreshData() {
+            var d = GetMbData();
+            if (d.length == 0 || !d[0]) return
+            var list = $("#list");
+            var editName = $("#editName").val();
+            var html = '';
+            if (!editName) {
+                $("#editName").val(d[0].name);
+                $("#textDataDes").val(d[0].des);
+                FormatData(d[0].data)
+                editName = d[0].name
+            }
+            d.forEach(function (i) {
+                var cls = ''
+                if (i.name == editName) cls = ' text-success'
+                html += '<button type="button" onclick="RefreshEdit(' + i.id + ')" class="btn btn-link' + cls + '">' + i.name + '</button>'
+
+            })
+            list.html(html)
+
+        }
+        function FormatData(data) {
+            try {
+                if (typeof data == 'string') {
+                    data = new Function('return ' + data)()
+                }
+                $('.textData').val(JSON.stringify(data, 0, 4))
+                return data;
+            } catch (error) {
+
+            }
+
+        }
+        var id = +new Date()
+        function GetNewID() { return id++ }
+        $(function () {
+            initData()
+            $("#wx_update").click(function () {
+                var editName = $("#editName").val();
+                if (!editName) return log('请输入名称');
+                var des = $("#textDataDes").val();
+                var data = $('.textData').val();
+                data = FormatData(data)
+                var mbData = GetMbData('mbData')
+                d = mbData.find(function (x) { return x.name == editName })
+                if (d) {
+                    d.data = data
+                    d.des = des
+                }
+                else {
+                    mbData.push({ id: GetNewID(), name: editName, data, des })
+                }
+                SaveMbData(mbData)
+                RefreshData()
+                log('更新成功');
+            })
+            $("#wx_deleteAll").click(function () {
+                localStorage.removeItem('mbData')
+                $("#list").html('')
+                log('已清空')
+            })
+            $("#wx_delete").click(function () {
+                var editName = $("#editName").val();
+                if (!editName) return log('请输入名称')
+                var data = $('.textData').val();
+                data = FormatData(data)
+                var mbData = GetMbData('mbData')
+                //mbData.splice(array.findIndex(item => item === 2), 1);
+                d = mbData.findIndex(function (x) { return x.name == editName })
+                if (d != -1) mbData.splice(d, 1)
+                SaveMbData(mbData)
+                RefreshData()
+                log('删除成功');
+            })
+            $("#wx_import").click(function () {
+                $('.textResult').val(localStorage.getItem('mbData'))
+                localStorage.setItem('mbData', $('.textData').val())
+                log('左边是导入的新数据,右边是旧数据')
+                RefreshData()
+            })
+            $("#wx_export").click(function () {
+                $('.textResult').val(localStorage.getItem('mbData'))
+                log('右边是已保存的数据,请复制导出')
+                RefreshData()
+            })
+
+            var wx_new = $("#wx_new"), wx_refresh = $("#wx_refresh"), tip = $("#tip"), app = $("#app"), pid = -1
+            window.log = function (msg) {
+                tip.text(msg || '')
+                if (msg)
+                    $('<div>')
+                        .appendTo('body')
+                        .addClass('alert alert-danger')
+                        .html(msg)
+                        .show()
+                        .delay(3000)
+                        .fadeOut();
+            }
+            wx_new.click(function () {
+                var d
+                try {
+                    d = JSON.parse($('.textData').val())
+                } catch (e) {
+                    return log(e.message)
+                }
+                wx(d, function (data) {
+                    $('.textResult').val(JSON.stringify(data, 0, 4))
+                })
+            })
+            wx_refresh.click(function () {
+
+            })
+            window.douyidou = function (pid) {
+                wx({ method: 'show', pid }, function (res) {
+                })
+            }
+
+            function wx(data, fn) {
+                $.LoadingOverlay("show")
+                log()
+                $.ajax({
+                    type: "POST",
+                    url: "http://127.0.0.1:8203/api?json", data,
+                    success: function (res, status) {
+                        if (res.msg) log(res.msg)
+                        fn(res)
+                    },
+                    error: function (xhr, errorText, errorType) {
+                        log('服务错误,请查看本机是否已启动服务')
+                    },
+                    complete: function () {
+                        $.LoadingOverlay("hide")
+                    }
+                })
+            }
+        })
+    </script>
+    <script src="../app.js"></script>
+</body>
+
+</html>

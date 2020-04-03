@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11" id="mixia_vpid">
+    <title>e小天|设置中心</title>
+    <meta name=keywords content="e小天|设置中心">
+    <meta name=description content="e小天|设置中心">
+    <link rel="shortcut icon" href="../logo.png">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .none {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>设置中心</h1>
+        谁来写这个界面啊！！！！！！！！！
+        就是调接口就好了......还要写的漂亮
+        <div class="row">
+            <div class="col-sm">
+                <h6 id="tip" style="color:red;"></h6>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">获取授权</label>
+                    <input type="email" class="form-control" id="addrUrl" placeholder="授权Data">
+                </div>
+                <button id="url_set" type="button" class="btn btn-primary">获取</button>
+                <div id="app">
+                    授权信息：
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">异步通知</label>
+                    <input type="email" class="form-control" id="addrUrl" placeholder="通知地址">
+                    勾选需要通知的事件
+                    <pre>
+                    微信消息    newmsg  type(1,3,34,43,37,47,48,49,10000) 
+                    群成员详细信息更新    getchatroommemberdetail 701             
+                    群成员添加    chatroommemberAdd   702             
+                    群成员减少    chatroommemberSub   703         
+                    联系人详细信息更新    getcontact  704                 
+                    确认收款结果    tenpay  705             
+                    同意好友结果    verifyuser  706             
+                    创建群聊结果    createchatroom  707         
+                    xml信息对应文件下载    xmlinfo 708                 
+                    机器人状态信息    info    flag(open,qrchange,auth,login,logout)
+                    授权    auth    720                 
+                    连接    open    721
+                    登录二维码更新    qrchange    723
+                    登录成功    login   724
+                    退出登录    logout  725               
+                    </pre>
+                </div>
+
+                <button id="url_set" type="button" class="btn btn-primary">设置</button>
+                <div id="app">
+                    已配置的通知：
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
+
+    <script>
+        $(function () {
+            window.log = function (msg) { $("#tip").text(msg || '') }
+            function wx(data, fn) {
+                $.LoadingOverlay("show")
+                log()
+                $.ajax({
+                    type: "POST",
+                    url: "/api?json", data,
+                    success: function (res, status) {
+                        if (res.msg) return log(res.msg)
+                        fn(res)
+                    },
+                    error: function (xhr, errorText, errorType) {
+                        log('服务错误')
+                    },
+                    complete: function () {
+                        $.LoadingOverlay("hide")
+                    }
+                })
+                return;
+                $.post('/api?json', data, function (res) {
+                    $.LoadingOverlay("hide")
+                    if (res.msg) return log(res.msg)
+                    fn(res)
+                }).complete(function () { }).error(function (xhr, status, info) { })
+            }
+        })
+        $(function () {
+
+
+
+        })
+    </script>
+
+    <script src="../app.js"></script>
+</body>
+
+</html>

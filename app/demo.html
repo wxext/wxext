@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11" id="mixia_vpid">
+    <title>e小天|demo</title>
+    <meta name=keywords content="e小天|demo">
+    <meta name=description content="e小天|demo">
+    <link rel="shortcut icon" href="../logo.png">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .none {
+            display: none;
+        }
+
+        .alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 300px;
+            max-width: 600px;
+            transform: translate(-50%, -50%);
+            z-index: 99999;
+            text-align: center;
+            padding: 15px;
+            border-radius: 3px;
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .alert-info {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>demo</h1>
+        <div class="row">
+            <div class="col-sm">
+                <button id="wx_new" type="button" class="btn btn-primary">启动一个新微信</button>
+                <button id="wx_refresh" type="button" class="btn btn-primary">刷新状态</button>
+                <h6 id="tip" style="color:red;"></h6>
+                <div id="app"></div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModal_login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">请扫描登陆(<span class='pid'></span>)</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class='loginQR'></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+        <div class="modal fade" id="myModal_mp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">登录公众平台(<span class='pid'></span>)</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        登录公众平台,二维码图片点击->右键->复制图片,粘贴在此处
+                        <input class="form-control" id="editName" placeholder="Ctrl+V 或者 粘贴">
+                        <img width="300px" src="" id="imgNode">
+                        <button id="myModal_mp_login" type="button" class="btn btn-info btn-block">登录</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
+
+    <script>
+        $(function () {
+            var wx_new = $("#wx_new"), wx_refresh = $("#wx_refresh"), tip = $("#tip"), app = $("#app"), pid = -1
+            window.log = function (msg) { tip.text(msg || ''); if (msg) TipMsg(msg) }
+            wx_new.click(function () {
+                if (localStorage.getItem("mypid")) pid = localStorage.getItem("mypid")
+                wx({ method: 'run', pid }, refreshList)
+            })
+
+            wx_refresh.click(function () {
+                refreshList()
+            })
+            window.douyidou = function (pid) {
+                wx({ method: 'show', pid }, function (res) {
+                })
+            }
+            window.saoma = function (pid) {
+                wx({ method: 'gotoQr', pid }, function (res) {
+                    $('.pid').html(pid)
+                    $('.loginQR').html('')
+                    $('.loginQR').qrcode('http://weixin.qq.com/x/' + res.data.qr)
+                    $('#myModal_login').modal("show");
+                })
+
+            }
+            window.gongzhong = function (pid) {
+                wx({ method: 'unRun', pid }, function (res) {
+                    refreshList()
+                })
+            }
+            $("#myModal_mp_login").click(function () {
+                var data = $("#editName").val()
+                if (!data) return log('请先粘贴二维码图片')
+                if (data.substr(0, 10) != 'data:image') return log('请先粘贴正确的图片')
+                wx({ method: 'mplogin', pid: $('.pid').html(), data }, function (res) {
+                    $('#myModal_mp').modal("hide");
+                    log('发送登录成功,请前往公众平台页面查看')
+                })
+            })
+            window.lianjie = function (pid) {
+                wx({ method: 'run', pid }, refreshList)
+            }
+            refreshList()
+            function refreshList() {
+                wx({ method: 'list' }, function (res) {
+                    if (res.msg) return log(res.msg)
+                    var data = res.data
+                    if (!res.pids.length) {
+                        localStorage.setItem("mypid", -1)
+                        return app.html("暂无启动微信");
+                    }
+                    var pid = localStorage.getItem("mypid");
+                    var html = "<table class='table table-bordered table-hover'><tr><th>ID</th><th>操作</th><th>微信号</th><th>昵称</th><th>授权到期</th></tr>";
+                    var myIsRun = false, cachePid = [];
+                    data.forEach(function (d) {
+                        cachePid.push(d.pid)
+                        d.alias = d.alias || d.wxid;
+                        if (d.pid == pid) {
+                            myIsRun = true
+                        }
+                        var isLogin = ''
+                        if (!d.isLogin) {
+                            isLogin = '<button type="button" onclick="saoma(@pid)" class="btn btn-warning btn--sm">扫码登录</button>'
+                        } else {
+                            isLogin = '<button type="button" onclick="gongzhong(@pid)" class="btn btn-warning btn--sm">停用</button>'
+                            if(!d.authTime){
+                                isLogin+='<a href="settings.html">去授权</>'
+                            }
+
+                        }
+                        var t = '<tr class="wx_@pid"><td>@pid <button type="button" onclick="douyidou(@pid)" class="btn btn-warning btn--sm">抖一抖</button></td><td>' + isLogin + '</td><td>@alias</td><td>@nickName</td><td>@authTime</td>'
+                        t += '</tr>'
+                        for (var i in d) t = t.replace(new RegExp("@" + i, 'g'), d[i]);
+                        html += t
+                    })
+                    res.pids.forEach(function (d) {
+                        if (cachePid.indexOf(d.pid) != -1) return;
+                        html += '<tr><td>' + d.pid + ' <button type="button" onclick="douyidou(' + d.pid + ')" class="btn btn-warning btn--sm">抖一抖</button></td><td><button type="button" onclick="lianjie(' + d.pid + ')" class="btn btn-warning btn--sm">连接</button></td><td></td><td></td><td>' + d.startTime + '</td></tr>';
+
+                    })
+                    if (!myIsRun) localStorage.setItem("mypid", -1)
+
+                    html += "</table>";
+                    app.html(html)
+                })
+            }
+
+            window.TipMsg = function (message) {
+                $('<div>')
+                    .appendTo('body')
+                    .addClass('alert alert-danger')
+                    .html(message)
+                    .show()
+                    .delay(3000)
+                    .fadeOut();
+            };
+
+            function wx(data, fn) {
+                $.LoadingOverlay("show")
+                log()
+                $.ajax({
+                    type: "POST",
+                    url: "http://127.0.0.1:8203/api?json", data,
+                    success: function (res, status) {
+                        if (res.msg) log(res.msg)
+                        fn(res)
+                    },
+                    error: function (xhr, errorText, errorType) {
+                        log('服务错误,请查看本机是否已启动服务')
+                    },
+                    complete: function () {
+                        $.LoadingOverlay("hide")
+                    }
+                })
+            }
+        })
+
+
+
+
+
+
+
+
+        document.addEventListener('paste', function (event) {
+            if (!$('#myModal_mp').is(":visible")) return;
+            var isChrome = false;
+            if (event.clipboardData || event.originalEvent) {
+                //某些chrome版本使用的是event.originalEvent
+                var clipboardData = (event.clipboardData || event.originalEvent.clipboardData);
+                if (clipboardData.items) {
+                    // for chrome
+                    var items = clipboardData.items,
+                        len = items.length,
+                        blob = null;
+                    isChrome = true;
+                    for (var i = 0; i < len; i++) {
+                        if (items[i].type.indexOf("image") !== -1) {
+                            //getAsFile() 此方法只是living standard firefox ie11 并不支持
+                            blob = items[i].getAsFile();
+                        }
+                    }
+                    if (blob !== null) {
+                        var blobUrl = URL.createObjectURL(blob);
+                        //blob对象显示
+                        //document.getElementById("imgNode").src = blobUrl;
+                        var reader = new FileReader();
+                        //base64码显示
+                        reader.onload = function (event) {
+                            // event.target.result 即为图片的Base64编码字符串
+                            var base64_str = event.target.result;
+                            $("#editName").val(base64_str)
+                            document.getElementById("imgNode").src = base64_str;
+                        }
+                        reader.readAsDataURL(blob);
+                    } else {
+                        log('请复制图片,不是复制图片地址！')
+                    }
+                }
+            }
+        })
+    </script>
+    <script src="../app.js"></script>
+</body>
+
+</html>

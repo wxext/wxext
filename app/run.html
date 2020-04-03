@@ -1,0 +1,149 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11" id="mixia_vpid">
+    <title>e小天|在线开发</title>
+    <meta name=keywords content="e小天|在线开发">
+    <meta name=description content="e小天|在线开发">
+    <link rel="shortcut icon" href="../logo.png">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html {
+            background: #5b6584
+        }
+
+        .none {
+            display: none;
+        }
+
+        .alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 300px;
+            max-width: 600px;
+            transform: translate(-50%, -50%);
+            z-index: 99999;
+            text-align: center;
+            padding: 15px;
+            border-radius: 3px;
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .alert-info {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        h1 span {
+            font-size: 16px;
+            margin: 0 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>在线开发<span>如此简单--人人都是程序员</span></h1>
+        <h6 id="tip" style="color:red;"></h6>
+        <div>
+            <form class="form-inline">
+                <button id="wx_run" type="button" class="btn btn-info">提交运行</button>
+                提交到后台稳定长期运行
+                <button id="wx_test" type="button" class="btn btn-info">在线测试</button>
+                所有方法立即执行一次返回测试结果
+            </form>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col-md-8">
+                    <textarea id="textCode" class="form-control" rows="26" placeholder="代码"></textarea>
+                </div>
+                <div class="col-md-4">
+                    <textarea id="testData" class="form-control" rows="4" placeholder="测试数据"></textarea>
+                    <textarea id="textResult" class="form-control" rows="21" placeholder="测试结果"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
+    <script>
+        window.TipMsg = function (message) {
+            $('<div>')
+                .appendTo('body')
+                .addClass('alert alert-danger')
+                .html(message)
+                .show()
+                .delay(3000)
+                .fadeOut();
+        };
+        window.log = function (msg) { $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
+        
+        var tempData = "{\n    info: {\n        name: 'test'//插件名称\n        , des: '这是一个测试插件'//描述\n        , timer: 10//定时器运行间隔，单位秒\n        , onmsg: true//是否拦截微信\n        , onreq: true//是否拦截请求信息\n    }\n    , onmsg: function (data) {\n        //接收到消息时\nvar msg=data.data&&data.data.msg\n      if(msg=='hi')app.Send({method: \"sendText\", wxid: \"filehelper\", msg: \"hi\"})\n    }\n    , onreq: function (data) {\n        //接收到请求时\n    }\n    , timer: function (data) {\n        //定时器指定时间运行，测试时只会立即运行一次\n        var data=new Date()\n        app.Send({method: \"sendText\", wxid: \"filehelper\", msg: \"hi,现在是：\"+data})\n    }\n    ,onstart:function(params) {\n       app.Log('开始运行前初始化动作,比如创建数据库表啥的')\n    }\n}"
+ 
+        $(function () {
+            $("#textCode").val(tempData)
+            $("#wx_test").click(function () {
+                var data = $("#textCode").val()
+                var testData = $("#testData").val()
+                wx({ method: 'ext', action: 'test', data, testData }, function (res) {
+                    $("#textResult").val(JSON.stringify(res))
+                })
+            })
+            $("#wx_run").click(function () {
+                var data = $("#textCode").val()
+                var testData = $("#testData").val()
+                wx({ method: 'ext', action: 'run', data, testData }, function (res) {
+                    $("#textResult").val(JSON.stringify(res))
+                })
+            })
+
+        })
+        function wx(data, fn) {
+            $.LoadingOverlay("show")
+            log()
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:8203/api?json", data,
+                success: function (res, status) {
+                    if (res.msg) log(res.msg)
+                    fn(res)
+                },
+                error: function (xhr, errorText, errorType) {
+                    log('服务错误,请查看本机是否已启动服务')
+                },
+                complete: function () {
+                    $.LoadingOverlay("hide")
+                }
+            })
+        }
+    </script>
+    <script src="app.js"></script>
+
+</body>
+
+</html>
