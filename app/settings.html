@@ -139,24 +139,18 @@
             log()
             $.ajax({
                 type: "POST",
-                url: "/api?json", data,
+                url: "http://127.0.0.1:8203/api?json", data,
                 success: function (res, status) {
-                    if (res.msg) return log(res.msg)
+                    if (res.msg) log(res.msg)
                     fn(res)
                 },
                 error: function (xhr, errorText, errorType) {
-                    log('服务错误')
+                    log('服务错误,请查看本机是否已启动服务')
                 },
                 complete: function () {
                     $.LoadingOverlay("hide")
                 }
             })
-            return;
-            $.post('/api?json', data, function (res) {
-                $.LoadingOverlay("hide")
-                if (res.msg) return log(res.msg)
-                fn(res)
-            }).complete(function () { }).error(function (xhr, status, info) { })
         }
     </script>
 
