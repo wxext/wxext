@@ -16,6 +16,45 @@
         .none {
             display: none;
         }
+
+        .alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 300px;
+            max-width: 600px;
+            transform: translate(-50%, -50%);
+            z-index: 99999;
+            text-align: center;
+            padding: 15px;
+            border-radius: 3px;
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .alert-info {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
     </style>
 </head>
 
@@ -28,8 +67,8 @@
             <div class="col-sm">
                 <h6 id="tip" style="color:red;"></h6>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">获取授权</label>
-                    <input type="email" class="form-control" id="addrUrl" placeholder="授权Data">
+                    <label for="exampleInputEmail1">你的wxid</label>
+                    <input type="email" class="form-control" id="wxid" placeholder="要授权的wxid">
                 </div>
                 <button id="url_set" type="button" class="btn btn-primary">获取</button>
                 <div id="app">
@@ -73,7 +112,17 @@
 
     <script>
         $(function () {
-            window.log = function (msg) { $("#tip").text(msg || '') }
+            window.TipMsg = function (message) {
+            $('<div>')
+                .appendTo('body')
+                .addClass('alert alert-danger')
+                .html(message)
+                .show()
+                .delay(3000)
+                .fadeOut();
+        };
+        window.log = function (msg) { $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
+
             function wx(data, fn) {
                 $.LoadingOverlay("show")
                 log()
@@ -101,7 +150,13 @@
         })
         $(function () {
 
-
+            $("#url_set").click(function () {
+                var wxid = $("#wxid").val()
+                if(!wxid)return log('请填写wxid')
+                wx({ method: 'mac' }, function (res) {
+                    location.href='http://api.wxext.cn/auth?wxid='+wxid+'&data='+encodeURIComponent(res.data)
+                })
+            })
 
         })
     </script>
