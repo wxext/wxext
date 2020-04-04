@@ -1,1 +1,470 @@
-[{"id":1583519460855,"name":"启动新微信","data":{"method":"run","pid":-1},"des":"始终启动一个新的微信，不影响当前其他微信"},{"id":1583519460856,"name":"启用默认","data":{"method":"run","pid":0},"des":"启用一个微信,已检测到微信直接启用,否则启动一个新的"},{"id":1583519460851,"name":"抖动微信","data":{"method":"show","pid":0},"des":"抖动微信窗口"},{"id":1583519160851,"name":"获取消息","data":{"method":"msg","pid":0},"des":"这里只获取最后一条消息,因为并未存储消息列表.如需获取全部消息,请使用websocket连接或者http异步通知\n在插件中,消息会实时获取"},{"id":1583519460802,"name":"点击登录","data":{"method":"clickLogin","pid":0}},{"id":1583519460852,"name":"退出登录","data":{"method":"loginOut","pid":0}},{"id":1583519460857,"name":"卸载功能","data":{"method":"unRun","pid":0}},{"id":1583519460858,"name":"授权","des":"授权之后才能使用功能","data":{"method":"auth","token":"ADzLC7Z34eg+MyngJSi+IJ0ZmSbR3q3K5jMO9kINeBfzQRPrLzWj3r/LfYncHx1CSKWVEhA7J2h+YN25YFFlVSL5+DDSX5/kH+OagRvW3pmK+gqpTUqzCFnCY+0yzQ71ZNVZzC0wPLj/Qbb3e3hiSkic7rSJTI18Tp8rk99Rjb3nhIFu0HwzqhquPnU16csB4pL5oVvQrSf1pkpKa+YzNNg/eF4Ciu91PXcO05+U3fQo6KhVUGN8UaoEauEf7ZatJZ8l6Z1ugP/yD3RurD7C0mkTQcn3KTFCLWN9Nktx+M5ImY4rtZcsOxTq8f3SL4NWfRe6tlnrx8Lr3L1Z4rYSnq4L+gZy2gGOw7CxV+09pNlNxks0729TJ2SK0kx3CZhOponXG10+eqNFNeJUtCVIEqqmsNvPUJkx2+E6NKIxlhXs7J5CqEkwE8HgCKQCE1sAklw4P/DINn/yBVR8upJx+/CRaiCEhnvrTvABq0CgPGCCozfwFvgWN6pkWkhv+DX9TFplemVw5zq43LBGy1C7WEhySLI6le3MDKcQfXAC80VCJrvLZHywnzeZDKF29U/jBite4it5gJOgLiiSvnrBOfEWLXrZhTHACPAXSL5A7kQ5EwUWvQQohqCUlyISEu1hh5hPZxu3QuE/JNqc3srZx1xC9hy2E+KzAQR5gOSr81Ld6FozbX/gf0P4M0DlYp8jNX8DiGWtvGbbXij/fLVRySkZD3TksigpO4zapiV01bdrG0sVU2lkVVzXO/RBzBvACX4MAAjNFyyeZMBzZy3nMWsftZzXVNBE4cTWkhU2Fmd1HLd/VXmGOg5+DI82YBzox52w/aqoK/l9k+ssJk6jUPznRoic7iSTIP49AHKHZ5ZOKJXKF3tvght+TfZRB9Dl3t8NETMu2/nmFZGmhOesyf0QruwaDLsT6Yt4Q5EGOI6PHovU7YzZNcNn6NnnIOKjLDQGmXPxN8xEhH6v1fYq7g==","pid":0}},{"id":1583533132293,"name":"写日志","data":{"method":"log","msg":"hello"},"des":"写日志到本机Log\\\\remote.log中"},{"id":158312012293,"name":"SQLite","data":{"method":"db","action":"query","sql":"PRAGMA table_info(sqlite_master)"},"des":"操作本机数据库data\\\\db\\\\remote.db"},{"id":1583520132293,"name":"机器码","data":{"method":"mac"}},{"id":1583521442146,"name":"结束微信","data":{"method":"kill","pid":0}},{"id":1583549528343,"name":"连接列表","data":{"method":"list"}},{"id":1583549528344,"name":"进程列表","data":{"method":"pids"},"des":"获取进程列表,进程的状态"},{"id":1583895645585,"name":"识别二维码","data":{"method":"deqr","type":"url","data":"https://www.wxext.cn/qr.png"},"des":"识别二维码图片，type可以为 base64,url,path,\npath为本机路径"},{"id":1584779865377,"name":"获取登录信息","data":{"method":"getInfo","pid":0}},{"id":1584779865378,"name":"跳转二维码","data":{"method":"gotoQr","pid":0}},{"id":1584779865375,"name":"通讯录","data":{"method":"getUser","pid":0}},{"id":1584779865319,"name":"发文本","data":{"method":"sendText","wxid":"filehelper","msg":"https://www.baidu.com/","atid":"","pid":0}},{"id":1584779865374,"name":"群列表","data":{"method":"getGroup","pid":0}},{"id":1584779865373,"name":"群成员","data":{"method":"getGroupUser","wxid":"23942162341@chatroom","pid":0}},{"id":1584779865371,"name":"查头像","data":{"method":"getUserImg","wxid":"wxid_vw2prmx8xv5n22","pid":0}},{"id":1584779865372,"name":"查信息","data":{"method":"getUserInfo","wxid":"wxid_vw2prmx8xv5n22","pid":0}},{"id":1584085774424,"name":"数据库","data":{"method":"getDbName","pid":0}},{"id":1584127167949,"name":"执行SQL","data":{"method":"runSql","db":"MicroMsg.db","sql":"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;","pid":0}},{"id":1584779865387,"name":"群公告","data":{"method":"setRoomAnnouncement","wxid":"24288152652@chatroom","msg":"朋友一生一起走","pid":0}},{"id":1584779865383,"name":"设置备注","data":{"method":"setRemark","wxid":"wxid_vw2prmx8xv5n22","msg":"落落","pid":0}},{"id":1584779865392,"name":"群删除","data":{"method":"delRoomMember","wxid":"4429337922@chatroom","msg":"wxid_vw2prmx8xv5n22","pid":0}},{"id":1584779865390,"name":"群添加","data":{"method":"addGroupMember","wxid":"4429337922@chatroom","msg":"wxid_vw2prmx8xv5n22","pid":0}},{"id":1584779865391,"name":"发送邀请","data":{"method":"sendGroupInvite","wxid":"4429337922@chatroom","msg":"wxid_vw2prmx8xv5n22","pid":0}},{"id":1584779865388,"name":"群名称","data":{"method":"setRoomName","wxid":"24288152652@chatroom","msg":"hello","pid":0}},{"id":1584779825389,"name":"群退出","data":{"method":"quitChatRoom","wxid":"23177484571@chatroom","pid":0}},{"id":1584779865382,"name":"发文件","data":{"method":"sendFile","wxid":"filehelper","file":"http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640","fileType":"url","pid":0},"des":""},{"id":1584779865379,"name":"发图片","data":{"method":"sendImage","wxid":"filehelper","img":"http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640","imgType":"url","pid":0}},{"id":1584779865381,"name":"发小程序","data":{"method":"sendMiniPrograms","wxid":"filehelper","appid":"wxbebb3cdd9b331046","title":"国务院客户端小程序，你身边的中央人民政府","pagepath":"pages/index/index.html","username":"gh_dc5faf6be488@app","weappiconurl":"http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640?wx_fmt=png&amp;wxfrom=200","sourcedisplayname":"国务院客户端","img":"http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640?wx_fmt=png&amp;wxfrom=200","imgType":"url","pid":0}},{"id":1584779865380,"name":"发文章","data":{"method":"sendArticle","wxid":"filehelper","title":"国务院客户端小程序","des":"你身边的中央人民政府","url":"http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640?wx_fmt=png&amp;wxfrom=200","img":"http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640?wx_fmt=png&amp;wxfrom=200","imgType":"url","pid":0}},{"id":1584779865370,"name":"发名片","data":{"method":"sendCard","wxid":"filehelper","userid":"wxid_mmbbax25761w12","pid":0}},{"id":1584779865393,"name":"群创建","data":{"method":"createRoom","msg":"wxid_vw2prmx8xv5n22|xiaotian_342801946","pid":0}},{"id":1584779865385,"name":"删除好友","data":{"method":"deleteUser","wxid":"wxid_vw2prmx8xv5n22","pid":0}},{"id":1584779865384,"name":"添加好友","data":{"method":"addUser","wxid":"wxid_vw2prmx8xv5n22","msg":"在吗","pid":0}},{"id":1584779865386,"name":"同意好友","data":{"method":"agreeUser","v1":"v1_02caea3713a53c0d8e3c9d2c11ea84ca10810539c462f37730efedce39f2b1e4@stranger","v2":"v2_9411b62d273baaed915d3481719953339af01e536c9f6a2b48975fe15df01d07844f32818ab16f8839d2d98641c6c4934076ac24c6624c6ce3d3b7509333eba4eefce512c5515f95cdef0b71be393969@stranger","pid":0}},{"id":1584779865389,"name":"更新好友","data":{"method":"netUpdateUser","wxid":"wxid_vw2prmx8xv5n22","pid":0}},{"id":1584779867377,"name":"获取Key","data":{"method":"getKey","url":"https://www.baidu.com/","pid":0}},{"id":1584779866377,"name":"收款","data":{"method":"agreeCash","transferid":"要正确的id才能收款成功","pid":0}},{"id":1585734837116,"name":"查询Token","data":{"method":"token","token":"DmRTWbLxWunTX3vXavsQbzRZGMsStD+8ZmO11NC4guULdcnvvk+0b5VBTSuAdGMQ6qUFxh0LlRrcj4wS4oEU0DXdX/6bwneorUsGLg40nnwklKwUAYt8+GMmlYs6np+XUTjl3ELvXibTVrmH5YfzDseMhsKQBx4tOx2mURXDojXAxdhRuwrUoAsI5wNspqBgiGMRUeC2Y7Wxkzi/TWBPqkAaDl0ORPi9DAw4u+nU3przy5HsotaNMaxEOhGJ5u4xNKPwsem26kG0sw+dwiJZZ2fRQz2ZwR1S//MUxAqnYseZ1wBSZ+Mb7IPhI71cGbcFHt8t+6Qp8sgib+3T3NIwYcAF33+08+qMfHHlTerK80g5x4UDUQfAc59r3x7yhzM9qo7Jk5KfucogSLiZVkQa6rUaVtowFRapeHLWjn+rWL6wElrSJjlL8PNfWKloftlCKymQzvRxqhT/shfF5svvXo+b3RiOE1CzZE9HxePo3ByqWFYPkCnbwAj070XLKjsXN6Klt7rxf3nHqkjHJYxLmuspiCdehJ8m4HuXLAY7JlATyCXhhuklMWbVm/zYWqOz3OWcPj9v32OAZ+6lWtm36/jVaJkVa9RK38YdbopipWWuyKJYQcBFZj1ebi1FJQm8ZVv4GZ1JkmRpSX2eYYW7sUHmhQLv6T6LP9W1Uo2fQdI8hZtWLRr8XcZv5fPABEq18TE5BlncFm/9/jxHYl0gilxZO2DjvrQKmhLQpdDJArP0JmEuLGwSTQq3biKk45g3UZ/lsqcXSE+tvx0aT3JH83uOurNFNbSSBj5tZq4CK7Uy9IaNXl69cJRhUqgIAEc20MsiKFadz6Sf11qUWe+yedA3u+DfMSHhLcPwmJvNByHgGY4TShRdvfo4HrKqLQ4NNw7pcQKb6N1ZRMdV3bcafvbsR2f3c7qUPw5AWyB5VrBJMS/G8BIB9DNnozOn1Ek7vti0U5WrbjiZcVB++BIv+w==","pid":0},"des":"查询Token信息"},{"id":1585872227995,"name":"运行插件","data":{"method":"ext","action":"get","data":"插件数据","pid":0},"des":"运行插件"},{"id":1585959141629,"name":"获取插件","data":{"method":"ext","action":"get","data":"插件数据","pid":0},"des":"获取运行中的插件"},{"id":1585959141630,"name":"结束插件","data":{"method":"ext","action":"stop","name":"test","pid":0},"des":"结束运行中的插件"},{"id":1585959141631,"name":"定时任务","data":{"method":"ext","action":"timer","pid":0},"des":"获取运行中的定时任务"}]
+[
+    {
+        "id": 1583519460855,
+        "name": "启动新微信",
+        "data": {
+            "method": "run",
+            "pid": -1
+        },
+        "des": "始终启动一个新的微信，不影响当前其他微信"
+    },
+    {
+        "id": 1583519460856,
+        "name": "启用默认",
+        "data": {
+            "method": "run",
+            "pid": 0
+        },
+        "des": "启用一个微信,已检测到微信直接启用,否则启动一个新的"
+    },
+    {
+        "id": 1583519460851,
+        "name": "抖动微信",
+        "data": {
+            "method": "show",
+            "pid": 0
+        },
+        "des": "抖动微信窗口"
+    },
+    {
+        "id": 1583519160851,
+        "name": "获取消息",
+        "data": {
+            "method": "msg",
+            "pid": 0
+        },
+        "des": "这里只获取最后一条消息,因为并未存储消息列表.如需获取全部消息,请使用websocket连接或者http异步通知\n在插件中,消息会实时获取"
+    },
+    {
+        "id": 1583519460802,
+        "name": "点击登录",
+        "data": {
+            "method": "clickLogin",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1583519460852,
+        "name": "退出登录",
+        "data": {
+            "method": "loginOut",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1583519460857,
+        "name": "卸载功能",
+        "data": {
+            "method": "unRun",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1583519460858,
+        "name": "授权",
+        "des": "授权之后才能使用功能",
+        "data": {
+            "method": "auth",
+            "token": "ew+qib+S9cqVFmBkyW9w2N4g/XnH/j8xyP7hrIqeGKRSFMV8LJDjiXRT7Opn6N2Ug6xHX5M7KRFUa4ZdkrtC51cnBnjy43ZJbFzbgJ2IeDygqPXFqylxoPD58vfFy8nuzmhNnWt5Q1OLscktVyt2ogP3wkDo/gceBQUHDcHH4KKp3f8idWSxYvsf59nG2p9iHHoW9ymVKq2FJdbQAaLqrdv6U94kpcJN4FjstPqzTQUSA1bqpLV4jSZPdaCbYHCH3tGGtUr99pFsoHHUvIMj8J1l+1loNmZ+eqfOLxEhbpGG1iOChkXROZY0IOlwe/wQnt6zFIWHhxMIoWHmoXuHlDyl5RQ8N5DTu8ZKMHZMxclMoN8tTIiO7scUM04H17oDIytHzR+7sPh6RmffClq6rJEvParL2XOXY8qa6v31VSMYog+LlkpIlrstaTB+fWJtZ0TNvKtpBBbmCBuZAlhgo5ykky07yxXXb+Q0jukmn91GV2dyGIYInN3nxXH+FiD9y6NPGBWPtqgxeYmi1PX38Oeax9x7WP53ak7XZZ4TpOBcPKN9e+961xESG4BCJrJv7jjJ1MnovlWBRfjGf86m+evEvNMNFcTuroo871mkIEtSiUNPq/HnPq6++BGeYbSK7J9NcyNOU+QG3LYbhaQxl7Wt6p/tiCK2vgR09BYvzpcCCc8EWEtiZ1dAXiXyZCZhtNo2DHRD/O7ctMIM513MC3d+c+bnRwG9p5sXy3BkvIecCHaBLjr4FMmyNIST/TKaNjkMuNgTN5kbo1mMuVeuHvleNKi4YqkIFxf7MzWaFZh8yrb4q9yBR/EubGt7F8XwvFp6h4lNBMOv9WvgnDPemqJEzCRVP+Hzhe4Iq3XRzuvcGMcLnYp+B25iV4ak6h/MMsHiv2euSs6iD6c5gSqTgydcKrNHtWMVBQ10gRwmcPvkIVWRqqaMLqHBbKEO21WhNsgLLuQ51QR02HcGXEiehA==",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1583533132293,
+        "name": "写日志",
+        "data": {
+            "method": "log",
+            "msg": "hello"
+        },
+        "des": "写日志到本机Log\\\\remote.log中"
+    },
+    {
+        "id": 158312012293,
+        "name": "SQLite",
+        "data": {
+            "method": "db",
+            "action": "query",
+            "sql": "PRAGMA table_info(sqlite_master)"
+        },
+        "des": "操作本机数据库data\\\\db\\\\remote.db"
+    },
+    {
+        "id": 1583520132293,
+        "name": "机器码",
+        "data": {
+            "method": "mac"
+        }
+    },
+    {
+        "id": 1583521442146,
+        "name": "结束微信",
+        "data": {
+            "method": "kill",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1583549528343,
+        "name": "连接列表",
+        "data": {
+            "method": "list"
+        }
+    },
+    {
+        "id": 1583549528344,
+        "name": "进程列表",
+        "data": {
+            "method": "pids"
+        },
+        "des": "获取进程列表,进程的状态"
+    },
+    {
+        "id": 1583895645585,
+        "name": "识别二维码",
+        "data": {
+            "method": "deqr",
+            "type": "url",
+            "data": "https://www.wxext.cn/qr.png"
+        },
+        "des": "识别二维码图片，type可以为 base64,url,path,\npath为本机路径"
+    },
+    {
+        "id": 1584779865377,
+        "name": "获取登录信息",
+        "data": {
+            "method": "getInfo",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865378,
+        "name": "跳转二维码",
+        "data": {
+            "method": "gotoQr",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865375,
+        "name": "通讯录",
+        "data": {
+            "method": "getUser",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865319,
+        "name": "发文本",
+        "data": {
+            "method": "sendText",
+            "wxid": "filehelper",
+            "msg": "https://www.baidu.com/",
+            "atid": "",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865374,
+        "name": "群列表",
+        "data": {
+            "method": "getGroup",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865373,
+        "name": "群成员",
+        "data": {
+            "method": "getGroupUser",
+            "wxid": "23942162341@chatroom",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865371,
+        "name": "查头像",
+        "data": {
+            "method": "getUserImg",
+            "wxid": "wxid_vw2prmx8xv5n22",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865372,
+        "name": "查信息",
+        "data": {
+            "method": "getUserInfo",
+            "wxid": "wxid_vw2prmx8xv5n22",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584085774424,
+        "name": "数据库",
+        "data": {
+            "method": "getDbName",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584127167949,
+        "name": "执行SQL",
+        "data": {
+            "method": "runSql",
+            "db": "MicroMsg.db",
+            "sql": "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865387,
+        "name": "群公告",
+        "data": {
+            "method": "setRoomAnnouncement",
+            "wxid": "24288152652@chatroom",
+            "msg": "朋友一生一起走",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865383,
+        "name": "设置备注",
+        "data": {
+            "method": "setRemark",
+            "wxid": "wxid_vw2prmx8xv5n22",
+            "msg": "落落",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865392,
+        "name": "群删除",
+        "data": {
+            "method": "delRoomMember",
+            "wxid": "4429337922@chatroom",
+            "msg": "wxid_vw2prmx8xv5n22",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865390,
+        "name": "群添加",
+        "data": {
+            "method": "addGroupMember",
+            "wxid": "4429337922@chatroom",
+            "msg": "wxid_vw2prmx8xv5n22",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865391,
+        "name": "发送邀请",
+        "data": {
+            "method": "sendGroupInvite",
+            "wxid": "4429337922@chatroom",
+            "msg": "wxid_vw2prmx8xv5n22",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865388,
+        "name": "群名称",
+        "data": {
+            "method": "setRoomName",
+            "wxid": "24288152652@chatroom",
+            "msg": "hello",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779825389,
+        "name": "群退出",
+        "data": {
+            "method": "quitChatRoom",
+            "wxid": "23177484571@chatroom",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865382,
+        "name": "发文件",
+        "data": {
+            "method": "sendFile",
+            "wxid": "filehelper",
+            "file": "http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640",
+            "fileType": "url",
+            "pid": 0
+        },
+        "des": ""
+    },
+    {
+        "id": 1584779865379,
+        "name": "发图片",
+        "data": {
+            "method": "sendImage",
+            "wxid": "filehelper",
+            "img": "http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640",
+            "imgType": "url",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865381,
+        "name": "发小程序",
+        "data": {
+            "method": "sendMiniPrograms",
+            "wxid": "filehelper",
+            "appid": "wxbebb3cdd9b331046",
+            "title": "国务院客户端小程序，你身边的中央人民政府",
+            "pagepath": "pages/index/index.html",
+            "username": "gh_dc5faf6be488@app",
+            "weappiconurl": "http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640?wx_fmt=png&amp;wxfrom=200",
+            "sourcedisplayname": "国务院客户端",
+            "img": "http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640?wx_fmt=png&amp;wxfrom=200",
+            "imgType": "url",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865380,
+        "name": "发文章",
+        "data": {
+            "method": "sendArticle",
+            "wxid": "filehelper",
+            "title": "国务院客户端小程序",
+            "des": "你身边的中央人民政府",
+            "url": "http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640?wx_fmt=png&amp;wxfrom=200",
+            "img": "http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640?wx_fmt=png&amp;wxfrom=200",
+            "imgType": "url",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865370,
+        "name": "发名片",
+        "data": {
+            "method": "sendCard",
+            "wxid": "filehelper",
+            "userid": "wxid_mmbbax25761w12",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865393,
+        "name": "群创建",
+        "data": {
+            "method": "createRoom",
+            "msg": "wxid_vw2prmx8xv5n22|xiaotian_342801946",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865385,
+        "name": "删除好友",
+        "data": {
+            "method": "deleteUser",
+            "wxid": "wxid_vw2prmx8xv5n22",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865384,
+        "name": "添加好友",
+        "data": {
+            "method": "addUser",
+            "wxid": "wxid_vw2prmx8xv5n22",
+            "msg": "在吗",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865386,
+        "name": "同意好友",
+        "data": {
+            "method": "agreeUser",
+            "v1": "v1_02caea3713a53c0d8e3c9d2c11ea84ca10810539c462f37730efedce39f2b1e4@stranger",
+            "v2": "v2_9411b62d273baaed915d3481719953339af01e536c9f6a2b48975fe15df01d07844f32818ab16f8839d2d98641c6c4934076ac24c6624c6ce3d3b7509333eba4eefce512c5515f95cdef0b71be393969@stranger",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865389,
+        "name": "更新好友",
+        "data": {
+            "method": "netUpdateUser",
+            "wxid": "wxid_vw2prmx8xv5n22",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779867377,
+        "name": "获取Key",
+        "data": {
+            "method": "getKey",
+            "url": "https://www.baidu.com/",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779866377,
+        "name": "收款",
+        "data": {
+            "method": "agreeCash",
+            "transferid": "要正确的id才能收款成功",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1585734837116,
+        "name": "查询Token",
+        "data": {
+            "method": "token",
+            "token": "ew+qib+S9cqVFmBkyW9w2N4g/XnH/j8xyP7hrIqeGKRSFMV8LJDjiXRT7Opn6N2Ug6xHX5M7KRFUa4ZdkrtC51cnBnjy43ZJbFzbgJ2IeDygqPXFqylxoPD58vfFy8nuzmhNnWt5Q1OLscktVyt2ogP3wkDo/gceBQUHDcHH4KKp3f8idWSxYvsf59nG2p9iHHoW9ymVKq2FJdbQAaLqrdv6U94kpcJN4FjstPqzTQUSA1bqpLV4jSZPdaCbYHCH3tGGtUr99pFsoHHUvIMj8J1l+1loNmZ+eqfOLxEhbpGG1iOChkXROZY0IOlwe/wQnt6zFIWHhxMIoWHmoXuHlDyl5RQ8N5DTu8ZKMHZMxclMoN8tTIiO7scUM04H17oDIytHzR+7sPh6RmffClq6rJEvParL2XOXY8qa6v31VSMYog+LlkpIlrstaTB+fWJtZ0TNvKtpBBbmCBuZAlhgo5ykky07yxXXb+Q0jukmn91GV2dyGIYInN3nxXH+FiD9y6NPGBWPtqgxeYmi1PX38Oeax9x7WP53ak7XZZ4TpOBcPKN9e+961xESG4BCJrJv7jjJ1MnovlWBRfjGf86m+evEvNMNFcTuroo871mkIEtSiUNPq/HnPq6++BGeYbSK7J9NcyNOU+QG3LYbhaQxl7Wt6p/tiCK2vgR09BYvzpcCCc8EWEtiZ1dAXiXyZCZhtNo2DHRD/O7ctMIM513MC3d+c+bnRwG9p5sXy3BkvIecCHaBLjr4FMmyNIST/TKaNjkMuNgTN5kbo1mMuVeuHvleNKi4YqkIFxf7MzWaFZh8yrb4q9yBR/EubGt7F8XwvFp6h4lNBMOv9WvgnDPemqJEzCRVP+Hzhe4Iq3XRzuvcGMcLnYp+B25iV4ak6h/MMsHiv2euSs6iD6c5gSqTgydcKrNHtWMVBQ10gRwmcPvkIVWRqqaMLqHBbKEO21WhNsgLLuQ51QR02HcGXEiehA==",
+            "pid": 0
+        },
+        "des": "查询Token信息"
+    },
+    {
+        "id": 1585872227995,
+        "name": "运行插件",
+        "data": {
+            "method": "ext",
+            "action": "get",
+            "data": "插件数据",
+            "pid": 0
+        },
+        "des": "运行插件"
+    },
+    {
+        "id": 1585959141629,
+        "name": "获取插件",
+        "data": {
+            "method": "ext",
+            "action": "get",
+            "data": "插件数据",
+            "pid": 0
+        },
+        "des": "获取运行中的插件"
+    },
+    {
+        "id": 1585959141630,
+        "name": "结束插件",
+        "data": {
+            "method": "ext",
+            "action": "stop",
+            "name": "test",
+            "pid": 0
+        },
+        "des": "结束运行中的插件"
+    },
+    {
+        "id": 1585959141631,
+        "name": "定时任务",
+        "data": {
+            "method": "ext",
+            "action": "timer",
+            "pid": 0
+        },
+        "des": "获取运行中的定时任务"
+    }
+]
