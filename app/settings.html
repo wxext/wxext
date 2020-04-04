@@ -54,7 +54,6 @@
             background-color: #f2dede;
             border-color: #ebccd1;
         }
-
     </style>
 </head>
 
@@ -113,52 +112,52 @@
     <script>
         $(function () {
             window.TipMsg = function (message) {
-            $('<div>')
-                .appendTo('body')
-                .addClass('alert alert-danger')
-                .html(message)
-                .show()
-                .delay(3000)
-                .fadeOut();
-        };
-        window.log = function (msg) { $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
+                $('<div>')
+                    .appendTo('body')
+                    .addClass('alert alert-danger')
+                    .html(message)
+                    .show()
+                    .delay(3000)
+                    .fadeOut();
+            };
+            window.log = function (msg) { $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
 
-            function wx(data, fn) {
-                $.LoadingOverlay("show")
-                log()
-                $.ajax({
-                    type: "POST",
-                    url: "/api?json", data,
-                    success: function (res, status) {
-                        if (res.msg) return log(res.msg)
-                        fn(res)
-                    },
-                    error: function (xhr, errorText, errorType) {
-                        log('服务错误')
-                    },
-                    complete: function () {
-                        $.LoadingOverlay("hide")
-                    }
-                })
-                return;
-                $.post('/api?json', data, function (res) {
-                    $.LoadingOverlay("hide")
-                    if (res.msg) return log(res.msg)
-                    fn(res)
-                }).complete(function () { }).error(function (xhr, status, info) { })
-            }
-        })
-        $(function () {
+
 
             $("#url_set").click(function () {
                 var wxid = $("#wxid").val()
-                if(!wxid)return log('请填写wxid')
+                if (!wxid) return log('请填写wxid')
                 wx({ method: 'mac' }, function (res) {
-                    location.href='http://api.wxext.cn/auth?wxid='+wxid+'&data='+encodeURIComponent(res.data)
+                    location.href = 'http://api.wxext.cn/auth?wxid=' + wxid + '&data=' + encodeURIComponent(res.data)
                 })
             })
 
         })
+
+        function wx(data, fn) {
+            $.LoadingOverlay("show")
+            log()
+            $.ajax({
+                type: "POST",
+                url: "/api?json", data,
+                success: function (res, status) {
+                    if (res.msg) return log(res.msg)
+                    fn(res)
+                },
+                error: function (xhr, errorText, errorType) {
+                    log('服务错误')
+                },
+                complete: function () {
+                    $.LoadingOverlay("hide")
+                }
+            })
+            return;
+            $.post('/api?json', data, function (res) {
+                $.LoadingOverlay("hide")
+                if (res.msg) return log(res.msg)
+                fn(res)
+            }).complete(function () { }).error(function (xhr, status, info) { })
+        }
     </script>
 
     <script src="../app.js"></script>
