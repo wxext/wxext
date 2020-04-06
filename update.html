@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11" id="mixia_vpid">
+    <title>e小天|更新文件</title>
+    <meta name=keywords content="e小天|更新文件">
+    <meta name=description content="e小天|更新文件">
+    <link rel="shortcut icon" href="../logo.png">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .none {
+            display: none;
+        }
+
+        .alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 300px;
+            max-width: 600px;
+            transform: translate(-50%, -50%);
+            z-index: 99999;
+            text-align: center;
+            padding: 15px;
+            border-radius: 3px;
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .alert-info {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>更新文件</h1>
+        
+        <div class="row">
+            <div class="col-sm">
+                <h6 id="tip" style="color:red;"></h6>
+                <button id="update_auto" type="button" class="btn btn-primary">更新Update目录下的文件</button>
+
+                <h3>下载更新文件</h3>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">文件名</label>
+                    <input type="email" class="form-control" id="name" placeholder="文件名">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">下载地址</label>
+                    <input type="email" class="form-control" id="url" placeholder="下载地址">
+                </div>
+                <button id="update_down" type="button" class="btn btn-primary">更新</button>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
+
+    <script>
+        $(function () {
+            window.TipMsg = function (message) {
+                $('<div>')
+                    .appendTo('body')
+                    .addClass('alert alert-danger')
+                    .html(message)
+                    .show()
+                    .delay(3000)
+                    .fadeOut();
+            };
+            window.log = function (msg) { $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
+
+            $("#update_auto").click(function () {
+                wx({ method: 'update' ,action:'auto'}, function (res) {
+                    if (!res.msg)log('更新文件数量:'+res.data)
+                })
+            })
+
+            $("#update_auto").click(function () {
+                var name = $("#name").val()
+                if (!name) return log('请填写 文件名')
+                var url = $("#url").val()
+                if (!url) return log('请填写 下载地址')
+                wx({ method: 'update',name,url }, function (res) {
+                    if (!res.msg)log('更新文件数量:'+res.data)
+                })
+            })
+
+        })
+
+        function wx(data, fn) {
+            $.LoadingOverlay("show")
+            log()
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:8203/api?json", data,
+                success: function (res, status) {
+                    if (res.msg) log(res.msg)
+                    fn(res)
+                },
+                error: function (xhr, errorText, errorType) {
+                    log('服务错误,请查看本机是否已启动服务')
+                },
+                complete: function () {
+                    $.LoadingOverlay("hide")
+                }
+            })
+        }
+    </script>
+
+    <script src="../app.js"></script>
+</body>
+
+</html>
