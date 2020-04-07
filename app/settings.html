@@ -72,7 +72,7 @@
                     <a href="http://127.0.0.1:8203/api?json={method:%27getInfo%27}">获取登录的wxid</a>
                     <input type="email" class="form-control" id="wxid" placeholder="要授权的wxid">
                 </div>
-                <button id="url_set" type="button" class="btn btn-primary">获取</button>
+                <button id="auth" type="button" class="btn btn-primary">获取</button>
                 <div id="app">
                     授权信息：
                 </div>
@@ -145,7 +145,7 @@
             upadteList()
 
 
-            $("#url_set").click(function () {
+            $("#auth").click(function () {
                 var wxid = $("#wxid").val()
                 if (!wxid) return log('请填写wxid')
                 wx({}, function (res) {
