@@ -65,8 +65,10 @@
         <div class="row">
             <div class="col-sm">
                 <h6 id="tip" style="color:red;"></h6>
+                <div id="wxidlist"></div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">你的wxid</label>
+                    <a href="http://127.0.0.1:8203/api?json={method:%27getInfo%27}">获取登录的wxid</a>
                     <input type="email" class="form-control" id="wxid" placeholder="要授权的wxid">
                 </div>
                 <button id="url_set" type="button" class="btn btn-primary">获取</button>
@@ -110,6 +112,22 @@
     <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
 
     <script>
+        function upadteList() {
+            wx({ method: 'getinfo' }, function (res) {
+                if (res.msg) return log(res.msg)
+                var html = ''
+                res.data.forEach(function (d) {
+                    if (!d.wxid) d.wxid = '请先登录'
+                    html += '<tr><td>' + d.wxid + '</td><td>' + d.nickName + '</td></tr>'
+                })
+                if (html == '') {
+                    $("#wxidlist").html('请先登录微信')
+                } else {
+                    $("#wxidlist").html('<table>' + html + '</table>')
+                }
+
+            })
+        }
         $(function () {
             window.TipMsg = function (message) {
                 $('<div>')
