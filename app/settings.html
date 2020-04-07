@@ -129,7 +129,6 @@
             })
         }
         $(function () {
-            upadteList()
             window.TipMsg = function (message) {
                 $('<div>')
                     .appendTo('body')
@@ -141,6 +140,7 @@
             };
             window.log = function (msg) { $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
 
+            upadteList()
 
 
             $("#url_set").click(function () {
