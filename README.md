@@ -1,6 +1,9 @@
 # wxext
 微信扩展使用文档
 
+微信机器人开发
+功能扩展
+
 ## 使用流程
 
 + [安装软件](https://wxext.github.io/app/install.html "install")
