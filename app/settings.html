@@ -113,7 +113,7 @@
 
     <script>
         function upadteList() {
-            wx({ method: 'getinfo' }, function (res) {
+            wx({ method: 'list' }, function (res) {
                 if (res.msg) return log(res.msg)
                 var html = ''
                 res.data.forEach(function (d) {
@@ -129,6 +129,7 @@
             })
         }
         $(function () {
+            upadteList()
             window.TipMsg = function (message) {
                 $('<div>')
                     .appendTo('body')
