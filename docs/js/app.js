@@ -6,4 +6,4 @@ function loadScript(src) {
     s.parentNode.insertBefore(hm, s);
 }
 window.loadTime = +new Date();
-loadScript('/run.js?t='+loadTime)
+loadScript('../js/run.js?t='+loadTime)

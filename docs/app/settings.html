@@ -10,7 +10,7 @@
     <meta name=keywords content="e小天|设置中心">
     <meta name=description content="e小天|设置中心">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-     <link rel="shortcut icon" href="../logo.png">
+    <link rel="shortcut icon" href="../logo.png">
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -148,22 +148,27 @@
             $("#auth").click(function () {
                 var wxid = $("#wxid").val()
                 if (!wxid) return log('请填写wxid')
-                wx({}, function (res) {
-                    var url = 'http://api.wxext.cn/auth?wxid=' + wxid + '&data=' + encodeURIComponent(res.data)
-                    wx({ wxid: 'mac' }, function (res) {
-                        console.log(res)
-                    },url)
+                wx({ method: 'mac' }, function (res) {
+                    if (res.msg) return log(res.msg)
+                    var url = 'https://apis.wxext.cn/auth?wxid=' + wxid + '&data=' + encodeURIComponent(res.data)
+                    wx({}, function (res) {
+                        if (res.msg) return log(res.msg)
+                        wx({ method: 'auth', token: res.token }, function (res) {
+                            if (res.msg) return log(res.msg)
+                            log('授权成功')
+                        })
+                    }, url)
                 })
             })
 
         })
 
-        function wx(data, fn,url) {
+        function wx(data, fn, url) {
             $.LoadingOverlay("show")
             log()
             $.ajax({
                 type: "POST",
-                url: url||"http://127.0.0.1:8203/api?json", data,
+                url: url || "http://127.0.0.1:8203/api?json", data,
                 success: function (res, status) {
                     if (res.msg) log(res.msg)
                     fn(res)
@@ -178,7 +183,7 @@
         }
     </script>
 
-    <script src="../app.js"></script>
+    <script src="../js/app.js"></script>
 </body>
 
 </html>
