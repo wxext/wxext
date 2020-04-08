@@ -68,11 +68,10 @@
                 <h6 id="tip" style="color:red;"></h6>
                 <div id="wxidlist"></div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">你的wxid</label>
-                    <a href="http://127.0.0.1:8203/api?json={method:%27getInfo%27}">获取登录的wxid</a>
+                    <label for="exampleInputEmail1">复制需要授权的wxid进行授权</label>
                     <input type="email" class="form-control" id="wxid" placeholder="要授权的wxid">
                 </div>
-                <button id="auth" type="button" class="btn btn-primary">获取</button>
+                <button id="auth" type="button" class="btn btn-primary">授权</button>
                 <div id="app">
                     授权信息：
                 </div>
@@ -125,7 +124,7 @@
                 if (html == '') {
                     $("#wxidlist").html('请先登录微信')
                 } else {
-                    $("#wxidlist").html('<table>' + html + '</table>')
+                    $("#wxidlist").html('<table class="table table-bordered"><tr><th>wxid</th><th>昵称</th></tr>' + html + '</table>')
                 }
 
             })
@@ -154,7 +153,7 @@
                     wx({}, function (res) {
                         if (res.msg) return log(res.msg)
                         wx({ method: 'auth', token: res.token }, function (res) {
-                            if (res.msg) return log(res.msg)
+                            if (res.msg) return log('授权失败,token不匹配,'+res.msg)
                             log('授权成功')
                         })
                     }, url)
