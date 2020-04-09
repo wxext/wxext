@@ -9,7 +9,6 @@
     <title>e小天|设置中心</title>
     <meta name=keywords content="e小天|设置中心">
     <meta name=description content="e小天|设置中心">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="shortcut icon" href="../logo.png">
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 
@@ -153,7 +152,7 @@
                     wx({}, function (res) {
                         if (res.msg) return log(res.msg)
                         wx({ method: 'auth', token: res.token }, function (res) {
-                            if (res.msg) return log('授权失败,token不匹配,'+res.msg)
+                            if (res.msg) return log('授权失败,token不匹配,' + res.msg)
                             log('授权成功')
                         })
                     }, url)
