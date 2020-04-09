@@ -94,7 +94,7 @@
         })
         res.data.forEach(function (d) {
           var t = '<div class="ext">d</div>'
-          t += '<button type="button" onclick="start('+d+')" class="btn btn-info btn--sm">启用</button>'
+          t += '<button type="button" onclick="start(' + d + ')" class="btn btn-info btn--sm">启用</button>'
           html += t
         })
         if (html == '') {
@@ -105,8 +105,13 @@
 
       })
     }
-    function stop(name) {
-      wx({ method: "ext", "action": "stop",name }, function (res) {
+    function start(name) {
+      wx({ method: "ext", "action": "start", name }, function (res) {
+        log('启用成功：' + name)
+        upadteList()
+      })
+    } function stop(name) {
+      wx({ method: "ext", "action": "stop", name }, function (res) {
         log('停用成功：' + name)
         upadteList()
       })
