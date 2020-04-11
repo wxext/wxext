@@ -148,7 +148,7 @@
                 if (!wxid) return log('请填写wxid')
                 wx({ method: 'mac' }, function (res) {
                     if (res.msg) return log(res.msg)
-                    var url = 'https://apis.wxext.cn/auth?wxid=' + wxid + '&data=' + encodeURIComponent(res.data)
+                    var url = 'https://api.wxext.cn/auth?wxid=' + wxid + '&data=' + encodeURIComponent(res.data)
                     wx({}, function (res) {
                         if (res.msg) return log(res.msg)
                         wx({ method: 'auth', token: res.token }, function (res) {
