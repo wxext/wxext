@@ -3,6 +3,9 @@ e小天·微信扩展使用文档
 
 微信机器人在线开发 [首页地址](https://www.wxext.cn/ 'e小天')
 
+## 常见问题FQA
+[查看提交问题](https://github.com/wxext/wxext/issues/1 'e小天 FQA')
+
 ## 使用流程
 
 + [安装软件](https://www.wxext.cn/app/install.html "install")
