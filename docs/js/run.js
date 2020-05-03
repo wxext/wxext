@@ -13,7 +13,6 @@ $(function () {
         loadScript('https://hm.baidu.com/hm.js?ef106eeafd562752956afb9ae1582bf1')
         loadScript('https://tajs.qq.com/stats?sId=66538180')
         loadScript('https://s4.cnzz.com/z_stat.php?id=1278728235&web_id=1278728235')
-        GetNewImg('http://vijs.win/index.php?m=bbs&c=forum&a=my' + loadTime)
     })();
 
 })
