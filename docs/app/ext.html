@@ -1,0 +1,181 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11">
+    <title>e小天|微信扩展开发</title>
+    <meta name=keywords content="e小天|微信扩展开发">
+    <meta name=description content="e小天|微信扩展开发">
+    <link rel="shortcut icon" href="https://www.wxext.cn/logo.png">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html {
+            background: #5b6584
+        }
+
+        .none {
+            display: none;
+        }
+
+        .alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 300px;
+            max-width: 600px;
+            transform: translate(-50%, -50%);
+            z-index: 99999;
+            text-align: center;
+            padding: 15px;
+            border-radius: 3px;
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .alert-info {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        h1 span {
+            font-size: 16px;
+            margin: 0 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>在线开发<span>如此简单--人人都是程序员</span></h1>
+        <h6 id="tip" style="color:red;"></h6>
+        <div class="input-group">
+            <input id="js" type="text" class="form-control" placeholder="js地址">
+            <span class="input-group-btn">
+                <button id="getcode" class="btn btn-primary" type="button">获取代码</button>
+            </span>
+        </div><!-- /input-group -->
+        <div>
+            <form class="form-inline">
+                <button id="wx_run" type="button" class="btn btn-info">提交运行</button>
+                提交到后台稳定长期运行
+                <button id="wx_test" type="button" class="btn btn-info">在线测试</button>
+                所有方法立即执行一次返回测试结果
+            </form>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col-md-8">
+                    <textarea id="textCode" class="form-control" rows="26" placeholder="代码"></textarea>
+                </div>
+                <div class="col-md-4">
+                    <textarea id="testData" class="form-control" rows="4" placeholder="测试数据"></textarea>
+                    <textarea id="textResult" class="form-control" rows="21" placeholder="测试结果"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
+    <script>
+        window.TipMsg = function (message) {
+            $('<div>')
+                .appendTo('body')
+                .addClass('alert alert-danger')
+                .html(message)
+                .show()
+                .delay(3000)
+                .fadeOut();
+        };
+        window.log = function (msg) { $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
+
+        var tempData = "{\n    info: {\n        name: 'test'//插件名称\n        , des: '这是一个测试插件'//描述\n        , timer: 10//定时器运行间隔，整数秒或者字符串Cron表达式\n        , onmsg: true//是否可拦截通知消息,拦截的意思是不继续往下处理\n        , onreq: true//是否可拦截请求信息,返回自定义信息\n    }\n    , onmsg: function (data) {//接收到消息时\n        if(data.Contains('hi'))app.Send(Jstr({method: \"sendText\", wxid: \"filehelper\", msg: data}))\n        //如果消息包含hi，把消息发给文件传输助手\n    }\n    , onreq: function (data) {//接收到请求时\n        return Jstr({msg:'插件拦截了所有请求消息'})\n    }\n    , timer: function (data) {\n        //定时器指定时间运行，测试时只会立即运行一次\n        var time=DateTime.Now.ToString(\"yyyy-MM-dd HH:mm:ss\")\n        var data={method: \"sendText\", wxid: \"filehelper\", msg: \"hi,现在是：\"+time}\n        return app.Send(Jstr(data))\n    }\n    ,onstart:function(params) {\n       app.Log('开始运行前初始化动作,比如创建数据库表啥的')\n    }\n}"
+        function UpdateDate(data) {
+            $("#textCode").val(data)
+        }
+        function LoadCode() {
+            var js = $("#js").val()
+            if(!js)return log('请输入代码地址')
+            localStorage.jscodeurl = js
+            $.LoadingOverlay("show")
+            loadScript(js, function () {
+                $.LoadingOverlay("hide")
+                log('代码加载完成')
+            }, function (e) {
+                $.LoadingOverlay("hide")
+                log('代码加载失败')
+            })
+
+        }
+        $(function () {
+            if (localStorage.jscodeurl) {
+                $("#js").val(localStorage.jscodeurl)
+                LoadCode()
+            }
+            $("#getcode").click(LoadCode)
+
+            $("#wx_test").click(function () {
+                var data = $("#textCode").val()
+                var testData = $("#testData").val()
+                wx({ method: 'ext', action: 'test', data, testData }, function (res) {
+                    $("#textResult").val(JSON.stringify(res))
+                })
+            })
+            $("#wx_run").click(function () {
+                var data = $("#textCode").val()
+                var testData = $("#testData").val()
+                wx({ method: 'ext', action: 'run', data, testData }, function (res) {
+                    $("#textResult").val(JSON.stringify(res))
+                })
+            })
+
+        })
+        function wx(data, fn) {
+            $.LoadingOverlay("show")
+            log()
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:8203/api?json", data,
+                success: function (res, status) {
+                    if (res.msg) log(res.msg)
+                    fn(res)
+                },
+                error: function (xhr, errorText, errorType) {
+                    log('服务错误,请查看本机是否已启动服务')
+                },
+                complete: function () {
+                    $.LoadingOverlay("hide")
+                }
+            })
+        }
+        function loadScript(src, onload, onerror) {
+            var hm = document.createElement('script');
+            hm.src = src;
+            hm.onload = onload;
+            hm.onerror = onerror;
+            var s = document.getElementsByTagName('body')[0];
+            s.parentNode.insertBefore(hm, s);
+        }
+    </script>
+</body>
+
+</html>
