@@ -108,18 +108,47 @@
         };
         window.log = function (msg) { $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
 
-        var tempData = "{\n    info: {\n        name: 'test'//插件名称\n        , des: '这是一个测试插件'//描述\n        , timer: 10//定时器运行间隔，整数秒或者字符串Cron表达式\n        , onmsg: true//是否可拦截通知消息,拦截的意思是不继续往下处理\n        , onreq: true//是否可拦截请求信息,返回自定义信息\n    }\n    , onmsg: function (data) {//接收到消息时\n        if(data.Contains('hi'))app.Send(Jstr({method: \"sendText\", wxid: \"filehelper\", msg: data}))\n        //如果消息包含hi，把消息发给文件传输助手\n    }\n    , onreq: function (data) {//接收到请求时\n        return Jstr({msg:'插件拦截了所有请求消息'})\n    }\n    , timer: function (data) {\n        //定时器指定时间运行，测试时只会立即运行一次\n        var time=DateTime.Now.ToString(\"yyyy-MM-dd HH:mm:ss\")\n        var data={method: \"sendText\", wxid: \"filehelper\", msg: \"hi,现在是：\"+time}\n        return app.Send(Jstr(data))\n    }\n    ,onstart:function(params) {\n       app.Log('开始运行前初始化动作,比如创建数据库表啥的')\n    }\n}"
-        function UpdateDate(data) {
-            $("#textCode").val(data)
+        //应为标识符或字符串    键值最后不能多出逗号
+        function GetObjectKey(obj, fix = '', count = 4) {
+            var str = ''
+            var index = 0
+            fix += Array(count).join(' ')
+            for (var i in obj) {
+                var t = Object.prototype.toString.call(obj[i])
+                str += '\n' + fix
+                if (index++) {
+                    str += ','
+                }
+                str += i + ':'
+                if (t == "[object Object]") {
+                    str += '{' + fix + GetObjectKey(obj[i], fix) + '\n' + fix + '}'
+                } else if (t == "[object String]") {
+                    str += JSON.stringify(obj[i])
+                } else {
+                    str += obj[i]
+                }
+            }
+            return str
+        }
+        function GetObject(obj) {
+            return '{' + GetObjectKey(obj) + '\n' + '}'
+        }
+        function UpdatAppInfo(data) {
+            if (typeof appinfo != 'object') return log('请定义变量appinfo')
+            var str = GetObject(appinfo)
+            $("#textCode").val(str)
+            return str
         }
         function LoadCode() {
             var js = $("#js").val()
-            if(!js)return log('请输入代码地址')
+            if (!js) return log('请输入代码地址')
             localStorage.jscodeurl = js
             $.LoadingOverlay("show")
-            loadScript(js, function () {
+            window.appinfo = null
+            loadScript(js + '?' + (+new Date()), function () {
                 $.LoadingOverlay("hide")
                 log('代码加载完成')
+                UpdatAppInfo()
             }, function (e) {
                 $.LoadingOverlay("hide")
                 log('代码加载失败')
@@ -132,10 +161,26 @@
                 LoadCode()
             }
             $("#getcode").click(LoadCode)
-
+            function CheckExtData(data) {
+                try {
+                    window.appinfo = (new Function('return ' + data))()
+                    var name = appinfo.info.name
+                    if (!name) throw 'invalid info.name'
+                    return UpdatAppInfo()
+                } catch (error) {
+                    log('语法错误:' + error)
+                }
+            }
             $("#wx_test").click(function () {
                 var data = $("#textCode").val()
                 var testData = $("#testData").val()
+                data = CheckExtData(data)
+                if (!data) return
+                if (appinfo.info.name != 'test') {
+                    appinfo.info.name2 = appinfo.info.name
+                    appinfo.info.name = 'test'
+                    data = UpdatAppInfo()
+                }
                 wx({ method: 'ext', action: 'test', data, testData }, function (res) {
                     $("#textResult").val(JSON.stringify(res))
                 })
@@ -143,18 +188,40 @@
             $("#wx_run").click(function () {
                 var data = $("#textCode").val()
                 var testData = $("#testData").val()
-                wx({ method: 'ext', action: 'run', data, testData }, function (res) {
-                    $("#textResult").val(JSON.stringify(res))
+                data = CheckExtData(data)
+                if (!data) return
+                if (appinfo.info.name2 && appinfo.info.name == 'test') {
+                    appinfo.info.name = appinfo.info.name2
+                    data = UpdatAppInfo()
+                }
+                if (!appinfo.info.version) {
+                    appinfo.info.version = 1
+                    data = UpdatAppInfo()
+                }
+                wx({ method: 'sha256', data }, function (res) {
+                    wx({}, function (res) {
+                        wx({ method: 'ext', action: 'run', data, sign: res.sign, date: res.date }, function (res) {
+                            $("#textResult").val(JSON.stringify(res))
+                        })
+                    }, 'https://api.wxext.cn/auth?sign=' + res.data + '&name=' + appinfo.info.name + '&version=' + appinfo.info.version)
                 })
             })
+            function AppToken() {
+                var ext = {
+                    "method": "ext",
+                    "action": "test",
+                    "name": "test",
+                    "data": app
+                }
+            }
 
         })
-        function wx(data, fn) {
+        function wx(data, fn, url) {
             $.LoadingOverlay("show")
             log()
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8203/api?json", data,
+                url: url || "http://127.0.0.1:8203/api?json", data,
                 success: function (res, status) {
                     if (res.msg) log(res.msg)
                     fn(res)
