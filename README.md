@@ -1,10 +1,11 @@
 # wxext
 e小天·微信扩展使用文档
 
-微信机器人在线开发 [首页地址](https://www.wxext.cn/ 'e小天')
+微信机器人扩展开发 [首页地址](https://www.wxext.cn/ 'e小天')
 
 ## 常见问题FQA
 [查看提交问题](https://github.com/wxext/wxext/issues/1 'e小天 FQA')
+[开发文档](https://www.wxext.cn/home/developer.html 'e小天 开发文档')
 
 ## 使用流程
 
@@ -36,7 +37,7 @@ e小天·微信扩展使用文档
 
 + [在线开发](https://www.wxext.cn/app/run.html "test")
 ```
-采用JScript脚本语言开发,无需编译,提交即运行
+采用nodejs开发,无需编译,提交即运行
 集成了本地数据库,日志，网络访问，系统提示，定时任务 等快捷工具
 快速实现功能，解决繁琐人工问题，提高生产效率
 ```
