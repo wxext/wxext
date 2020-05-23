@@ -54,14 +54,16 @@
             background-color: #f2dede;
             border-color: #ebccd1;
         }
+
+        .checkbox_notify {
+            display: inline-block;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <h1>设置中心</h1>
-        谁来写这个界面啊！！！！！！！！！
-        就是调接口就好了......还要写的漂亮
         <div class="row">
             <div class="col-sm">
                 <h6 id="tip" style="color:red;"></h6>
@@ -71,39 +73,22 @@
                     <input type="text" class="form-control" id="wxid" placeholder="要授权的wxid">
                 </div>
                 <button id="auth" type="button" class="btn btn-primary">授权</button>
-                <div id="app">
-                    授权信息：
+                <hr />
+                <h5>异步http推送设置</h5>
+                已配置的通知：
+                <div id="notifylist">
+
                 </div>
 
                 <div class="form-group">
-                    <label for="addrUrl">异步通知</label>
-                    <input type="text" class="form-control" id="addrUrl" placeholder="通知地址">
-                    勾选需要通知的事件
-                    <pre>
-                    微信消息    newmsg  type(1,3,34,43,37,47,48,49,10000) 
-                    群成员详细信息更新    getchatroommemberdetail 701             
-                    群成员添加    chatroommemberAdd   702             
-                    群成员减少    chatroommemberSub   703         
-                    联系人详细信息更新    getcontact  704                 
-                    确认收款结果    tenpay  705             
-                    同意好友结果    verifyuser  706             
-                    创建群聊结果    createchatroom  707         
-                    xml信息对应文件下载    xmlinfo 708                 
-                    机器人状态信息    info    flag(open,qrchange,auth,login,logout)
-                    授权    auth    720                 
-                    连接    open    721
-                    登录二维码更新    qrchange    723
-                    登录成功    login   724
-                    退出登录    logout  725      
-                    插件定时错误 exterr  802
-                    系统提示点击确定通知 tips  810    
-                    </pre>
+                    <input type="text" class="form-control" id="addrUrl_url" placeholder="通知地址">
+                    <input type="text" class="form-control" id="addrUrl_msg" placeholder="包含消息">
+                    <input type="text" class="form-control" id="addrUrl_reg" placeholder="匹配正则">
+                    勾选需要通知的事件（包含消息和匹配正则才通知不需要设置时留空即可）
+                    <div id="notifycheck"></div>
                 </div>
 
                 <button id="url_set" type="button" class="btn btn-primary">设置</button>
-                <div id="app">
-                    已配置的通知：
-                </div>
             </div>
         </div>
     </div>
@@ -112,6 +97,32 @@
     <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
 
     <script>
+        var notifyList = {
+            "1": "文本消息", "3": "图片消息", "34": "语音消息", "37": "好友确认消息"
+            , "43": "视频消息", "47": "动画表情", "48": "位置消息", "49": "分享链接", "701": "群成员信息更新"
+            , "702": "  群成员增加", "703": "群成员减少", "704": "联系人信息更新", "705": "收款结果"
+            , "706": "好友验证结果", "707": "创建群聊结果", "708": "xml图片地址", "720": "登录信息-授权"
+            , "721": "登录信息-连接", "723": "登录信息-登录二维码变化", "724": "登录信息-微信登录"
+            , "725": "登录信息-微信退出", "726": "发起语音通过", "727": "拒绝语音通话", "728": "接受语音通话"
+            , "802": "插件连接断开", "803": "微信连接断开", "810": "系统提示点击确定", "10000": "系统消息"
+        }
+        function upadteNotifyList() {
+            wx({ method: 'notify' }, function (res) {
+                if (res.msg) return log(res.msg)
+                var html = ''
+                res.data.forEach(function (d, i) {
+                    var btn = '<button type="button" onclick="del(\'' + i + '\')" class="btn btn-warning btn--sm">删除</button>'
+                    html += '<tr><td>' + btn + '</td><td>' + d.url + '</td><td>' + d.type.join(',') + '</td><td>' + d.msg + '</td><td>' + d.reg + '</td></tr>'
+                })
+                if (html == '') {
+                    $("#notifylist").html('暂未设置推送')
+                } else {
+                    $("#notifylist").html('<table class="table table-bordered"><tr><th>操作</th><th>通知地址</th><th>类型</th><th>匹配才推送</th><th>符合正则才推送</th></tr>' + html + '</table>')
+                }
+
+            })
+
+        }
         function upadteList() {
             wx({ method: 'list' }, function (res) {
                 if (res.msg) return log(res.msg)
@@ -127,8 +138,21 @@
                 }
 
             })
+            upadteNotifyList()
+        }
+        function del(index) {
+            wx({ method: "notify", "type": "del", index }, function (res) {
+                if (res.msg) return
+                log('删除成功')
+                upadteNotifyList()
+            })
         }
         $(function () {
+            var notifyhtml = ''
+            for (var i in notifyList) {
+                notifyhtml += '<div class="checkbox checkbox_notify"> <label> <input value=' + i + ' type="checkbox"> ' + notifyList[i] + ' </label> </div>'
+            }
+            $("#notifycheck").html(notifyhtml)
             window.TipMsg = function (message) {
                 $('<div>')
                     .appendTo('body')
@@ -141,7 +165,24 @@
             window.log = function (msg) { $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
 
             upadteList()
-
+            $("#url_set").click(function () {
+                var url = $("#addrUrl_url").val()
+                var msg = $("#addrUrl_msg").val()
+                var reg = $("#addrUrl_reg").val()
+                if (!url) return log('请填写 url')
+                var checknotify = []
+                $.each($('input:checkbox:checked'), function () {
+                    checknotify.push($(this).val())
+                })
+                if (!checknotify.length) return log('请选择通知类型')
+                wx({
+                    method: 'notify', type: 'add', data: checknotify.join(','), msg, reg, url
+                }, function (res) {
+                    if (res.msg) return log(res.msg)
+                    log('添加成功')
+                    upadteNotifyList()
+                })
+            })
 
             $("#auth").click(function () {
                 var wxid = $("#wxid").val()

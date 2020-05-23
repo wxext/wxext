@@ -63,10 +63,11 @@
       text-align: center;
       display: inline-block;
     }
+
     .linkto div {
-            margin: 20px;
-            display: inline-block;
-        }
+      margin: 20px;
+      display: inline-block;
+    }
   </style>
 </head>
 
@@ -74,32 +75,26 @@
   <div class="container">
     <h1>个人中心</h1>
     <div class="row">
+      <div class="linkto">
+        <div>
+          <a href="https://www.wxext.cn/home/developer.html">开发文档</a>
+        </div>
+        <div>
+          <a href="../app/demo.html">页面展示</a>
+        </div>
+        <div>
+          <a href="../app/test.html">功能测试</a>
+        </div>
+        <div>
+          <a href="../app/settings.html">设置中心</a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-sm">
         <h6 id="tip" style="color:red;"></h6>
         <div id="wxidlist"></div>
       </div>
-
-
-      <div class="linkto">
-
-        <div>
-            <a href="https://github.com/wxext/web">使用文档</a>
-        </div>
-        <div>
-            <a href="../app/run.html">在线开发</a>
-        </div>
-        <div>
-            <a href="../app/demo.html">页面展示</a>
-        </div>
-        <div>
-            <a href="../app/test.html">功能测试</a>
-        </div>
-        <div>
-            <a href="../app/settings.html">设置中心</a>
-        </div>
-
-    </div>
-
     </div>
   </div>
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
@@ -108,18 +103,25 @@
 
   <script>
     function upadteList(url) {
-      wx({ method: "ext", "action": "list" }, function (res) {
+      wx({ method: "list" }, function (res) {
+        console.log(res)
         if (res.msg) return log(url)
         var html = '', hashrun = {}
-        res.data.forEach(function (d) {
+        res.ext.forEach(function (d) {
           hashrun[d.name] = true
-          var t = '<div class="ext">@name<br/>@des<br/>@next'
-          t += '<button type="button" onclick="stop(\'@name\')" class="btn btn-warning btn--sm">停用</button>'
+          var t = '<div class="ext">@name@@version<br/>拦截请求:@onReq<br/>状态:@status'
+          t += '<button type="button" onclick="del(\'@name\')" class="btn btn-danger btn--sm">删除</button>'
+          if (d.isRuning) {
+            t += '<button type="button" onclick="stop(\'@name\')" class="btn btn-warning btn--sm">停用</button>'
+          } else {
+            t += '<button type="button" onclick="start(\'@name\')" class="btn btn-info btn--sm">启用</button>'
+          }
           t += '</div>'
           for (var i in d) t = t.replace(new RegExp("@" + i, 'g'), d[i]);
           html += t
         })
-        res.list.forEach(function (d) {
+        html+='<hr/>'
+        res.extfile.forEach(function (d) {
           if (!hashrun[d]) {
             html += '<div class="ext">' + d
             html += '<button type="button" onclick="start(\'' + d + '\')" class="btn btn-info btn--sm">启用</button>'
@@ -136,13 +138,22 @@
     }
     function start(name) {
       wx({ method: "ext", "action": "start", name }, function (res) {
+        if (res.msg) return
         log('启用成功：' + name)
         upadteList()
       })
     }
     function stop(name) {
       wx({ method: "ext", "action": "stop", name }, function (res) {
+        if (res.msg) return
         log('停用成功：' + name)
+        upadteList()
+      })
+    }
+    function del(name) {
+      wx({ method: "ext", "action": "del", name }, function (res) {
+        if (res.msg) return
+        log('删除成功：' + name)
         upadteList()
       })
     }
