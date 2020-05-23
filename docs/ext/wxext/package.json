@@ -1,0 +1,56 @@
+{
+  "OnReq": 1,
+  "_from": "wxext",
+  "_id": "wxext@1.1.2",
+  "_inBundle": false,
+  "_integrity": "sha512-xrZkKANDzBoTsjhi5k57kWeTej46uFflw+NOzpDUmCg9+MJuWok+KCCgVIwB/26qpxKjnGY+RWRjVS6v1FSahA==",
+  "_location": "/wxext",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "wxext",
+    "name": "wxext",
+    "escapedName": "wxext",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/wxext/-/wxext-1.1.2.tgz",
+  "_shasum": "018b34dc8a9b4f0d1e3ce1d3febb589a4883680d",
+  "_spec": "wxext",
+  "_where": "D:\\data\\git\\store\\code\\weixin\\wxext",
+  "author": {
+    "name": "PlainWizard"
+  },
+  "bin": {
+    "wxext": "bin.js"
+  },
+  "bugs": {
+    "url": "https://github.com/wxext/wxext/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "微信扩展开发插件",
+  "home": "index.html",
+  "homepage": "https://github.com/wxext/wxext#readme",
+  "keywords": [
+    "wechat ext",
+    "微信扩展开发"
+  ],
+  "license": "ISC",
+  "main": "demo.js",
+  "name": "wxext",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wxext/wxext.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.1.2"
+}
