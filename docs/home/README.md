@@ -4,37 +4,36 @@
 # 开发准备
 
 + [安装服务端](https://www.wxext.cn/app/install.html "安装e小天")
-
 + 扩展开发采用nodejs[安装nodejs](https://nodejs.org/dist/v12.16.3/node-v12.16.3-x64.msi "nodejs")
-> nodejs官网:https://nodejs.org/zh-cn/
++ nodejs官网:https://nodejs.org/zh-cn/
 
 ## 安装开发工具
-> nodejs自带npm命令，打开命令行执行
-> npm i wxext -g
+>+ nodejs自带npm命令，打开命令行执行
+>+ npm i wxext -g
 
 ## 初始化一个demo
-> 这是一个复读机demo，可复读文字、图片、动态表情、文章链接、小程序，群成员变化通知等
-> wxext init
+>+ 这是一个复读机demo，可复读文字、图片、动态表情、文章链接、小程序，群成员变化通知等
+>+ wxext init
 
 ## 进入目录
-> cd wxext
+>+ cd wxext
 
 ## 安装这个demo
-> 把demo安装到插件目录下，刷新插件管理界面进行管理（启动、停止、删除）
-> wxext install
+>+ 把demo安装到插件目录下，刷新插件管理界面进行管理（启动、停止、删除）
+>+ wxext install
 
 ## 运行这个demo
-> 开发测试时直接使用nodejs测试，需先上一步安装完才可使用
-> wxext
+>+ 开发测试时直接使用nodejs测试，需先上一步安装完才可使用
+>+ wxext
 
 # 功能列表
 json数据格式，插件和http请求通用
 
 ## 主动请求
-> 插件内使用Send函数发送数据
-> http调用将数据post请求 http://127.0.0.1:8203/api?json 
-> 请求同步返回微信操作结果
-> 登录多个微信时,用pid来选择，0默认使用第一个，-1操作全部
+>+ 插件内使用Send函数发送数据
+>+ http调用将数据post请求 http://127.0.0.1:8203/api?json 
+>+ 请求同步返回微信操作结果
+>+ 登录多个微信时,用pid来选择，0默认使用第一个，-1操作全部
 
 ### 启动功能
 >+ 0取当前第一个微信，-1新启动一个微信
@@ -228,7 +227,34 @@ json数据格式，插件和http请求通用
     "pid": 0
 }
 ```
-
+### 转发图片
+```
+{
+    "method": "sendImage",
+    "wxid": "filehelper",
+    "img": "图片本地路径",
+    "imgType": "file",
+    "pid": 0
+}
+```
+### 转发动态表情
+```
+{
+    "method": "sendEmojiForward",
+    "wxid": "filehelper",
+    "xml": "type=47收到的msg中的xml",
+    "pid": 0
+}
+```
+### 转发文章链接小程序
+```
+{
+    "method": "sendAppmsgForward",
+    "wxid": "filehelper",
+    "xml": "type=49收到的msg中的xml",
+    "pid": 0
+}
+```
 ### 发送语音通话
 ```
 {
