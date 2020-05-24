@@ -109,7 +109,7 @@
         var html = '', hashrun = {}
         res.ext.forEach(function (d) {
           hashrun[d.name] = true
-          var t = '<div class="ext">@name@@version<br/>拦截请求:@onReq<br/>状态:@status'
+          var t = '<div class="ext"><a href="@home">@name@@version</a><br/>拦截请求:@onReq<br/>状态:@status'
           t += '<button type="button" onclick="del(\'@name\')" class="btn btn-danger btn--sm">删除</button>'
           if (d.isRuning) {
             t += '<button type="button" onclick="stop(\'@name\')" class="btn btn-warning btn--sm">停用</button>'
@@ -120,10 +120,11 @@
           for (var i in d) t = t.replace(new RegExp("@" + i, 'g'), d[i]);
           html += t
         })
-        html+='<hr/>'
+        html += '<hr/>'
         res.extfile.forEach(function (d) {
           if (!hashrun[d]) {
             html += '<div class="ext">' + d
+            html += '<button type="button" onclick="del(\'' + d + '\')" class="btn btn-danger btn--sm">删除</button>'
             html += '<button type="button" onclick="start(\'' + d + '\')" class="btn btn-info btn--sm">启用</button>'
             html += '</div>'
           }
