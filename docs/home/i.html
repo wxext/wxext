@@ -103,7 +103,7 @@
 
   <script>
     function upadteList(url) {
-      wx({ method: "list" }, function (res) {
+      wx({ method: "ext", action: "list" }, function (res) {
         console.log(res)
         if (res.msg) return log(url)
         var html = '', hashrun = {}
