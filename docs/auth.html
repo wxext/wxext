@@ -107,7 +107,7 @@
                 var html = ''
                 res.data.forEach(function (d, i) {
                     var btn = '<button type="button" onclick="del(\'' + i + '\')" class="btn btn-warning btn--sm">删除</button>'
-                    html += '<tr><td>' + btn + '</td><td>' + d.url + '</td><td>' + d.type.join(',') + '</td><td>' + d.msg + '</td><td>' + d.reg + '</td></tr>'
+                    html += '<tr><td>' + btn + '</td><td>' + d.url + '</td><td>' + d.type.join('|') + '</td><td>' + d.msg + '</td><td>' + d.reg + '</td></tr>'
                 })
                 if (html == '') {
                     $("#notifylist").html('暂未设置推送')
@@ -171,7 +171,7 @@
                 })
                 if (!checknotify.length) return log('请选择通知类型')
                 wx({
-                    method: 'notify', type: 'add', data: checknotify.join(','), msg, reg, url
+                    method: 'notify', type: 'add', data: checknotify.join('|'), msg, reg, url
                 }, function (res) {
                     if (res.msg) return log(res.msg)
                     log('添加成功')
