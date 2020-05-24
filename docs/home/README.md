@@ -5,6 +5,8 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 方便管理本机微信，通过配置插件等进行网络连接
 
+旨在提高生产生活效率
+
 [:memo: 编辑本文档](https://github.com/wxext/wxext/blob/master/docs/home/README.md)
 
 # 开发准备
