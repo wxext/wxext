@@ -35,6 +35,9 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 >+ 开发测试时直接使用nodejs测试，需先上一步安装完才可使用
 >+ wxext
 
+>+ 如果插件已经在运行，无法直接在nodejs测试
+>+ 可以打开软件首页停用插件后再连接测试 [插件管理](https://www.wxext.cn/home/i.html "e小天|个人中心")
+
 ## 设置页面
 
 >+ 软件需要授权使用  [去授权](https://www.wxext.cn/app/settings.html "e小天|设置中心")
@@ -104,6 +107,14 @@ json数据格式，插件和http请求通用
     "pid": 0
 }
 ```
+### 插件列表
+```
+{
+    "method": "ext",
+    "action": "list",
+    "pid": 0
+}
+```
 ### 获取登录信息
 ```
 {
@@ -116,7 +127,7 @@ json数据格式，插件和http请求通用
 >+ 包括好友、群聊、公众号
 ```
 {
-    "method": "list",
+    "method": "getUser",
     "pid": 0
 }
 ```
