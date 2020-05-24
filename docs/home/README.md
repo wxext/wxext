@@ -1,6 +1,12 @@
 # e小天
 采用nodejs开发微信扩展应用
 
+pc微信小助手,软件本地运行，不联网，安全可靠
+
+方便管理本机微信，通过配置插件等进行网络连接
+
+[:memo: 编辑本文档](https://github.com/wxext/wxext/blob/master/docs/home/README.md)
+
 # 开发准备
 
 + [安装服务端](https://www.wxext.cn/app/install.html "安装e小天")
@@ -25,6 +31,14 @@
 ## 运行这个demo
 >+ 开发测试时直接使用nodejs测试，需先上一步安装完才可使用
 >+ wxext
+
+## 设置页面
+
+>+ 软件需要授权使用  [去授权](https://www.wxext.cn/app/settings.html "e小天|设置中心")
+
+>+ 设置通知推送到crm系统  [去配置](https://www.wxext.cn/app/settings.html "e小天|设置中心")
+
+>+ 管理插件  [去设置](https://www.wxext.cn/home/i.html "e小天|个人中心")
 
 # 功能列表
 json数据格式，插件和http请求通用
