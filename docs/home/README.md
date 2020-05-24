@@ -20,6 +20,7 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 ## 初始化一个demo
 >+ 这是一个复读机demo，可复读文字、图片、动态表情、文章链接、小程序，群成员变化通知等
 >+ wxext init
+>+ [插件源码](https://github.com/wxext/wxext/blob/master/docs/ext/wxext/demo.js "微信复读机")
 
 ## 进入目录
 >+ cd wxext

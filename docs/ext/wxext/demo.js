@@ -13,7 +13,8 @@ module.exports = {
         if (!obj.data) return console.log('不是消息')
         if (obj.data.fromid == obj.myid) return console.log('收到自己的消息')
         //如果是群聊---只复读这个群的
-        if (obj.data.memid && obj.data.fromid != '24218554582@chatroom') return
+        if (obj.data.memid && obj.data.fromid != '24218554582@chatroom')
+            return console.log('避免打扰其他群的不复读')
         //探索人类的本质---复读机的实现
         let result = await FuDuJi(obj)
         console.log('复读结果', result)
