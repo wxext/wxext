@@ -12,7 +12,7 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 + [安装服务端](https://www.wxext.cn/app/install.html "安装e小天")
 + 扩展开发采用nodejs[安装nodejs](https://nodejs.org/dist/v12.16.3/node-v12.16.3-x64.msi "nodejs")
 + nodejs官网:https://nodejs.org/zh-cn/
-
++ [PC微信安装](https://pc.weixin.qq.com/ "微信 PC 版")支持最新版微信（每个人最新版不一样咋办呀?那就都支持）
 ## 安装开发工具
 >+ nodejs自带npm命令，打开命令行执行
 >+ npm i wxext -g
