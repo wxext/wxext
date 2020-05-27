@@ -5,15 +5,14 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 方便管理本机微信，通过配置插件等进行网络连接
 
-旨在提高生产生活效率
+旨在提高生产生活效率，禁止骚扰营销
 
 [:memo: 编辑本文档](https://github.com/wxext/wxext/blob/master/docs/home/README.md)
 
 # 开发准备
 
 + [安装服务端](https://www.wxext.cn/app/install.html "安装e小天")
-+ [使用扩展需要安装nodejs](https://nodejs.org/zh-cn/ "nodejs")
-+ 不使用扩展无需安装nodejs
++ [使用扩展需要安装nodejs](https://nodejs.org/zh-cn/ "nodejs")不使用扩展无需安装
 + [PC微信安装](https://pc.weixin.qq.com/ "微信 PC 版")支持最新版微信（每个人最新版不一样咋办呀?那就都支持）
 
 
