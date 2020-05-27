@@ -15,7 +15,10 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 + [使用扩展需要安装nodejs](https://nodejs.org/zh-cn/ "nodejs")
 + 不使用扩展无需安装nodejs
 + [PC微信安装](https://pc.weixin.qq.com/ "微信 PC 版")支持最新版微信（每个人最新版不一样咋办呀?那就都支持）
+
+
 ## 安装开发工具
+
 >+ 打开命令行执行（需安装nodejs）
 ```
 npm i wxext -g
@@ -23,11 +26,10 @@ npm i wxext -g
 
 ## 初始化一个demo
 
->+ 这是一个复读机demo，可复读文字、图片、动态表情、文章链接、小程序，群成员变化通知等
+>+ 这是一个[微信复读机demo](https://github.com/wxext/wxext/blob/master/docs/ext/wxext/demo.js "微信复读机demo")，可复读文字、图片、动态表情、文章链接、小程序，群成员变化通知等
 ```
 wxext init
 ```
->+ [插件demo源码](https://github.com/wxext/wxext/blob/master/docs/ext/wxext/demo.js "微信复读机demo")
 
 ## 进入目录
 ```
