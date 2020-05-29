@@ -57,7 +57,7 @@ wxext
 # 开发Demo
 
 >+ [nodejs复读机扩展](https://github.com/wxext/wxext/blob/master/docs/ext/wxext/ "nodejs复读机扩展")
->+ [JAVA+HTTPAPI_DEMO](https://github.com/wxext/JavaDemo "JAVA+HTTPAPI_DEMO")
+>+ [JAVA+HTTPAPI_DEMO](https://github.com/wxext/wechat-java-api-window "JAVA+HTTPAPI_DEMO")
 
 
 # 功能列表
