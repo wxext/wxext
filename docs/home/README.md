@@ -5,46 +5,60 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 方便管理本机微信，通过配置插件等进行网络连接
 
-旨在提高生产生活效率
+旨在提高生产生活效率，禁止骚扰营销
 
 [:memo: 编辑本文档](https://github.com/wxext/wxext/blob/master/docs/home/README.md)
 
 # 开发准备
 
 + [安装服务端](https://www.wxext.cn/app/install.html "安装e小天")
-+ 扩展开发采用nodejs[安装nodejs](https://nodejs.org/dist/v12.16.3/node-v12.16.3-x64.msi "nodejs")
-+ nodejs官网:https://nodejs.org/zh-cn/
++ [使用扩展需要安装nodejs](https://nodejs.org/zh-cn/ "nodejs")不使用扩展无需安装
 + [PC微信安装](https://pc.weixin.qq.com/ "微信 PC 版")支持最新版微信（每个人最新版不一样咋办呀?那就都支持）
+
+
 ## 安装开发工具
->+ nodejs自带npm命令，打开命令行执行
->+ npm i wxext -g
+
+>+ 打开命令行执行（需安装nodejs）
+```
+npm i wxext -g
+```
 
 ## 初始化一个demo
->+ 这是一个复读机demo，可复读文字、图片、动态表情、文章链接、小程序，群成员变化通知等
->+ wxext init
->+ [插件源码](https://github.com/wxext/wxext/blob/master/docs/ext/wxext/demo.js "微信复读机")
+
+>+ 这是一个[微信复读机demo](https://github.com/wxext/wxext/blob/master/docs/ext/wxext/demo.js "微信复读机demo")，可复读文字、图片、动态表情、文章链接、小程序，群成员变化通知等
+```
+wxext init
+```
 
 ## 进入目录
->+ cd wxext
-
+```
+cd wxext
+```
 ## 安装这个demo
 >+ 把demo安装到插件目录下，刷新插件管理界面进行管理（启动、停止、删除）
->+ wxext install
-
-## 运行这个demo
+```
+wxext install
+```
+## 调试运行这个demo
 >+ 开发测试时直接使用nodejs测试，需先上一步安装完才可使用
->+ wxext
-
+>+ 当前目录输入 wxext 即可使用nodejs调试开发扩展
 >+ 如果插件已经在运行，无法直接在nodejs测试
 >+ 可以打开软件首页停用插件后再连接测试 [插件管理](https://www.wxext.cn/home/i.html "e小天|个人中心")
+```
+wxext
+```
 
 ## 设置页面
 
->+ 软件需要授权使用  [去授权](https://www.wxext.cn/app/settings.html "e小天|设置中心")
+>+ [软件授权](https://www.wxext.cn/app/settings.html "e小天|设置中心")
 
->+ 设置通知推送到crm系统  [去配置](https://www.wxext.cn/app/settings.html "e小天|设置中心")
+>+ [管理插件](https://www.wxext.cn/home/i.html "e小天|个人中心")
 
->+ 管理插件  [去设置](https://www.wxext.cn/home/i.html "e小天|个人中心")
+# 开发Demo
+
+>+ [nodejs复读机扩展](https://github.com/wxext/wxext/blob/master/docs/ext/wxext/ "nodejs复读机扩展")
+>+ [JAVA+HTTPAPI_DEMO](https://github.com/wxext/wechat-java-api-window "JAVA+HTTPAPI_DEMO")
+
 
 # 功能列表
 json数据格式，插件和http请求通用
@@ -246,6 +260,7 @@ json数据格式，插件和http请求通用
 
 ### 发送文本消息
 >+ 需要艾特人时，传入atid
+>+ 多人艾特用|分割，同时msg要对应多个艾特文本
 ```
 {
     "method": "sendText",

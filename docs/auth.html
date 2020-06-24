@@ -6,9 +6,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11" id="mixia_vpid">
-    <title>e小天|设置中心</title>
-    <meta name=keywords content="e小天|设置中心">
-    <meta name=description content="e小天|设置中心">
+    <title>e小天|授权</title>
+    <meta name=keywords content="e小天|授权">
+    <meta name=description content="e小天|授权">
     <link rel="shortcut icon" href="../logo.png">
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 
@@ -63,15 +63,10 @@
 
 <body>
     <div class="container">
-        <h1>设置中心</h1>
+        <h1>授权</h1>
         <div class="row">
             <div class="col-sm">
                 <h6 id="tip" style="color:red;"></h6>
-                <div id="wxidlist"></div>
-                <div class="form-group">
-                    <label for="wxid">复制需要授权的wxid进行授权</label>
-                    <input type="text" class="form-control" id="wxid" placeholder="要授权的wxid">
-                </div>
                 <button id="auth" type="button" class="btn btn-primary">授权</button>
                 <hr />
                 <h5>异步http推送设置</h5>
@@ -185,18 +180,10 @@
             })
 
             $("#auth").click(function () {
-                var wxid = $("#wxid").val()
-                if (!wxid) return log('请填写wxid')
-                wx({ method: 'mac' }, function (res) {
-                    if (res.msg) return log(res.msg)
-                    var url = 'https://api.wxext.cn/auth?wxid=' + wxid + '&data=' + encodeURIComponent(res.data)
-                    wx({}, function (res) {
-                        if (res.msg) return log(res.msg)
-                        wx({ method: 'auth', token: res.token }, function (res) {
-                            if (res.msg) return log('授权失败,token不匹配,' + res.msg)
-                            log('授权成功')
-                        })
-                    }, url)
+                var token='PkCeEFG4Ko6o2Go2ve9bLm8K\/6bO1qxnKyKbJB1aKHINRy7kIdwFXQLKW4OB4uoR\/3xeNM1ubq5b\/eTqaIwSEDMyZ2zL21GwDBUAKe\/nchpOSS9XWKGSlMn1+NrUqiaWzdg\/JF4AJzY+LX3p8GR\/ku0w\/u16MwWFu8YPmnYGhe3BWooJP5IOEOYGQPc4q1qbDa1uH3w0tn4w6QHE5NTGTvLcUWLSAw9rM39b8oH5\/fZrNJX\/g6CiugR0ekRuw0zFBUbju0K\/ylZTyPQ4mL70BK\/vk6CLwuLZA080ibtrL0nB68YVP6DcL\/Ay5EsCicLM9ymS1nDNenEdMBqb85kdhlhpR\/VMohuHRKZcpfPh93MClMh8dACwH+SjQuARU9XTgK4gCAFcym3WrvE0HPmbT6aL+X+cylGbnpq0pKwfNDPzQKrIrpxey7x9fqRsMLpnuwIFGimJm3pGpEfh3sxAb1HGY\/osdEqJnRvzGFMWeXl87+jzMQr9ZegiO\/ksNcz2t914GQsugd5l3eP\/gVYTg6GLpetFejAcbdV2CEiSxwW9FzpqGtupFSGsCFxS0iyftqJrHSjkawKi0ZqSWvNytpzN0MGW36fyKOS+aYHCoT16Hc38jXRFJ0M\/iuJx+lARWizJtkEeM5oO6q6DvxYea8T\/rMerurtenfbH\/RfzfFiKA+rKgn6Bqjnn\/84gtCRjPcd7DAgJErgJkysVMh5\/kb6odkrjbi8gg18ePQgSFGUTd1lbbGH9JGxUHkXZ5trJH0sycoDoq17NFkcwiy2nUWzixI8CNROj0QaK1wwhYx3WrXR1xHcv06B2ITFTG8B0ZOOdzyQdGXLahAo9c384yv0X4o9Q3H6aqMSo6GuuagD3lDyLFpDNxHomu85p3q54skkmEnIkrNlv177oym+cPmBqlAS8\/1PhJSqjwky5Dxx8n6PCyPI9ifigx35NQEqaoQGiozWR1iXEfjUWLpbWUQ=='
+                wx({ method: 'auth', token }, function (res) {
+                    if (res.msg) return log('授权失败,token不匹配,' + res.msg)
+                    log('授权成功')
                 })
             })
 
@@ -222,7 +209,7 @@
         }
     </script>
 
-    <script src="../js/app.js"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>
