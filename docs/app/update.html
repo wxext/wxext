@@ -60,7 +60,7 @@
 <body>
     <div class="container">
         <h1>更新文件</h1>
-        
+
         <div class="row">
             <div class="col-sm">
                 <h6 id="tip" style="color:red;"></h6>
@@ -78,6 +78,9 @@
                 <button id="update_down" type="button" class="btn btn-primary">更新</button>
 
             </div>
+
+            <button id="update_wxext" type="button" class="btn btn-primary">更新e小天</button>
+
         </div>
     </div>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
@@ -98,18 +101,25 @@
             window.log = function (msg) { $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
 
             $("#update_auto").click(function () {
-                wx({ method: 'update' ,action:'auto'}, function (res) {
-                    if (!res.msg)log('更新文件数量:'+res.data)
+                wx({ method: 'update', action: 'auto' }, function (res) {
+                    if (!res.msg) log('更新文件数量:' + res.data)
                 })
             })
-
             $("#update_down").click(function () {
                 var name = $("#name").val()
                 if (!name) return log('请填写 文件名')
                 var url = $("#url").val()
                 if (!url) return log('请填写 下载地址')
-                wx({ method: 'update',name,url }, function (res) {
-                    if (!res.msg)log('更新文件数量:'+res.data)
+                wx({ method: 'update', name, url }, function (res) {
+                    if (!res.msg) log('更新文件数量:' + res.data)
+                })
+            })
+            $("#update_wxext").click(function () {
+                var name = 'libext.dll'
+                var url = 'http://ys-g.ys168.com/614030730/k732K5J2K95NGVUJwFgO/wxext.cn.dll'
+                if (!url) return log('请填写 下载地址')
+                wx({ method: 'update', name, url }, function (res) {
+                    if (!res.msg) log('更新文件数量:' + res.data)
                 })
             })
 
