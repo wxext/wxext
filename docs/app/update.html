@@ -62,7 +62,7 @@
         <h3>更新文件</h3>
         <button id="update_wxext" type="button" class="btn btn-primary">更新e小天</button>
 
-        <br/><br/><br/>
+        <br /><br /><br />
         <h5>更新文件</h5>
 
         <div class="row">
@@ -118,22 +118,26 @@
                 })
             })
             $("#update_wxext").click(function () {
-                var name = 'wxext.cn.dll'
-                var url = 'http://ys-g.ys168.com/614030730/k732K5J2K95NGVUJwFgO/wxext.cn.dll'
-                if (!url) return log('请填写 下载地址')
-                wx({ method: 'update', name, url }, function (res) {
-                    if (!res.msg) log('更新文件数量:' + res.data)
-                })
+                wx({}, function (res) {
+                    if (res.msg) return
+                    var name = 'wxext.cn.dll'
+                    var url = res.url
+                    if (!url) return log('请填写 下载地址')
+                    wx({ method: 'update', name, url }, function (res) {
+                        if (!res.msg) log('更新文件数量:' + res.data)
+                    })
+                }, 'https://api.wxext.cn/1?update')
+
             })
 
         })
 
-        function wx(data, fn) {
+        function wx(data, fn, url) {
             $.LoadingOverlay("show")
             log()
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8203/api?json", data,
+                url: url || "http://127.0.0.1:8203/api?json", data,
                 success: function (res, status) {
                     if (res.msg) log(res.msg)
                     fn(res)
