@@ -16,6 +16,16 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 + [PC微信安装](https://pc.weixin.qq.com/ "微信 PC 版")支持最新版微信（每个人最新版不一样咋办呀?那就都支持）
 
 
+
+
+
+# 其他语言示例
+>+ [JAVA+HTTPAPI_DEMO](https://github.com/wxext/wechat-java-api-window "JAVA+HTTPAPI_DEMO")
+>+ [易语言](https://github.com/wxext/wechat-e "易语言模块")
+>+ [Python](https://gitee.com/KratosMax/WxextBasedWeChatBot "Python调用")
+
+# node扩展开发步骤
+
 ## 安装开发工具
 
 >+ 打开命令行执行（需安装nodejs）
@@ -47,18 +57,13 @@ wxext install
 ```
 wxext
 ```
+>+ [nodejs复读机扩展代码](https://github.com/wxext/wxext/blob/master/docs/ext/wxext/ "nodejs复读机扩展")
 
 ## 设置页面
 
 >+ [软件授权](https://www.wxext.cn/app/settings.html "e小天|设置中心")
 
 >+ [管理插件](https://www.wxext.cn/home/i.html "e小天|个人中心")
-
-# 开发Demo
-
->+ [nodejs复读机扩展](https://github.com/wxext/wxext/blob/master/docs/ext/wxext/ "nodejs复读机扩展")
->+ [JAVA+HTTPAPI_DEMO](https://github.com/wxext/wechat-java-api-window "JAVA+HTTPAPI_DEMO")
-
 
 # 功能列表
 json数据格式，插件和http请求通用
