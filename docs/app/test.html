@@ -58,7 +58,32 @@
 
 <body>
     <div class="container">
-        <h1>功能测试</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <h1>接口测试</h1>
+            </div><!-- /.col-lg-6 -->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="text" placeholder="接口地址" class="form-control" id="api_url"
+                        value="http://127.0.0.1:8203/api?json">
+                </div>
+            </div><!-- /.col-lg-6 -->
+            <div class="col-md-4">
+                <div class="form-inline">
+                    <input type="text" placeholder="仓库名" class="form-control" id="api_name">
+                    <div class="input-group-btn">
+                        <button id="api_name_list" type="button" class="btn btn-default dropdown-toggle"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
+                                class="caret"></span></button>
+                        <ul id="api_name_ul" class="dropdown-menu dropdown-menu-right">
+                            <li>默认</li>
+                        </ul>
+                    </div><!-- /btn-group -->
+                    <button id="api_new" class="btn btn-primary" type="button">刷新</button>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+
         <div class="row">
             <h6 id="tip" style="color:red;"></h6>
         </div>
@@ -95,28 +120,30 @@
         </div>
     </div>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
     <script src="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
 
     <script>
+        var api_url = 'http://127.0.0.1:8203/api?json', api_name = ''
         function GetMbData() {
-            var d = localStorage.getItem('mbData')
+            var d = localStorage.getItem('mbData' + api_name)
             if (!d) return [];
             return JSON.parse(d)
         }
         function SaveMbData(d) {
             if (!d) return;
-            localStorage.setItem('mbData', JSON.stringify(d))
+            localStorage.setItem('mbData' + api_name, JSON.stringify(d))
         }
         function RefreshEdit(id) {
-            var d = GetMbData('mbData')
+            var d = GetMbData('mbData' + api_name)
             d = d.find(function (x) { return x.id == id })
             if (d) {
                 $("#editName").val(d.name);
                 $("#textDataDes").val(d.des);
-                var data=FormatData(d.data)
-                if(!data)return;
+                var data = FormatData(d.data)
+                if (!data) return;
                 RefreshData()
             }
 
@@ -129,6 +156,12 @@
             })
         }
         function RefreshData() {
+            api_url = localStorage.getItem('api_url') || api_url
+            var name = localStorage.getItem('api_name') || ""
+            api_name = name == '默认' ? '' : name
+            $('#api_url').val(api_url)
+            $('#api_name').val(api_name)
+
             var d = GetMbData();
             if (d.length == 0 || !d[0]) return
             var list = $("#list");
@@ -137,8 +170,8 @@
             if (!editName) {
                 $("#editName").val(d[0].name);
                 $("#textDataDes").val(d[0].des);
-                var data=FormatData(d[0].data)
-                if(!data)return;
+                var data = FormatData(d[0].data)
+                if (!data) return;
                 editName = d[0].name
             }
             d.forEach(function (i) {
@@ -152,7 +185,7 @@
         }
         function FormatData(data) {
             try {
-                if(!data)throw 'data null'
+                if (!data) throw 'data null'
                 if (typeof data == 'string') {
                     data = new Function('return ' + data)()
                 }
@@ -165,15 +198,31 @@
         }
         var id = +new Date()
         function GetNewID() { return id++ }
+        function Click_api_list(e) {
+            $('#api_name').val(e.innerText)
+        }
         $(function () {
             initData()
+            $("#api_name_list").click(function () {
+                var k = Object.keys(localStorage)
+                k = k.map(function (n, k) {
+                    if (n.substr(0, 6) == 'mbData')
+                        return '<li onclick="Click_api_list(this)">' + (n.substr(6) || '默认') + '</li>'
+                })
+                $("#api_name_ul").html(k)
+            })
+            $("#api_new").click(function () {
+                localStorage.setItem('api_url', $('#api_url').val())
+                localStorage.setItem('api_name', $('#api_name').val())
+                RefreshData()
+            })
             $("#wx_update").click(function () {
                 var editName = $("#editName").val();
                 if (!editName) return log('请输入名称');
                 var des = $("#textDataDes").val();
                 var data = $('.textData').val();
                 data = FormatData(data)
-                if(!data)return;
+                if (!data) return;
                 var mbData = GetMbData('mbData')
                 d = mbData.find(function (x) { return x.name == editName })
                 if (d) {
@@ -188,7 +237,7 @@
                 log('更新成功');
             })
             $("#wx_deleteAll").click(function () {
-                localStorage.removeItem('mbData')
+                localStorage.removeItem('mbData' + api_name)
                 $("#list").html('')
                 log('已清空')
             })
@@ -204,13 +253,13 @@
                 log('删除成功');
             })
             $("#wx_import").click(function () {
-                $('.textResult').val(localStorage.getItem('mbData'))
-                localStorage.setItem('mbData', $('.textData').val())
+                $('.textResult').val(localStorage.getItem('mbData' + api_name))
+                localStorage.setItem('mbData' + api_name, $('.textData').val())
                 log('左边是导入的新数据,右边是旧数据')
                 RefreshData()
             })
             $("#wx_export").click(function () {
-                $('.textResult').val(localStorage.getItem('mbData'))
+                $('.textResult').val(localStorage.getItem('mbData' + api_name))
                 log('右边是已保存的数据,请复制导出')
                 RefreshData()
             })
@@ -245,19 +294,18 @@
                 wx({ method: 'show', pid }, function (res) {
                 })
             }
-
             function wx(data, fn) {
                 $.LoadingOverlay("show")
                 log()
                 $.ajax({
                     type: "POST",
-                    url: "http://127.0.0.1:8203/api?json", data,
+                    url: api_url, data,
                     success: function (res, status) {
                         if (res.msg) log(res.msg)
                         fn(res)
                     },
                     error: function (xhr, errorText, errorType) {
-                        log('服务错误,请查看本机是否已启动服务')
+                        log('服务错误,请查看是否已启动服务:' + api_url)
                     },
                     complete: function () {
                         $.LoadingOverlay("hide")
