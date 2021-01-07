@@ -15,6 +15,7 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 + [使用扩展需要安装nodejs](https://nodejs.org/zh-cn/ "nodejs")不使用扩展无需安装
 + [PC微信安装](https://pc.weixin.qq.com/ "微信 PC 版")支持最新版微信（每个人最新版不一样咋办呀?那就都支持）
 
++ [更新支持3.1.0.41](https://www.wxext.cn/app/update.html "更新文件")
 
 
 
