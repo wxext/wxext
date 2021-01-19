@@ -1,1 +1,557 @@
-[{"id":1583519460855,"name":"启动新微信","data":{"method":"run","pid":-1},"des":"始终启动一个新的微信，不影响当前其他微信"},{"id":1583519460856,"name":"启用默认","data":{"method":"run","pid":0},"des":"启用一个微信,已检测到微信直接启用,否则启动一个新的"},{"id":1583519460851,"name":"抖动微信","data":{"method":"show","pid":0},"des":"抖动微信窗口"},{"id":1583519160851,"name":"获取消息","data":{"method":"msg","pid":0},"des":"这里只获取最后一条消息,因为并未存储消息列表.如需获取全部消息,请使用websocket连接或者http异步通知\n在插件中,消息会实时获取"},{"id":1583519460802,"name":"点击登录","data":{"method":"clickLogin","pid":0}},{"id":1583519460852,"name":"退出登录","data":{"method":"loginOut","pid":0}},{"id":1583519460857,"name":"卸载功能","data":{"method":"unRun","pid":0}},{"id":1583519460858,"name":"授权","des":"授权之后才能使用功能","data":{"method":"auth","token":"你的token数据","pid":0}},{"id":1583533132293,"name":"写日志","data":{"method":"log","msg":"hello"},"des":"写日志到本机Log\\\\remote.log中"},{"id":158312012293,"name":"SQLite","data":{"method":"db","action":"query","sql":"PRAGMA table_info(sqlite_master)"},"des":"操作本机数据库data\\\\db\\\\remote.db"},{"id":1583520132293,"name":"机器码","data":{"method":"mac"}},{"id":1583521442146,"name":"结束微信","data":{"method":"kill","pid":0}},{"id":1583549528343,"name":"连接列表","data":{"method":"list"}},{"id":1583549528344,"name":"进程列表","data":{"method":"pids"},"des":"获取进程列表,进程的状态"},{"id":1583895645585,"name":"识别二维码","data":{"method":"deqr","type":"url","data":"https://www.wxext.cn/qr.png"},"des":"识别二维码图片，type可以为 base64,url,path,\npath为本机路径"},{"id":1584779865377,"name":"获取登录信息","data":{"method":"getInfo","pid":0}},{"id":1584779865378,"name":"跳转二维码","data":{"method":"gotoQr","pid":0}},{"id":1584779865375,"name":"通讯录","data":{"method":"getUser","pid":0}},{"id":1584779865319,"name":"发文本","data":{"method":"sendText","wxid":"filehelper","msg":"https://www.baidu.com/","atid":"","pid":0}},{"id":1584779865374,"name":"群列表","data":{"method":"getGroup","pid":0}},{"id":1584779865373,"name":"群成员","data":{"method":"getGroupUser","wxid":"23942162341@chatroom","pid":0}},{"id":1584779865371,"name":"查头像","data":{"method":"getUserImg","wxid":"wxid_vw2prmx8xv5n22","pid":0}},{"id":1584779865372,"name":"查信息","data":{"method":"getUserInfo","wxid":"wxid_vw2prmx8xv5n22","pid":0}},{"id":1584085774424,"name":"数据库","data":{"method":"getDbName","pid":0}},{"id":1584127167949,"name":"执行SQL","data":{"method":"runSql","db":"MicroMsg.db","sql":"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;","pid":0}},{"id":1584779865387,"name":"群公告","data":{"method":"setRoomAnnouncement","wxid":"24288152652@chatroom","msg":"朋友一生一起走","pid":0}},{"id":1584779865383,"name":"设置备注","data":{"method":"setRemark","wxid":"wxid_vw2prmx8xv5n22","msg":"落落","pid":0}},{"id":1584779865392,"name":"群删除","data":{"method":"delRoomMember","wxid":"4429337922@chatroom","msg":"wxid_vw2prmx8xv5n22","pid":0}},{"id":1584779865390,"name":"群添加","data":{"method":"addGroupMember","wxid":"4429337922@chatroom","msg":"wxid_vw2prmx8xv5n22","pid":0}},{"id":1584779865391,"name":"发送邀请","data":{"method":"sendGroupInvite","wxid":"4429337922@chatroom","msg":"wxid_vw2prmx8xv5n22","pid":0}},{"id":1584779865388,"name":"群名称","data":{"method":"setRoomName","wxid":"24288152652@chatroom","msg":"hello","pid":0}},{"id":1584779825389,"name":"群退出","data":{"method":"quitChatRoom","wxid":"23177484571@chatroom","pid":0}},{"id":1584779865382,"name":"发文件","data":{"method":"sendFile","wxid":"filehelper","file":"http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640","fileType":"url","pid":0},"des":""},{"id":1584779865379,"name":"发图片","data":{"method":"sendImage","wxid":"filehelper","img":"http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640","imgType":"url","pid":0}},{"id":1584779865381,"name":"发小程序","data":{"method":"sendMiniPrograms","wxid":"filehelper","appid":"wxbebb3cdd9b331046","title":"国务院客户端小程序，你身边的中央人民政府","pagepath":"pages/index/index.html","username":"gh_dc5faf6be488@app","weappiconurl":"http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640?wx_fmt=png&amp;wxfrom=200","sourcedisplayname":"国务院客户端","img":"http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640?wx_fmt=png&amp;wxfrom=200","imgType":"url","pid":0}},{"id":1584779865380,"name":"发文章","data":{"method":"sendArticle","wxid":"filehelper","title":"国务院客户端小程序","des":"你身边的中央人民政府","url":"http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640?wx_fmt=png&amp;wxfrom=200","img":"http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640?wx_fmt=png&amp;wxfrom=200","imgType":"url","pid":0}},{"id":1584779865370,"name":"发名片","data":{"method":"sendCard","wxid":"filehelper","userid":"wxid_mmbbax25761w12","pid":0}},{"id":1584779865393,"name":"群创建","data":{"method":"createRoom","msg":"wxid_vw2prmx8xv5n22|xiaotian_342801946","pid":0}},{"id":1584779865385,"name":"删除好友","data":{"method":"deleteUser","wxid":"wxid_vw2prmx8xv5n22","pid":0}},{"id":1584779865384,"name":"添加好友","data":{"method":"addUser","wxid":"wxid_vw2prmx8xv5n22","msg":"在吗","pid":0}},{"id":1584779865386,"name":"同意好友","data":{"method":"agreeUser","v1":"v1_02caea3713a53c0d8e3c9d2c11ea84ca10810539c462f37730efedce39f2b1e4@stranger","v2":"v2_9411b62d273baaed915d3481719953339af01e536c9f6a2b48975fe15df01d07844f32818ab16f8839d2d98641c6c4934076ac24c6624c6ce3d3b7509333eba4eefce512c5515f95cdef0b71be393969@stranger","pid":0}},{"id":1584779865389,"name":"更新好友","data":{"method":"netUpdateUser","wxid":"wxid_vw2prmx8xv5n22","pid":0}},{"id":1584779867377,"name":"获取Key","data":{"method":"getKey","url":"https://www.baidu.com/","pid":0}},{"id":1584779866377,"name":"收款","data":{"method":"agreeCash","transferid":"要正确的id才能收款成功","pid":0}},{"id":1585734837116,"name":"查询Token","data":{"method":"token","token":"你的token数据","pid":0},"des":"查询Token信息"},{"id":1585959141630,"name":"结束插件","data":{"method":"ext","action":"stop","name":"test","pid":0},"des":"结束运行中的插件"},{"id":1586147959225,"name":"启动插件","data":{"method":"ext","action":"start","name":"test","pid":0},"des":"结束运行中的插件"},{"id":1586147959226,"name":"插件列表","data":{"method":"ext","action":"list"},"des":"运行插件"},{"id":1586147959227,"name":"删除插件","data":{"method":"ext","action":"del","name":"test","pid":0},"des":"结束运行中的插件"},{"id":1586236775753,"name":"系统提示","data":{"method":"tips","title":"紧急集合","text":"赶紧停下手头工作"},"des":"可以定时发一条弹窗消息通知到桌面，防止写代码上头了忘了重要的事情"},{"id":1586681429731,"name":"获取异步通知列表","data":{"method":"notify"},"des":"始终启动一个新的微信，不影响当前其他微信"},{"id":1586681429732,"name":"删除通知","data":{"method":"notify","type":"del","index":0},"des":"index要删除的索引"},{"id":1586681429733,"name":"添加通知","data":{"method":"notify","type":"add","data":1,"msg":"","reg":"","url":"http"},"des":"type操作类型\ndata需要通知的类型，多个|分割\nmsg包含消息时才通知\nreg匹配正则时才通知\nurl通知的地址"},{"id":1587164180473,"name":"sha256","data":{"method":"sha256","data":"插件数据"},"des":"计算sha256"},{"id":1587623238999,"name":"设置首页","data":{"method":"setHome","url":"https://www.wxext.cn/home/i.html"},"des":"设置打开e小天时显示的首页"}]
+[
+    {
+        "id": 1583519460855,
+        "name": "启动新微信",
+        "data": {
+            "method": "run",
+            "pid": -1
+        },
+        "des": "始终启动一个新的微信，不影响当前其他微信"
+    },
+    {
+        "id": 1583519460856,
+        "name": "启用默认",
+        "data": {
+            "method": "run",
+            "pid": 0
+        },
+        "des": "启用一个微信,已检测到微信直接启用,否则启动一个新的"
+    },
+    {
+        "id": 1583519460851,
+        "name": "抖动微信",
+        "data": {
+            "method": "show",
+            "pid": 0
+        },
+        "des": "抖动微信窗口"
+    },
+    {
+        "id": 1583519160851,
+        "name": "获取消息",
+        "data": {
+            "method": "msg",
+            "pid": 0
+        },
+        "des": "这里只获取最后一条消息,因为并未存储消息列表.如需获取全部消息,请使用websocket连接或者http异步通知\n在插件中,消息会实时获取"
+    },
+    {
+        "id": 1583519460802,
+        "name": "点击登录",
+        "data": {
+            "method": "clickLogin",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1583519460852,
+        "name": "退出登录",
+        "data": {
+            "method": "loginOut",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1583519460857,
+        "name": "卸载功能",
+        "data": {
+            "method": "unRun",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1583519460858,
+        "name": "授权",
+        "des": "授权之后才能使用功能",
+        "data": {
+            "method": "auth",
+            "token": "china",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1583520132293,
+        "name": "机器码",
+        "data": {
+            "method": "mac"
+        }
+    },
+    {
+        "id": 1583521442146,
+        "name": "结束微信",
+        "data": {
+            "method": "kill",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1583549528343,
+        "name": "连接列表",
+        "data": {
+            "method": "list"
+        }
+    },
+    {
+        "id": 1583549528344,
+        "name": "进程列表",
+        "data": {
+            "method": "pids"
+        },
+        "des": "获取进程列表,进程的状态"
+    },
+    {
+        "id": 1583895645585,
+        "name": "识别二维码",
+        "data": {
+            "method": "deqr",
+            "type": "url",
+            "data": "https://www.wxext.cn/qr.png"
+        },
+        "des": "识别二维码图片，type可以为 base64,url,path,\npath为本机路径"
+    },
+    {
+        "id": 1584779865377,
+        "name": "获取登录信息",
+        "data": {
+            "method": "getInfo",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865378,
+        "name": "跳转二维码",
+        "data": {
+            "method": "gotoQr",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865375,
+        "name": "通讯录",
+        "data": {
+            "method": "getUser",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865319,
+        "name": "发文本",
+        "data": {
+            "method": "sendText",
+            "wxid": "filehelper",
+            "msg": "欢迎使用e小天",
+            "atid": "",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865374,
+        "name": "群列表",
+        "data": {
+            "method": "getGroup",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865373,
+        "name": "群成员",
+        "data": {
+            "method": "getGroupUser",
+            "wxid": "22480593751@chatroom",
+            "pid": 0
+        },
+        "des": ""
+    },
+    {
+        "id": 1584779865371,
+        "name": "查头像",
+        "data": {
+            "method": "getUserImg",
+            "wxid": "wxid_vw2prmx8xv5n22",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865372,
+        "name": "查信息",
+        "data": {
+            "method": "getUserInfo",
+            "wxid": "wxid_vw2prmx8xv5n22",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584085774424,
+        "name": "数据库",
+        "data": {
+            "method": "getDbName",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584127167949,
+        "name": "执行SQL",
+        "data": {
+            "method": "runSql",
+            "db": "MicroMsg.db",
+            "sql": "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865387,
+        "name": "群公告",
+        "data": {
+            "method": "setRoomAnnouncement",
+            "wxid": "24288152652@chatroom",
+            "msg": "朋友一生一起走",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865383,
+        "name": "设置备注",
+        "data": {
+            "method": "setRemark",
+            "wxid": "wxid_vw2prmx8xv5n22",
+            "msg": "落落",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865392,
+        "name": "群删除",
+        "data": {
+            "method": "delRoomMember",
+            "wxid": "4429337922@chatroom",
+            "msg": "wxid_vw2prmx8xv5n22",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865390,
+        "name": "群添加",
+        "data": {
+            "method": "addGroupMember",
+            "wxid": "4429337922@chatroom",
+            "msg": "wxid_vw2prmx8xv5n22",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865391,
+        "name": "发送邀请",
+        "data": {
+            "method": "sendGroupInvite",
+            "wxid": "4429337922@chatroom",
+            "msg": "wxid_vw2prmx8xv5n22",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865388,
+        "name": "群名称",
+        "data": {
+            "method": "setRoomName",
+            "wxid": "24288152652@chatroom",
+            "msg": "hello",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779825389,
+        "name": "群退出",
+        "data": {
+            "method": "quitChatRoom",
+            "wxid": "23177484571@chatroom",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865382,
+        "name": "发文件",
+        "data": {
+            "method": "sendFile",
+            "wxid": "filehelper",
+            "file": "http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640",
+            "fileType": "url",
+            "pid": 0
+        },
+        "des": ""
+    },
+    {
+        "id": 1584779865379,
+        "name": "发图片",
+        "data": {
+            "method": "sendImage",
+            "wxid": "filehelper",
+            "img": "http://mmbiz.qpic.cn/mmbiz_png/FUmbJicO6FCicxObbUXj5FcQ5a551rd1a9hgJAz5wnp3bU9I9vsHaq0g1lRxat0bYprRdianwnibibYgYMjTacicrnwA/640",
+            "imgType": "url",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865381,
+        "name": "发小程序",
+        "data": {
+            "method": "sendAppmsgForward",
+            "wxid": "filehelper",
+            "xml": "<appmsg appid=\"wx01bb1ef166cd3f4e\" sdkver=\"\"><title>推荐抽奖助手给你，来试试</title><des></des><action>view</action><type>33</type><showtype>0</showtype><content></content><url>https://mp.weixin.qq.com/mp/waerrpage?appid=wx01bb1ef166cd3f4e&amp;amp;type=upgrade&amp;amp;upgradetype=3#wechat_redirect</url><dataurl></dataurl><lowurl></lowurl><lowdataurl></lowdataurl><recorditem><![CDATA[]]></recorditem><thumburl></thumburl><messageaction></messageaction><extinfo></extinfo><sourceusername></sourceusername><sourcedisplayname>抽奖助手</sourcedisplayname><commenturl></commenturl><appattach><totallen>0</totallen><attachid></attachid><emoticonmd5></emoticonmd5><fileext>jpg</fileext><cdnthumburl>3053020100044730450201000204a2909e0802032f785902041a641d0e02045ff3f19c042033353163373338313038383133386431323037613866643162623835356566350204010808030201000405004c56f900</cdnthumburl><cdnthumblength>34626</cdnthumblength><cdnthumbheight>100</cdnthumbheight><cdnthumbwidth>100</cdnthumbwidth><aeskey>2afbc09f83eb8d1fc81c14dabd7ba4fd</aeskey><cdnthumbaeskey>2afbc09f83eb8d1fc81c14dabd7ba4fd</cdnthumbaeskey><cdnthumbmd5>fe88c190ab6996aea8ca044b1da41ac5</cdnthumbmd5><encryver>1</encryver><cdnthumblength>34626</cdnthumblength><cdnthumbheight>100</cdnthumbheight><cdnthumbwidth>100</cdnthumbwidth></appattach><weappinfo><pagepath>pages/index.html</pagepath><username>gh_0ba6f73cfa68@app</username><appid>wx01bb1ef166cd3f4e</appid><type>2</type><weappiconurl>http://mmbiz.qpic.cn/mmbiz_png/Vdys2e8jP1l1clbflznHYO7IRflCZWjPfD4NMn1Xqgr5gZbBy1qVc12cGVG1whLTXiafBT7kiaWRl38HCbqLnRzw/640?wx_fmt=png&amp;wxfrom=200</weappiconurl><appservicetype>0</appservicetype><shareId>2_wx01bb1ef166cd3f4e_455258050_1609822618_1</shareId></weappinfo><websearch /><finderFeed><objectId>0</objectId><objectNonceId>0</objectNonceId><feedType>-1</feedType><nickname></nickname><username></username><avatar></avatar><desc></desc><mediaCount>0</mediaCount><localId>0</localId><mediaList /></finderFeed><finderLive><finderLiveID>0</finderLiveID><finderUsername></finderUsername><finderObjectID>0</finderObjectID><nickname></nickname><desc></desc><finderNonceID>0</finderNonceID><headUrl></headUrl><liveStatus>-1</liveStatus><media><thumbUrl></thumbUrl><videoPlayDuration>0</videoPlayDuration><url></url><coverUrl></coverUrl><height>0</height><width>0</width><mediaType>-1</mediaType></media></finderLive></appmsg>",
+            "pid": 0
+        },
+        "des": ""
+    },
+    {
+        "id": 1584779865380,
+        "name": "发文章",
+        "data": {
+            "method": "sendAppmsgForward",
+            "wxid": "filehelper",
+            "xml": "<?xml version=\"1.0\"?>\n<msg>\n\t<appmsg appid=\"\" sdkver=\"0\">\n\t\t<title>居然真的有人数出了王者峡谷有多少根草 ？？！_哔哩哔哩 (゜-゜)つロ 干杯~-bilibili</title>\n\t\t<des>https://www.bilibili.com/video/BV1yi4y1c7Y4?p=2</des>\n\t\t<username />\n\t\t<action>view</action>\n\t\t<type>5</type>\n\t\t<showtype>0</showtype>\n\t\t<content />\n\t\t<url>https://www.bilibili.com/video/BV1yi4y1c7Y4?p=2</url>\n\t\t<lowurl />\n\t\t<dataurl />\n\t\t<lowdataurl />\n\t\t<contentattr>0</contentattr>\n\t\t<streamvideo>\n\t\t\t<streamvideourl />\n\t\t\t<streamvideototaltime>0</streamvideototaltime>\n\t\t\t<streamvideotitle />\n\t\t\t<streamvideowording />\n\t\t\t<streamvideoweburl />\n\t\t\t<streamvideothumburl />\n\t\t\t<streamvideoaduxinfo />\n\t\t\t<streamvideopublishid />\n\t\t</streamvideo>\n\t\t<canvasPageItem>\n\t\t\t<canvasPageXml><![CDATA[]]></canvasPageXml>\n\t\t</canvasPageItem>\n\t\t<appattach>\n\t\t\t<attachid />\n\t\t\t<cdnthumburl>305f0201000458305602010002046ba24f3d02033d14bb0204f0bdf17802045ff42ace04316175706170706d73675f383461613831333536386561303062375f313630393833373236323135355f31303836383934380204010800030201000400</cdnthumburl>\n\t\t\t<cdnthumbmd5>0efdb966304ff2f715bb91448b0a3480</cdnthumbmd5>\n\t\t\t<cdnthumblength>9508</cdnthumblength>\n\t\t\t<cdnthumbheight>120</cdnthumbheight>\n\t\t\t<cdnthumbwidth>120</cdnthumbwidth>\n\t\t\t<cdnthumbaeskey>dd9271dbb0f10dddb707b25e32b391bf</cdnthumbaeskey>\n\t\t\t<aeskey>dd9271dbb0f10dddb707b25e32b391bf</aeskey>\n\t\t\t<encryver>1</encryver>\n\t\t\t<fileext />\n\t\t\t<islargefilemsg>0</islargefilemsg>\n\t\t</appattach>\n\t\t<extinfo />\n\t\t<androidsource>3</androidsource>\n\t\t<thumburl>https://static.hdslb.com/images/akari.jpg</thumburl>\n\t\t<mediatagname />\n\t\t<messageaction><![CDATA[]]></messageaction>\n\t\t<messageext><![CDATA[]]></messageext>\n\t\t<emoticongift>\n\t\t\t<packageflag>0</packageflag>\n\t\t\t<packageid />\n\t\t</emoticongift>\n\t\t<emoticonshared>\n\t\t\t<packageflag>0</packageflag>\n\t\t\t<packageid />\n\t\t</emoticonshared>\n\t\t<designershared>\n\t\t\t<designeruin>0</designeruin>\n\t\t\t<designername>null</designername>\n\t\t\t<designerrediretcturl>null</designerrediretcturl>\n\t\t</designershared>\n\t\t<emotionpageshared>\n\t\t\t<tid>0</tid>\n\t\t\t<title>null</title>\n\t\t\t<desc>null</desc>\n\t\t\t<iconUrl>null</iconUrl>\n\t\t\t<secondUrl />\n\t\t\t<pageType>0</pageType>\n\t\t</emotionpageshared>\n\t\t<webviewshared>\n\t\t\t<shareUrlOriginal />\n\t\t\t<shareUrlOpen />\n\t\t\t<jsAppId />\n\t\t\t<publisherId />\n\t\t</webviewshared>\n\t\t<template_id />\n\t\t<md5>0efdb966304ff2f715bb91448b0a3480</md5>\n\t\t<weappinfo>\n\t\t\t<username />\n\t\t\t<appid />\n\t\t\t<appservicetype>0</appservicetype>\n\t\t\t<videopageinfo>\n\t\t\t\t<thumbwidth>120</thumbwidth>\n\t\t\t\t<thumbheight>120</thumbheight>\n\t\t\t\t<fromopensdk>0</fromopensdk>\n\t\t\t</videopageinfo>\n\t\t</weappinfo>\n\t\t<statextstr />\n\t\t<finderFeed>\n\t\t\t<objectId>0</objectId>\n\t\t\t<objectNonceId>0</objectNonceId>\n\t\t\t<feedType>-1</feedType>\n\t\t\t<nickname />\n\t\t\t<username />\n\t\t\t<avatar><![CDATA[]]></avatar>\n\t\t\t<desc />\n\t\t\t<mediaCount>0</mediaCount>\n\t\t\t<localId>0</localId>\n\t\t\t<mediaList />\n\t\t\t<megaVideo>\n\t\t\t\t<objectId />\n\t\t\t\t<objectNonceId />\n\t\t\t</megaVideo>\n\t\t</finderFeed>\n\t\t<finderLive>\n\t\t\t<finderLiveID>0</finderLiveID>\n\t\t\t<finderUsername />\n\t\t\t<finderObjectID>0</finderObjectID>\n\t\t\t<nickname><![CDATA[]]></nickname>\n\t\t\t<desc><![CDATA[]]></desc>\n\t\t\t<finderNonceID>0</finderNonceID>\n\t\t\t<headUrl><![CDATA[]]></headUrl>\n\t\t\t<media>\n\t\t\t\t<coverUrl><![CDATA[]]></coverUrl>\n\t\t\t\t<height>0.0</height>\n\t\t\t\t<width>0.0</width>\n\t\t\t</media>\n\t\t\t<liveStatus>-1</liveStatus>\n\t\t</finderLive>\n\t\t<finderMegaVideo>\n\t\t\t<objectId>null</objectId>\n\t\t\t<objectNonceId>null</objectNonceId>\n\t\t\t<nickname />\n\t\t\t<avatar><![CDATA[null]]></avatar>\n\t\t\t<desc />\n\t\t\t<username />\n\t\t\t<mediaCount>0</mediaCount>\n\t\t\t<mediaList />\n\t\t\t<finderFeed>\n\t\t\t\t<objectId>null</objectId>\n\t\t\t\t<objectNonceId>null</objectNonceId>\n\t\t\t</finderFeed>\n\t\t</finderMegaVideo>\n\t\t<findernamecard>\n\t\t\t<username />\n\t\t\t<avatar><![CDATA[]]></avatar>\n\t\t\t<nickname />\n\t\t\t<auth_job />\n\t\t\t<auth_icon>0</auth_icon>\n\t\t\t<auth_icon_url />\n\t\t</findernamecard>\n\t\t<finderTopic>\n\t\t\t<topic />\n\t\t\t<topicType>-1</topicType>\n\t\t\t<iconUrl><![CDATA[]]></iconUrl>\n\t\t\t<desc />\n\t\t\t<patMusicId />\n\t\t\t<location>\n\t\t\t\t<poiClassifyId />\n\t\t\t\t<longitude>0.0</longitude>\n\t\t\t\t<latitude>0.0</latitude>\n\t\t\t</location>\n\t\t</finderTopic>\n\t\t<finder>\n\t\t\t<type>1</type>\n\t\t\t<detail>\n\t\t\t\t<finderTopic>\n\t\t\t\t\t<topic />\n\t\t\t\t\t<topicType>-1</topicType>\n\t\t\t\t\t<iconUrl><![CDATA[]]></iconUrl>\n\t\t\t\t\t<desc />\n\t\t\t\t\t<patMusicId />\n\t\t\t\t\t<location>\n\t\t\t\t\t\t<poiClassifyId />\n\t\t\t\t\t\t<longitude>0.0</longitude>\n\t\t\t\t\t\t<latitude>0.0</latitude>\n\t\t\t\t\t</location>\n\t\t\t\t</finderTopic>\n\t\t\t</detail>\n\t\t</finder>\n\t\t<finderColumn>\n\t\t\t<cardId />\n\t\t\t<title />\n\t\t\t<secondTitle />\n\t\t\t<iconUrl><![CDATA[]]></iconUrl>\n\t\t\t<iconUrl_1><![CDATA[]]></iconUrl_1>\n\t\t\t<iconUrl_2><![CDATA[]]></iconUrl_2>\n\t\t\t<iconUrl_3><![CDATA[]]></iconUrl_3>\n\t\t\t<cardbuffer><![CDATA[]]></cardbuffer>\n\t\t</finderColumn>\n\t\t<finderEndorsement>\n\t\t\t<scene><![CDATA[0]]></scene>\n\t\t</finderEndorsement>\n\t\t<directshare>0</directshare>\n\t\t<gamecenter>\n\t\t\t<namecard>\n\t\t\t\t<iconUrl />\n\t\t\t\t<name />\n\t\t\t\t<desc />\n\t\t\t\t<tail />\n\t\t\t\t<jumpUrl />\n\t\t\t</namecard>\n\t\t</gamecenter>\n\t\t<patMsg>\n\t\t\t<chatUser />\n\t\t\t<records>\n\t\t\t\t<recordNum>0</recordNum>\n\t\t\t</records>\n\t\t</patMsg>\n\t\t<finderLiveInvite>\n\t\t\t<finderLiveID>null</finderLiveID>\n\t\t\t<finderUsername />\n\t\t\t<finderObjectID>null</finderObjectID>\n\t\t\t<nickname><![CDATA[null]]></nickname>\n\t\t\t<desc><![CDATA[null]]></desc>\n\t\t\t<finderNonceID />\n\t\t\t<headUrl><![CDATA[null]]></headUrl>\n\t\t\t<coverUrl><![CDATA[null]]></coverUrl>\n\t\t\t<liveMicId />\n\t\t\t<liveMicSdkUserId />\n\t\t</finderLiveInvite>\n\t\t<websearch />\n\t</appmsg>\n\t<fromusername>wxid_82tqmrcgepvc22</fromusername>\n\t<scene>0</scene>\n\t<appinfo>\n\t\t<version>1</version>\n\t\t<appname></appname>\n\t</appinfo>\n\t<commenturl></commenturl>\n</msg>",
+            "pid": 0
+        },
+        "des": ""
+    },
+    {
+        "id": 1584779865370,
+        "name": "发名片",
+        "data": {
+            "method": "sendCard",
+            "wxid": "filehelper",
+            "xml": "<?xml version=\"1.0\"?>\n<msg bigheadimgurl=\"http://wx.qlogo.cn/mmhead/Q3auHgzwzM4forBZ0HYx6vicU2B4xTlZ4WHofKxvPU7jSia6cem9tiaWQ/0\" smallheadimgurl=\"http://wx.qlogo.cn/mmhead/Q3auHgzwzM4forBZ0HYx6vicU2B4xTlZ4WHofKxvPU7jSia6cem9tiaWQ/132\" username=\"gh_ac5148129f0c\" nickname=\"腾讯理财通\" fullpy=\"腾讯理财通\" shortpy=\"TXLCT\" alias=\"cft_yuezengzhi\" imagestatus=\"3\" scene=\"17\" province=\"中国大陆\" city=\"广东\" sign=\"\" sex=\"0\" certflag=\"24\" certinfo=\"深圳市腾讯计算机系统有限公司\" brandIconUrl=\"http://mmbiz.qpic.cn/mmbiz_png/c1hrVO16zMRB6b8z1szsLDSJ8u37aIE6ZmwanN10lzHLOEkrpPDm2sFkJ7aiadTYdNicPdl7LZ5jwobCMWxBMytg/0?wx_fmt=png\" brandHomeUrl=\"\" brandSubscriptConfigUrl=\"\" brandFlags=\"0\" regionCode=\"CN_Guangdong\" />\n",
+            "pid": 0
+        },
+        "des": ""
+    },
+    {
+        "id": 1584779865393,
+        "name": "群创建",
+        "data": {
+            "method": "createRoom",
+            "msg": "wxid_vw2prmx8xv5n22|xiaotian_342801946",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865385,
+        "name": "删除好友",
+        "data": {
+            "method": "deleteUser",
+            "wxid": "wxid_vw2prmx8xv5n22",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865384,
+        "name": "添加好友",
+        "data": {
+            "method": "addUser",
+            "wxid": "wxid_vw2prmx8xv5n22",
+            "msg": "在吗",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779865386,
+        "name": "同意好友",
+        "data": {
+            "method": "agreeUser",
+            "encryptusername": "v3_020b3826fd03010000000000ad463294328b16000000501ea9a3dba12f95f6b60a0536a1adb6114ca0d6bffb8bcd219b8f8870c00ce88c136e6b8ab2e112d2fdb046d07be0264864159d414c4a3fd286aaf77fa4d619107a4b81c9135f3ffb2aa86b@stranger",
+            "ticket": "v4_000b708f0b040000010000000000fe2f5b1369801696c16f6df703601000000050ded0b020927e3c97896a09d47e6e9ed50569df5776d8a64ec685901aee6a50477c8e338718fd7124a915e6aa878c4d7e5910f38600af51ea5ed89de3ab1c20b17406a754cd2584ae75821f15955074743b83313a01555cf07b51ce5bbc23e00ba79ec386bc453c85838d4418d8c094f9a600ccf71ffc82@stranger",
+            "scene": 14
+        },
+        "des": ""
+    },
+    {
+        "id": 1584779865389,
+        "name": "更新好友",
+        "data": {
+            "method": "netUpdateUser",
+            "wxid": "wxid_vw2prmx8xv5n22",
+            "pid": 0
+        }
+    },
+    {
+        "id": 1584779866377,
+        "name": "收款",
+        "data": {
+            "method": "agreeCash",
+            "wxid": "wxid_5ktji7jh8op922",
+            "transferid": "1000050001202101172603544013822",
+            "pid": 0
+        },
+        "des": ""
+    },
+    {
+        "id": 1585734837116,
+        "name": "查询Token",
+        "data": {
+            "method": "token",
+            "token": "你的token数据",
+            "pid": 0
+        },
+        "des": "查询Token信息"
+    },
+    {
+        "id": 1585959141630,
+        "name": "结束插件",
+        "data": {
+            "method": "ext",
+            "action": "stop",
+            "name": "wxext",
+            "pid": 0
+        },
+        "des": "结束运行中的插件"
+    },
+    {
+        "id": 1586147959225,
+        "name": "启动插件",
+        "data": {
+            "method": "ext",
+            "action": "start",
+            "name": "wxext",
+            "pid": 0
+        },
+        "des": "结束运行中的插件"
+    },
+    {
+        "id": 1586147959226,
+        "name": "插件列表",
+        "data": {
+            "method": "ext",
+            "action": "list"
+        },
+        "des": "运行插件"
+    },
+    {
+        "id": 1586147959227,
+        "name": "删除插件",
+        "data": {
+            "method": "ext",
+            "action": "del",
+            "name": "wxext"
+        },
+        "des": "结束运行中的插件"
+    },
+    {
+        "id": 1586236775753,
+        "name": "系统提示",
+        "data": {
+            "method": "tips",
+            "title": "紧急集合",
+            "text": "赶紧停下手头工作"
+        },
+        "des": "可以定时发一条弹窗消息通知到桌面，防止写代码上头了忘了重要的事情"
+    },
+    {
+        "id": 1586681429731,
+        "name": "获取异步通知列表",
+        "data": {
+            "method": "notify"
+        },
+        "des": "始终启动一个新的微信，不影响当前其他微信"
+    },
+    {
+        "id": 1586681429732,
+        "name": "删除通知",
+        "data": {
+            "method": "notify",
+            "type": "del",
+            "index": 0
+        },
+        "des": "index要删除的索引"
+    },
+    {
+        "id": 1586681429733,
+        "name": "添加通知",
+        "data": {
+            "method": "notify",
+            "type": "add",
+            "data": 1,
+            "msg": "",
+            "reg": "",
+            "url": "http"
+        },
+        "des": "type操作类型\ndata需要通知的类型，多个|分割\nmsg包含消息时才通知\nreg匹配正则时才通知\nurl通知的地址"
+    },
+    {
+        "id": 1587164180473,
+        "name": "sha256",
+        "data": {
+            "method": "sha256",
+            "data": "插件数据"
+        },
+        "des": "计算sha256"
+    },
+    {
+        "id": 1587623238999,
+        "name": "设置首页",
+        "data": {
+            "method": "setHome",
+            "url": "https://www.wxext.cn/home/i.html"
+        },
+        "des": "设置打开e小天时显示的首页"
+    },
+    {
+        "id": 1587684576915,
+        "name": "depb",
+        "data": {
+            "method": "depb",
+            "data": "0A06080012020A0010001800229A017B226974656D73223A5B7B22776F7264223A22E993B6E88194E59586E58AA1E4B88AE5B882227D2C7B22776F7264223A22E993B6E88194E59586E58AA1E585A8E6B091E4BB98227D2C7B22776F7264223A22E993B6E88194E59586E58AA1E588B7E58DA1E69CBA227D5D2C22726574223A302C2273756767657374696F6E4944223A223131353332313534333133393030343238363131227D0A"
+        },
+        "des": "启用一个微信,已检测到微信直接启用,否则启动一个新的"
+    },
+    {
+        "id": 1587684576916,
+        "name": "sendhex",
+        "data": {
+            "method": "sendhex",
+            "data": "0AA7010A010010001A105730633039633633656637633663643820C580A490062A840157696E646F7773203130000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000030E8011214081012108279106D7D352F4896F1652B27607E0918004A96020890021290022D2D2D2D2D424547494E205055424C4943204B45592D2D2D2D2D0A4D4947664D413047435371475349623344514542415155414134474E4144434269514B426751433959474D54474B564A6A455759685864466476456C644742510A6430386D61646269737374454B50786B786C6D6E79562F43656C442B74594A6B4C2B6149337264587445462F506E4456616D2F353559585941546C68686E56410A5A7665382F753038594C57672F515A414143543967434C534B754D77486144596644667874476E684870722F64366344334F7030564E4A4C4763516C52696C540A574A412B54337832544C4170494A6B3344514944415141420A2D2D2D2D2D454E44205055424C4943204B45592D2D2D2D2D0A"
+        },
+        "des": "启用一个微信,已检测到微信直接启用,否则启动一个新的"
+    },
+    {
+        "id": 1589506676465,
+        "name": "mmwebsearch",
+        "data": {
+            "method": "mmwebsearch",
+            "msg": "于文文"
+        },
+        "des": "始终启动一个新的微信，不影响当前其他微信"
+    },
+    {
+        "id": 1589506676466,
+        "name": "ClearMsgList",
+        "data": {
+            "method": "ClearMsgList"
+        },
+        "des": "始终启动一个新的微信，不影响当前其他微信"
+    },
+    {
+        "id": 1590061382462,
+        "name": "安装插件",
+        "data": {
+            "method": "ext",
+            "action": "install",
+            "name": "wxext"
+        },
+        "des": "运行插件"
+    },
+    {
+        "id": 1590200858081,
+        "name": "打电话",
+        "data": {
+            "method": "callVoipAudio",
+            "wxid": "wxid_82tqmrcgepvc22"
+        },
+        "des": "始终启动一个新的微信，不影响当前其他微信"
+    },
+    {
+        "id": 1611054829808,
+        "name": "清空聊天记录",
+        "data": {
+            "method": "ClearMsgList"
+        },
+        "des": "始终启动一个新的微信，不影响当前其他微信"
+    }
+]
