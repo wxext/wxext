@@ -125,7 +125,7 @@
                 var html = ''
                 res.data.forEach(function (d) {
                     if (!d.wxid) d.auth = '请先登录'
-                    else d.auth = '<button onclick="auth_wxid(\'' + d.wxid + '\')" type="button" class="btn btn-primary">授权</button>'
+                    else d.auth = '<button onclick="auth_wxid('+d.pid+',\'' + d.wxid + '\')" type="button" class="btn btn-primary">授权</button>'
                     html += '<tr><td>' + d.wxid + '</td><td>' + d.nickName + '</td><td>' + d.auth + '</td></tr>'
                 })
                 if (html == '') {
@@ -145,14 +145,14 @@
             })
         }
 
-        function auth_wxid(wxid) {
+        function auth_wxid(pid, wxid) {
             if (!wxid) return log('请填写wxid')
-            wx({ method: 'mac' }, function (res) {
+            wx({ pid, method: 'mac' }, function (res) {
                 if (res.msg) return log(res.msg)
                 var url = 'https://api.wxext.cn/auth?wxid=' + wxid + '&data=' + encodeURIComponent(res.data)
                 wx({}, function (res) {
                     if (res.msg) return log(res.msg)
-                    wx({ method: 'auth', token: res.token }, function (res) {
+                    wx({ pid, method: 'auth', token: res.token }, function (res) {
                         if (res.msg) return log('授权失败,token不匹配,' + res.msg)
                         log('授权成功')
                     })
