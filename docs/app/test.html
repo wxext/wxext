@@ -300,7 +300,7 @@
                 log()
                 $.ajax({
                     type: "POST",
-                    url: api_url+'&userkey='+userkey, data,
+                    url: api_url+'&key='+userkey, data,
                     success: function (res, status) {
                         if (res.msg) log(res.msg)
                         fn(res)
