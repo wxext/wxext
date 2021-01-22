@@ -65,7 +65,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <input type="text" placeholder="接口地址" class="form-control" id="api_url"
-                        value="http://127.0.0.1:8203/api?json">
+                        value="http://127.0.0.1:8203/api?key=userkey&json">
                 </div>
             </div><!-- /.col-lg-6 -->
             <div class="col-md-4">
@@ -126,6 +126,7 @@
     <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
 
     <script>
+        var userkey=localStorage.getItem('userkey')
         var api_url = 'http://127.0.0.1:8203/api?json', api_name = ''
         function GetMbData() {
             var d = localStorage.getItem('mbData' + api_name)
@@ -299,7 +300,7 @@
                 log()
                 $.ajax({
                     type: "POST",
-                    url: api_url, data,
+                    url: api_url+'&userkey='+userkey, data,
                     success: function (res, status) {
                         if (res.msg) log(res.msg)
                         fn(res)
