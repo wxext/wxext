@@ -123,18 +123,18 @@
             })
 
         })
-        function wx(data, fn) {
+        function wx(data, fn, url) {
             $.LoadingOverlay("show")
             log()
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8203/api?json", data,
+                url: url || (api_url + '&key=' + localStorage.getItem('userkey')), data,
                 success: function (res, status) {
                     if (res.msg) log(res.msg)
                     fn(res)
                 },
                 error: function (xhr, errorText, errorType) {
-                    log('服务错误,请查看本机是否已启动服务')
+                    log('服务错误,请查看是否已启动服务:' + api_url)
                 },
                 complete: function () {
                     $.LoadingOverlay("hide")

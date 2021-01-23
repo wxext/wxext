@@ -178,8 +178,8 @@
                             isLogin = '<button type="button" onclick="saoma(@pid)" class="btn btn-warning btn--sm">扫码登录</button>'
                         } else {
                             isLogin = '<button type="button" onclick="gongzhong(@pid)" class="btn btn-warning btn--sm">停用</button>'
-                            if(!d.authTime){
-                                isLogin+='<a href="settings.html">去授权</>'
+                            if (!d.authTime) {
+                                isLogin += '<a href="settings.html">去授权</>'
                             }
 
                         }
@@ -210,24 +210,24 @@
                     .fadeOut();
             };
 
-            function wx(data, fn) {
-                $.LoadingOverlay("show")
-                log()
-                $.ajax({
-                    type: "POST",
-                    url: "http://127.0.0.1:8203/api?json", data,
-                    success: function (res, status) {
-                        if (res.msg) log(res.msg)
-                        fn(res)
-                    },
-                    error: function (xhr, errorText, errorType) {
-                        log('服务错误,请查看本机是否已启动服务')
-                    },
-                    complete: function () {
-                        $.LoadingOverlay("hide")
-                    }
-                })
-            }
+            function wx(data, fn, url) {
+            $.LoadingOverlay("show")
+            log()
+            $.ajax({
+                type: "POST",
+                url: url || (api_url + '&key=' + localStorage.getItem('userkey')), data,
+                success: function (res, status) {
+                    if (res.msg) log(res.msg)
+                    fn(res)
+                },
+                error: function (xhr, errorText, errorType) {
+                    log('服务错误,请查看是否已启动服务:' + api_url)
+                },
+                complete: function () {
+                    $.LoadingOverlay("hide")
+                }
+            })
+        }
         })
 
 
