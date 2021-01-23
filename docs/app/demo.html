@@ -155,7 +155,7 @@
             window.lianjie = function (pid) {
                 wx({ method: 'run', pid }, refreshList)
             }
-            refreshList()
+            setTimeout(refreshList,0)
             function refreshList() {
                 wx({ method: 'list' }, function (res) {
                     if (res.msg) return log(res.msg)
