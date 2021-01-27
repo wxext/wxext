@@ -94,20 +94,10 @@
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
+    <script src="../js/app.js"></script>
 
     <script>
         $(function () {
-            window.TipMsg = function (message) {
-                $('<div>')
-                    .appendTo('body')
-                    .addClass('alert alert-danger')
-                    .html(message)
-                    .show()
-                    .delay(3000)
-                    .fadeOut();
-            };
-            window.log = function (msg) { $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
-
             $("#update_auto").click(function () {
                 wx({ method: 'update', action: 'auto' }, function (res) {
                     if (!res.msg) log('更新文件数量:' + res.data)
@@ -140,29 +130,8 @@
             $("#name").val(data[0].name)
             $("#url").val(data[0].url)
         }
-        var api_url = 'http://127.0.0.1:8203/api?json'
-        function wx(data, fn, url) {
-            $.LoadingOverlay("show")
-            log()
-            $.ajax({
-                type: "POST",
-                url: url || (api_url + '&key=' + localStorage.getItem('userkey')), data,
-                success: function (res, status) {
-                    if (res.msg) log(res.msg)
-                    fn(res)
-                },
-                error: function (xhr, errorText, errorType) {
-                    log('服务错误,请查看是否已启动服务:' + api_url)
-                },
-                complete: function () {
-                    $.LoadingOverlay("hide")
-                }
-            })
-        }
     </script>
 
-    <script src="../js/app.js"></script>
-    <script src="https://api.wxext.cn/update.js"></script>
 </body>
 
 </html>

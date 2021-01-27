@@ -6,9 +6,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11" id="mixia_vpid">
-    <title>e小天|开发者登录</title>
-    <meta name=keywords content="e小天|开发者登录">
-    <meta name=description content="e小天|开发者登录">
+    <title>e小天|开发者注册</title>
+    <meta name=keywords content="e小天|开发者注册">
+    <meta name=description content="e小天|开发者注册">
     <link rel="shortcut icon" href="../logo.png">
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 
@@ -63,17 +63,19 @@
 
 <body>
     <div class="container">
-        <h1>开发者登录</h1>
+        <h1>成为开发者</h1>
         <div class="row">
             <div class="col-sm">
                 <h6 id="tip" style="color:red;"></h6>
+                本框架使用门槛较高,需要开发者有一定的编码能力
                 <div class="form-group" style="max-width: 300px;">
-                    用户名:<input type="text" class="form-control" id="i_user" placeholder="用户名">
-                    密码:<input type="text" class="form-control" id="i_pwd" placeholder="密码">
-                    IP白名单:<textarea class="form-control" id="i_ips" rows="3">127.0.0.1</textarea>
+                    <input type="text" class="form-control" id="i_user" placeholder="用户名">
+                    <input type="text" class="form-control" id="i_pwd" placeholder="密码">
+                    <input type="text" class="form-control" id="i_code" placeholder="code">
                 </div>
-                <button onclick="login()" type="button" class="btn btn-primary">登录</button>
-                <a href="loginuser.html">成为开发者</a>
+                <button onclick="login()" type="button" class="btn btn-primary">注册</button>
+                <a href="login.html">登录</a>
+                <h6>开发者交流群:321620171</h6>
             </div>
         </div>
     </div>
@@ -85,30 +87,23 @@
     <script>
         if(location.pathname.includes('exit'))localStorage.setItem('userkey', '')
         else if (localStorage.getItem('userkey')) location.href = '../home/i.html'
-        
         function login() {
-            var user = $('#i_user').val(), pwd = $('#i_pwd').val()
-            , ips = $('#i_ips').val()
+            var user = $('#i_user').val(), pwd = $('#i_pwd').val(), code = $('#i_code').val()
             if (!user) return log('请填写用户名')
             if (!pwd) return log('请填写用户密码')
-            if (!/^[0-9A-Za-z_]{2,20}$/.test(user)) return log('用户名为7-20位的数字或字母或下划线')
-            wx({ method: 'mac' }, function (res) {
+            if (!code) return log('请填写code')
+            if (!/^[0-9A-Za-z_]{7,20}$/.test(user)) return log('用户名为7-20位的数字或字母或下划线')
+            pwd = sha1(sha1(user) + '[wxext.cn]' + sha1(pwd))
+            var url = 'https://api.wxext.cn/auth?reg=1&code=' + code + '&user=' + user + '&pwd=' + pwd
+            wx({}, function (res) {
                 if (res.msg) return log(res.msg)
-                console.log('版本', res.ver)
-                console.log('设备', res.id)
-                pwd = sha1(sha1(user) + '[wxext.cn]' + sha1(pwd))
-                var url = 'https://api.wxext.cn/auth?login=1&pcid=' + res.id + '&user=' + user + '&pwd=' + pwd
-                wx({}, function (res) {
-                    if (res.msg) return log(res.msg)
-                    console.log('data', res.data)
-                    wx({ method: 'key', user, ips, sign: res.data }, function (res) {
-                        if (res.msg) return log('登录失败,' + res.msg)
-                        log('登录成功')
-                        localStorage.setItem('userkey', res.key)
-                        location.href = '../home/i.html'
-                    })
-                }, url)
-            })
+
+                if (res.msg) return log('注册失败,' + res.msg)
+                log('注册成功')
+                localStorage.setItem('userkey', res.key)
+                location.href = '../home/i.html'
+
+            }, url)
         }
     </script>
 

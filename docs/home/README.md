@@ -1,79 +1,89 @@
 # e小天
-采用nodejs开发微信扩展应用
 
 pc微信小助手,软件本地运行，不联网，安全可靠
 
-方便管理本机微信，通过配置插件等进行网络连接
+本机进程管理工具,方便管理本机微信
 
 旨在提高生产生活效率，禁止骚扰营销
 
 [:memo: 编辑本文档](https://github.com/wxext/wxext/blob/master/docs/home/README.md)
 
+> 本框架使用门槛较高,需要开发者有一定的编码能力
+
 # 开发准备
 
 + [安装服务端](https://www.wxext.cn/app/install.html "安装e小天")
-+ [使用扩展需要安装nodejs](https://nodejs.org/zh-cn/ "nodejs")不使用扩展无需安装
-+ [PC微信安装](https://pc.weixin.qq.com/ "微信 PC 版")支持最新版微信（每个人最新版不一样咋办呀?那就都支持）
 
-+ [更新支持3.1.0.41](https://www.wxext.cn/app/update.html "更新文件")
++ [PC微信安装](https://pc.weixin.qq.com/ "微信PC版")支持最新版微信（每个人最新版不一样咋办呀?那就都支持）
 
+# 更新日志
 
+>+ 修复已知bug,稳定支持最新版
+>+ 支持使用任意语言进行开发应用,使用WxExtApp.exe进行调试应用
+>+ 请求同步响应数据,如 网络更新好友信息同步返回结果
+>+ 部分参数变化,如同意好友请求参数encryptusername,一般接口返回 invalid xxx就是缺少xxx参数
+>+ 提高安全性,访问需要key和IP白名单
+>+ 默认关闭日志
 
-
-# 其他语言示例
+# 成员贡献项目,仅供参考
 >+ [JAVA+HTTPAPI_DEMO](https://github.com/wxext/wechat-java-api-window "JAVA+HTTPAPI_DEMO")
 >+ [易语言](https://github.com/wxext/wechat-e "易语言模块")
 >+ [Python](https://gitee.com/KratosMax/WxextBasedWeChatBot "Python调用")
-
-# node扩展开发步骤
-
-## 安装开发工具
-
->+ 打开命令行执行（需安装nodejs）
-```
-npm i wxext -g
-```
-
-## 初始化一个demo
-
->+ 这是一个[微信复读机demo](https://github.com/wxext/wxext/blob/master/docs/ext/wxext/demo.js "微信复读机demo")，可复读文字、图片、动态表情、文章链接、小程序，群成员变化通知等
-```
-wxext init
-```
-
-## 进入目录
-```
-cd wxext
-```
-## 安装这个demo
->+ 把demo安装到插件目录下，刷新插件管理界面进行管理（启动、停止、删除）
-```
-wxext install
-```
-## 调试运行这个demo
->+ 开发测试时直接使用nodejs测试，需先上一步安装完才可使用
->+ 当前目录输入 wxext 即可使用nodejs调试开发扩展
->+ 如果插件已经在运行，无法直接在nodejs测试
->+ 可以打开软件首页停用插件后再连接测试 [插件管理](https://www.wxext.cn/home/i.html "e小天|个人中心")
-```
-wxext
-```
->+ [nodejs复读机扩展代码](https://github.com/wxext/wxext/blob/master/docs/ext/wxext/ "nodejs复读机扩展")
+>+ [nodejs微信复读机](https://github.com/wxext/wxext/blob/master/docs/ext/wxext/demo.js "微信复读机demo")，可复读文字、图片、动态表情、文章链接、小程序，群成员变化通知等
 
 ## 设置页面
+
+>+ [展示页面](https://www.wxext.cn/app/demo.html "e小天|展示页面")
+
+>+ [功能测试](https://www.wxext.cn/app/test.html "e小天|功能测试")
 
 >+ [软件授权](https://www.wxext.cn/app/settings.html "e小天|设置中心")
 
 >+ [管理插件](https://www.wxext.cn/home/i.html "e小天|个人中心")
 
-# 功能列表
-json数据格式，插件和http请求通用
+# 应用开发
+插件应用通过websocket进行连接通讯
+数据为json格式
 
-## 主动请求
->+ 插件内使用Send函数发送数据
->+ http调用将数据post请求 http://127.0.0.1:8203/api?json 
->+ 请求同步返回微信操作结果
->+ 登录多个微信时,用pid来选择，0默认使用第一个，-1操作全部
+## 创建应用
+
+>+ [创建应用](https://www.wxext.cn/app/app.html "e小天|创建应用")
+
+## 开发应用
+>+ 框架支持启动命令行运行应用,如 node,python,java 等
+>+ 框架启动DLL类型应用时,会执行应用的Run方法
+>+ 应用启动后在第一时间连接框架,否则会关闭应用
+
+```
+//应用导出Run方法即可
+extern "C" __declspec(dllexport) void __cdecl Run(void) {
+    //执行应用启动代码
+}
+//无法导出函数的,以下形式创建对应的Run方法
+namespace WxExt
+{
+    public class WxExtApp
+    {
+        public void Run()
+        {
+            //执行应用启动代码
+        }
+    }
+}
+```
+
+>+ 应用启动后,通过websocket连接即可,连接链接为
+>+ ws://127.0.0.1:8202/wx?name=应用名称&key=连接密钥
+>+ 应用名称和连接密钥可在环境变量中取得
+>+ 测试应用可打开WxExtApp.exe查看密钥
+
+## 调试应用
+把安装目录下的 WxExtApp.exe 复制到需要调试的开发目录,打开即可调试
+调试之前在运营中心启动对应的调试应用,WxExtApp刷新获取调试信息
+
+## 应用通讯
+>+ 应用通过websocket连接接收消息和发送消息,消息为json格式
+>+ 登录多个微信时,用pid来选择，默认情况下(0使用第一个，-1操作全部)
 
 ### 启动功能
 >+ 0取当前第一个微信，-1新启动一个微信
@@ -320,8 +330,8 @@ json数据格式，插件和http请求通用
 ```
 ## 事件通知
 >+ 设置通知地址后会将事件推送到指定地址  [去设置](https://www.wxext.cn/app/settings.html "e小天|设置中心")
->+ 可以推送到php等服务地址接收消息，然后通过http回复发送消息
->+ 插件OnRes接收事件消息
+>+ 可以推送到php等服务地址接收消息，然后通过http(需ip白名单带key请求)回复发送消息
+>+ 插件通过websocket实时接收消息
 >+ 每一个事件都有一个 type 字段表示含义
 
 ```
@@ -340,8 +350,9 @@ info    flag(open,qrchange,auth,login,logout)
 auth    720                 
 open    721
 qrchange    723
-login   724
+login   724  登录,可以工具time过期时间判断有没有自动授权
 logout  725
+expired 729 到期前半小时通知/主动请求无效通知
 
 callVoipAudio  726  发起电话
 callVoipAudio  727  挂断电话
@@ -351,30 +362,3 @@ exterr  802 插件连接断开通知
 exterr  803 微信连接断开通知
 tips  810   系统提示点击确定通知
 ```
-
-
-## Websocket连接
->+ 每个Websocket连接都作为一个插件存在
->+ 每个插件只允许有一个连接
-### 自定义Websocket连接
->+ 首先在e小天创建一个插件
->+ 在Websocket的headers里加入字段name的值为插件名
->+ 每个名称只能有一个连接，只有断开后才能接受其他连接
->+ 可在插件管理页面管理插件状态
-
-
-+ 创建插件方法一
-
->+ 使用wxext命令（安装方式 npm i wxext -g）
->+ wxext add 插件名称
->+ 创建成功
-
-+ 创建插件方法二
-
->+ 打开e小天软件，点查看日志，在打开的文件夹中返回上一层
->+ 进入ext目录，创建一个以插件名称命名的文件夹
->+ 在文件夹下创建一个package.json文件，内容如下
-```
-{"name":"插件名称","version":"1.0.0","description":"ws client","main":""}
-```
-> 此时就可以用这个插件名称连接了

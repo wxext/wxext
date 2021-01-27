@@ -91,17 +91,8 @@
     <script src="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
+    <script src="../js/app.js"></script>
     <script>
-        window.TipMsg = function (message) {
-            $('<div>')
-                .appendTo('body')
-                .addClass('alert alert-danger')
-                .html(message)
-                .show()
-                .delay(3000)
-                .fadeOut();
-        };
-        window.log = function (msg) { $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
 
         var tempData = "{\n    info: {\n        name: 'test'//插件名称\n        , des: '这是一个测试插件'//描述\n        , timer: 10//定时器运行间隔，整数秒或者字符串Cron表达式\n        , onmsg: true//是否可拦截通知消息,拦截的意思是不继续往下处理\n        , onreq: true//是否可拦截请求信息,返回自定义信息\n    }\n    , onmsg: function (data) {//接收到消息时\n        if(data.Contains('hi'))app.Send(Jstr({method: \"sendText\", wxid: \"filehelper\", msg: data}))\n        //如果消息包含hi，把消息发给文件传输助手\n    }\n    , onreq: function (data) {//接收到请求时\n        return Jstr({msg:'插件拦截了所有请求消息'})\n    }\n    , timer: function (data) {\n        //定时器指定时间运行，测试时只会立即运行一次\n        var time=DateTime.Now.ToString(\"yyyy-MM-dd HH:mm:ss\")\n        var data={method: \"sendText\", wxid: \"filehelper\", msg: \"hi,现在是：\"+time}\n        return app.Send(Jstr(data))\n    }\n    ,onstart:function(params) {\n       app.Log('开始运行前初始化动作,比如创建数据库表啥的')\n    }\n}"
 
@@ -123,27 +114,7 @@
             })
 
         })
-        var api_url = 'http://127.0.0.1:8203/api?json'
-        function wx(data, fn, url) {
-            $.LoadingOverlay("show")
-            log()
-            $.ajax({
-                type: "POST",
-                url: url || (api_url + '&key=' + localStorage.getItem('userkey')), data,
-                success: function (res, status) {
-                    if (res.msg) log(res.msg)
-                    fn(res)
-                },
-                error: function (xhr, errorText, errorType) {
-                    log('服务错误,请查看是否已启动服务:' + api_url)
-                },
-                complete: function () {
-                    $.LoadingOverlay("hide")
-                }
-            })
-        }
     </script>
-    <script src="../js/app.js"></script>
 
 </body>
 

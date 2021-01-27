@@ -32,13 +32,13 @@
         <h1 class="panel-cover__title panel-title"><a href="#" title="微信扩展应用开发">e小天|微信扩展应用开发</a></h1>
         <span class="panel-cover__subtitle panel-subtitle">
           <hr class="panel-cover__divider">
-          <p class="panel-cover__description">人工智能时代已经到来,人人都是程序员
-            <br />集成本地数据库,日志,网络请求,定时器,拦截器等
-            <br />快速实现人工智能,减轻劳力,快速实现自身需求
+          <p class="panel-cover__description">
+          <h3>简单 快捷 轻巧</h3>
           </p>
           <hr class="panel-cover__divider">
-          <p class="panel-cover__description">开发插件免费使用,专注提高生产生活效率</p>
+          <p class="panel-cover__description">开发应用永久免费使用,专注提高生产生活效率</p>
           <p class="panel-cover__description">做得更少,获得更多,让生活变简单</p>
+          <p class="panel-cover__description">本框架使用门槛较高,需要开发者有一定的编码能力</p>
           <p class="footer">Copyright © 2019 <a href="#" target="_blank">e小天|微信扩展应用开发</a> All Rights Reserved.</p>
 
           <div class="navigation-wrapper">
@@ -49,6 +49,7 @@
                   <li class="navigation__item"><a href="home/ext.html" title="扩展中心">扩展中心</a></li>
                   <li class="navigation__item"><a href="home/developer.html" title="开发者">开发者</a></li>
                   <li class="navigation__item"><a href="home/home.html" title="关于">关于</a></li>
+                  <li class="navigation__item"><a href="https://afdian.net/@wxext" title="爱发电">爱发电</a></li>
                 </ul>
               </nav>
             </div>
@@ -73,8 +74,16 @@
       var s = document.getElementsByTagName('body')[0];
       s.parentNode.insertBefore(hm, s);
     }
-    window.loadTime = +new Date();
-    loadScript('js/run.js?t=' + loadTime)</script>
+    $(function () {
+      if ($('.logo').length) {
+        function loadSay() { loadScript('https://v1.hitokoto.cn/?c=e&encode=js&select=%23hitoko') }
+        $('.logo').popover({ html: true, content: "<div id='hitoko'></div>" }).popover('show')
+        setInterval(loadSay, 3000);
+        loadSay()
+      }
+    })
+
+  </script>
 
 </body>
 
