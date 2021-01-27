@@ -25,13 +25,13 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 >+ 提高安全性,访问需要key和IP白名单
 >+ 默认关闭日志
 
-# 成员贡献项目,仅供参考
+## 成员贡献项目,仅供参考
 >+ [JAVA+HTTPAPI_DEMO](https://github.com/wxext/wechat-java-api-window "JAVA+HTTPAPI_DEMO")
 >+ [易语言](https://github.com/wxext/wechat-e "易语言模块")
 >+ [Python](https://gitee.com/KratosMax/WxextBasedWeChatBot "Python调用")
 >+ [nodejs微信复读机](https://github.com/wxext/wxext/blob/master/docs/ext/wxext/demo.js "微信复读机demo")，可复读文字、图片、动态表情、文章链接、小程序，群成员变化通知等
 
-## 设置页面
+# 功能页面
 
 >+ [展示页面](https://www.wxext.cn/app/demo.html "e小天|展示页面")
 
