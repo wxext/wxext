@@ -51,12 +51,12 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 ## 开发应用
 >+ 框架支持启动命令行运行应用,如 node,python,java 等
->+ 框架启动DLL类型应用时,会执行应用的Run方法
+>+ 框架启动DLL类型应用时,会执行应用的 WxExt_Run 方法
 >+ 应用启动后在第一时间连接框架,否则会关闭应用
 
 ```
 //应用导出Run方法即可
-extern "C" __declspec(dllexport) void __cdecl Run(void) {
+extern "C" __declspec(dllexport) void __cdecl WxExt_Run(void) {
     //执行应用启动代码
 }
 //无法导出函数的,以下形式创建对应的Run方法
@@ -64,7 +64,7 @@ namespace WxExt
 {
     public class WxExtApp
     {
-        public void Run()
+        public void WxExt_Run()
         {
             //执行应用启动代码
         }
