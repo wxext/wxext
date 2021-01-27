@@ -12,7 +12,7 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 # 开发准备
 
-+ [安装服务端](https://www.wxext.cn/app/install.html "安装e小天")
++ [安装服务端](https://api.wxext.cn/auth?down=wxext "安装e小天")
 
 + [PC微信安装](https://pc.weixin.qq.com/ "微信PC版")支持最新版微信（每个人最新版不一样咋办呀?那就都支持）
 

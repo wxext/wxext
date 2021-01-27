@@ -83,7 +83,7 @@
     <script src="../js/app.js"></script>
 
     <script>
-        if(location.pathname.includes('exit'))localStorage.setItem('userkey', '')
+        if(location.search.includes('exit'))localStorage.setItem('userkey', '')
         else if (localStorage.getItem('userkey')) location.href = '../home/i.html'
         
         function login() {
