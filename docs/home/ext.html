@@ -8,19 +8,63 @@
     <meta name=keywords content="e小天|扩展中心">
     <meta name=description content="e小天|扩展中心">
     <link rel="shortcut icon" href="../logo.png">
-    <link rel="stylesheet" href="../css/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/main.css">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
         html {
             background: #5b6584
         }
-        .ext{
+
+        .ext {
             width: 200px;
             height: 100px;
             margin: 20px;
             background-color: aqua;
-            line-height: 100px;
             text-align: center;
+            display: inline-block;
+        }
+        .none {
+            display: none;
+        }
+
+        .alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 300px;
+            max-width: 600px;
+            transform: translate(-50%, -50%);
+            z-index: 99999;
+            text-align: center;
+            padding: 15px;
+            border-radius: 3px;
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .alert-info {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        .checkbox_notify {
             display: inline-block;
         }
     </style>
@@ -29,13 +73,75 @@
 <body>
     <div class="container">
         <h1>扩展中心</h1>
-        <div class="ext">特别关心</div>
-        <div class="ext">智能回复</div>
-        <div class="ext">自动授权</div>
-        <div class="ext">数据分析</div>
+        <a href="../home/i.html">个人中心</a>
+
+        <form class="form-inline">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="name" class="sr-only">搜索应用</label>
+                <input type="text" class="form-control" id="name" placeholder="应用名称">
+            </div>
+            <button type="button" onclick="search()" class="btn btn-primary mb-2">搜索</button>
+        </form>
+        <div id="ext"></div>        
     </div>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
+    <script src="https://cdn.bootcss.com/js-sha1/0.6.0/sha1.min.js"></script>
     <script src="../js/app.js"></script>
+    <script>
+        let data = []
+        function search() {
+            var sid = localStorage.getItem('sid')
+            if (!sid) return log('请重新登录')
+            var name = $("#name").val()
+            if (!name) return log('请填写名称')
+            var url = 'https://api.wxext.cn/auth?app=1&search=1&sid=' + sid + '&name=' + name
+            wx({}, function (res) {
+                if (res.msg) return
+                data = res.data
+                updateData()
+            }, url)
+        }
+        function updateData() {//<div class="ext">特别关心</div>
+            $('#ext').html(data.map(function (d) {
+                var temp = `
+                <div class="ext">@name v@version<br/>@user<br/>@des
+                    <input type="password" onkeypress="addpwd(this,'@name')" class="form-control" placeholder="添加">
+                </div>
+`
+                for (var i in d) temp = temp.replace(new RegExp("@" + i, 'g'), d[i]);
+                return temp
+            }))
+        }
+        function addpwd(e,name){
+            if(event.keyCode==13){
+                add(name,e.value)
+                e.value='';
+            }
+        }
+        function add(name,secret) {
+            let obj = data.find(o => o.name === name)
+            if (!obj) return log('未找到应用')
+            var binduser = localStorage.getItem('user')
+            if (!binduser) return log('请重新登录')
+            var bindauth = sha1(sha1(binduser) + sha1(name) + '[wxext.cn]' + sha1(secret))
+            var extauth = '&name=' + name + '&binduser=' + binduser + '&bindauth=' + bindauth
+
+            var sid = localStorage.getItem('sid')
+            if (!sid) return log('请重新登录')
+
+            var url = 'https://api.wxext.cn/auth?app=1&add=1&sid=' + sid + extauth
+            wx({}, function (res) {
+                if (res.msg) return log(res.msg)
+                wx({ method: 'ext', action: 'add', del: '强制安装', name, data: res.data.add }, function (res) {
+                    if (res.msg) return log(res.msg)
+                    log('添加成功,请到个人中心查看')
+                })
+            }, url)
+
+
+        }
+    </script>
 </body>
 
 </html>
