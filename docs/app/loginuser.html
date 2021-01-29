@@ -70,8 +70,9 @@
                 本框架使用门槛较高,需要开发者有一定的编码能力
                 <div class="form-group" style="max-width: 300px;">
                     <input type="text" class="form-control" id="i_user" placeholder="用户名">
-                    <input type="text" class="form-control" id="i_pwd" placeholder="密码">
-                    <input type="text" class="form-control" id="i_code" placeholder="code">
+                    <input type="password" class="form-control" id="i_pwd" placeholder="密码">
+                    <input type="text" value="1" class="form-control" id="i_code" placeholder="code">
+                    <input type="text" class="form-control" id="i_qq" placeholder="qq,您的身份凭据">
                 </div>
                 <button onclick="login()" type="button" class="btn btn-primary">注册</button>
                 <a href="login.html">登录</a>
@@ -88,13 +89,15 @@
         if(location.pathname.includes('exit'))localStorage.setItem('userkey', '')
         else if (localStorage.getItem('userkey')) location.href = '../home/i.html'
         function login() {
-            var user = $('#i_user').val(), pwd = $('#i_pwd').val(), code = $('#i_code').val()
+            var user = $('#i_user').val(), pwd = $('#i_pwd').val()
+            , qq = $('#i_qq').val()
+            , code = $('#i_code').val()
             if (!user) return log('请填写用户名')
             if (!pwd) return log('请填写用户密码')
             if (!code) return log('请填写code')
             if (!/^[0-9A-Za-z_]{7,20}$/.test(user)) return log('用户名为7-20位的数字或字母或下划线')
             pwd = sha1(sha1(user) + '[wxext.cn]' + sha1(pwd))
-            var url = 'https://api.wxext.cn/auth?reg=1&code=' + code + '&user=' + user + '&pwd=' + pwd
+            var url = 'https://api.wxext.cn/auth?reg=1&code=' + code + '&user=' + user + '&pwd=' + pwd+ '&qq=' + qq
             wx({}, function (res) {
                 if (res.msg) return log(res.msg)
 

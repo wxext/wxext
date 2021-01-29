@@ -69,9 +69,10 @@
                 <h6 id="tip" style="color:red;"></h6>
                 <div class="form-group" style="max-width: 300px;">
                     用户名:<input type="text" class="form-control" id="i_user" placeholder="用户名">
-                    密码:<input type="text" class="form-control" id="i_pwd" placeholder="密码">
+                    密码:<input type="password" class="form-control" id="i_pwd" placeholder="密码">
                     IP白名单:<textarea class="form-control" id="i_ips" rows="3">127.0.0.1</textarea>
                 </div>
+                <p>无法登录请下载最新版安装</p>
                 <button onclick="login()" type="button" class="btn btn-primary">登录</button>
                 <a href="loginuser.html">成为开发者</a>
             </div>
@@ -97,14 +98,18 @@
                 console.log('版本', res.ver)
                 console.log('设备', res.id)
                 pwd = sha1(sha1(user) + '[wxext.cn]' + sha1(pwd))
+                localStorage.setItem('pcid', res.id)
                 var url = 'https://api.wxext.cn/auth?login=1&pcid=' + res.id + '&user=' + user + '&pwd=' + pwd
                 wx({}, function (res) {
                     if (res.msg) return log(res.msg)
+                    var sid=res.data.sid,sign=res.data.sign
                     console.log('data', res.data)
-                    wx({ method: 'key', user, ips, sign: res.data }, function (res) {
+                    wx({ method: 'key', user, ips, sign: sign }, function (res) {
                         if (res.msg) return log('登录失败,' + res.msg)
                         log('登录成功')
                         localStorage.setItem('userkey', res.key)
+                        localStorage.setItem('user', user)
+                        localStorage.setItem('sid', sid)
                         location.href = '../home/i.html'
                     })
                 }, url)

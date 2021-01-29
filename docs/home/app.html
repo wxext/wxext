@@ -1,11 +1,246 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>创建应用</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11" id="mixia_vpid"
+        name="mixia_vpid">
+    <title>e小天|创建应用</title>
+    <meta name=keywords content="e小天|创建应用">
+    <meta name=description content="e小天|创建应用">
+    <link rel="shortcut icon" href="../logo.png">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .none {
+            display: none;
+        }
+
+        .alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 300px;
+            max-width: 600px;
+            transform: translate(-50%, -50%);
+            z-index: 99999;
+            text-align: center;
+            padding: 15px;
+            border-radius: 3px;
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .alert-info {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        .checkbox_notify {
+            display: inline-block;
+        }
+    </style>
 </head>
+
 <body>
-    
+    <div class="container">
+        <h1>我的应用</h1>
+
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">应用名称</th>
+                        <th scope="col">可见</th>
+                        <th scope="col">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="tr_ud"></tbody>
+            </table>
+        </div>
+
+
+
+
+        <h5 style="border-bottom: 1px solid blue;">编辑应用</h5>
+
+        <div style="max-width: 500px;">
+            <form>
+                <div class="form-group row">
+                    <label for="name" class="col-sm-3 col-form-label text-right">应用名称</label>
+                    <div class="col-sm-9">
+                        <input type="text" value="测试应用" class="form-control" id="name" name="name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="des" class="col-sm-3 col-form-label text-right">描述</label>
+                    <div class="col-sm-9">
+                        <input type="text" value="这是一个测试应用" class="form-control" id="des" name="des">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="version" class="col-sm-3 col-form-label text-right">版本</label>
+                    <div class="col-sm-9">
+                        <input type="text" value="1.0.0.0" class="form-control" id="version" name="version">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="home" class="col-sm-3 col-form-label text-right">首页地址</label>
+                    <div class="col-sm-9">
+                        <input type="text" value="http://127.0.0.1:8203/ext/测试应用/www/" class="form-control" id="home"
+                            name="home">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="main" class="col-sm-3 col-form-label text-right">主程序</label>
+                    <div class="col-sm-9">
+                        <input type="text" value="app.js" class="form-control" id="main" name="main">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="md5" class="col-sm-3 col-form-label text-right">主程序md5</label>
+                    <div class="col-sm-9">
+                        <input type="text" value="" class="form-control" id="md5" name="md5">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="run" class="col-sm-3 col-form-label text-right">运行命令</label>
+                    <div class="col-sm-9">
+                        <input type="text" value="node" class="form-control" id="run" name="run">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="secret" class="col-sm-3 col-form-label text-right">密钥</label>
+                    <div class="col-sm-9">
+                        <input type="text" value="123" class="form-control" id="secret" name="secret">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="val" class="col-sm-3 col-form-label text-right">价值</label>
+                    <div class="col-sm-9">
+                        <input type="text" value="9" class="form-control" id="val" name="val">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label text-right">可见</label>
+                    <div class="col-sm-9">
+                        <select name="open" class="custom-select">
+                            <option value="0" selected>私密</option>
+                            <option value="1">公开</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-10 text-right">
+                        <button type="button" onclick="login()" class="btn btn-primary">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
+    <script src="https://cdn.bootcss.com/js-sha1/0.6.0/sha1.min.js"></script>
+    <script src="../js/app.js"></script>
+
+    <script>
+        let data = []
+        function cz(name) {
+            let obj = data.find(o => o.name === name)
+            if (!obj) return log('未找到应用')
+            for (var i in obj) {
+                $("form [name=" + i + "]").val(obj[i])
+            }
+            log('请在下方修改内容')
+        }
+        function add(name) {
+            let obj = data.find(o => o.name === name)
+            if (!obj) return log('未找到应用')
+            var binduser = obj.user
+            var bindauth = sha1(sha1(binduser) + sha1(name) + '[wxext.cn]' + sha1(obj.secret))
+            var extauth = '&name=' + name + '&binduser=' + binduser + '&bindauth=' + bindauth
+
+            var sid = localStorage.getItem('sid')
+            if (!sid) return log('请重新登录')
+
+            var url = 'https://api.wxext.cn/auth?app=1&add=1&sid=' + sid + extauth
+            wx({}, function (res) {
+                if (res.msg) return log(res.msg)
+                wx({ method: 'ext', action: 'add', del: '强制安装', name, data: res.data.add }, function (res) {
+                    if (res.msg) return log(res.msg)
+                    log('添加成功,请到个人中心查看')
+                })
+            }, url)
+
+
+        }
+        setTimeout(list, 0)
+        function list() {
+            var sid = localStorage.getItem('sid')
+            if (!sid) return log('请重新登录')
+            var url = 'https://api.wxext.cn/auth?app=1&list=1&sid=' + sid
+            wx({}, function (res) {
+                if (res.msg) return log(res.msg)
+                data = res.data
+                updateData()
+            }, url)
+        }
+        function updateData() {
+            $('#tr_ud').html(data.map(function (d) {
+                var temp = `
+<tr>
+                        <th scope="row">@id</th>
+                        <td>@name</td>
+                        <td>@open</td>
+                        <td>
+                            <button type="button" onclick="cz('@name')" class="btn btn-primary">编辑</button>
+                            <button type="button" onclick="add('@name')" class="btn btn-primary">添加</button>
+                        </td>
+</tr>
+`
+                for (var i in d) temp = temp.replace(new RegExp("@" + i, 'g'), d[i]);
+                return temp
+            }))
+        }
+        function login() {
+            var o = $("form").serialize()
+                , user = localStorage.getItem('user')
+                , sid = localStorage.getItem('sid')
+                , pcid = localStorage.getItem('pcid')
+            if (!sid) return log('请重新登录')
+            if (!user) return log('请重新登录')
+            if (!pcid) return log('请重新登录')
+            var url = 'https://api.wxext.cn/auth?app=1&up=1&sid=' + sid + '&' + o
+            wx({}, function (res) {
+                if (res.status) list()
+                if (res.msg) return log(res.msg)
+            }, url)
+        }
+    </script>
+
 </body>
+
 </html>
