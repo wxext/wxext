@@ -22,6 +22,7 @@
             text-align: center;
             display: inline-block;
         }
+
         .none {
             display: none;
         }
@@ -82,7 +83,7 @@
             </div>
             <button type="button" onclick="search()" class="btn btn-primary mb-2">搜索</button>
         </form>
-        <div id="ext"></div>        
+        <div id="ext"></div>
     </div>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
@@ -113,13 +114,14 @@
                 return temp
             }))
         }
-        function addpwd(e,name){
-            if(event.keyCode==13){
-                add(name,e.value)
-                e.value='';
+        function addpwd(e, name) {
+            if (event.keyCode == 13) {
+                var pwd = e.value
+                e.value = '';
+                add(name, pwd)
             }
         }
-        function add(name,secret) {
+        function add(name, secret) {
             let obj = data.find(o => o.name === name)
             if (!obj) return log('未找到应用')
             var binduser = localStorage.getItem('user')
