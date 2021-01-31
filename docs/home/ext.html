@@ -107,7 +107,7 @@
             $('#ext').html(data.map(function (d) {
                 var temp = `
                 <div class="ext">@name v@version<br/>@user<br/>@des
-                    <input type="password" onkeypress="addpwd(this,'@name')" class="form-control" placeholder="添加">
+                    <input type="password" onkeypress="addpwd(this,'@name')" class="form-control" placeholder="输密钥按回车添加">
                 </div>
 `
                 for (var i in d) temp = temp.replace(new RegExp("@" + i, 'g'), d[i]);
@@ -122,15 +122,22 @@
             }
         }
         function add(name, secret) {
+            if (!secret) return log('请输入密钥')
             let obj = data.find(o => o.name === name)
             if (!obj) return log('未找到应用')
             var binduser = localStorage.getItem('user')
             if (!binduser) return log('请重新登录')
-            var bindauth = sha1(sha1(binduser) + sha1(name) + '[wxext.cn]' + sha1(secret))
-            var extauth = '&name=' + name + '&binduser=' + binduser + '&bindauth=' + bindauth
-
             var sid = localStorage.getItem('sid')
             if (!sid) return log('请重新登录')
+
+            var bindauth = sha1(sha1(binduser) + sha1(name) + '[wxext.cn]' + sha1(secret))
+            secret = ''
+            var extauth = '&name=' + name + '&binduser=' + binduser + '&bindauth=' + bindauth
+
+            if (obj.val > 0) {
+                if (!confirm('添加该应用需要扣除[' + obj.val + ']贡献值,确认添加吗?')) return
+            }
+
 
             var url = 'https://api.wxext.cn/auth?app=1&add=1&sid=' + sid + extauth
             wx({}, function (res) {

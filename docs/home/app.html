@@ -108,7 +108,7 @@
                 <div class="form-group row">
                     <label for="home" class="col-sm-3 col-form-label text-right">首页地址</label>
                     <div class="col-sm-9">
-                        <input type="text" value="http://127.0.0.1:8203/ext/测试应用/www/" class="form-control" id="home"
+                        <input type="text" value="http://127.0.0.1:8203/ext/@name/www/" class="form-control" id="home"
                             name="home">
                     </div>
                 </div>
@@ -189,7 +189,7 @@
             var url = 'https://api.wxext.cn/auth?app=1&add=1&sid=' + sid + extauth
             wx({}, function (res) {
                 if (res.msg) return log(res.msg)
-                wx({ method: 'ext', action: 'add', del: '强制安装', name, data: res.data.add }, function (res) {
+                wx({ method: 'ext', action: 'add', del: '强制添加', name, data: res.data.add }, function (res) {
                     if (res.msg) return log(res.msg)
                     log('添加成功,请到个人中心查看')
                 })

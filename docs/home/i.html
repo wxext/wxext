@@ -116,17 +116,21 @@
       wx({ method: "ext", action: "list" }, function (res) {
         console.log(res)
         if (res.msg) return log(url)
-        var html = '', hashrun = {}
+        var html = ''
         res.ext.forEach(function (d) {
-          hashrun[d.name] = true
-          var t = '<div class="ext"><a href="@home">@name@@version</a><br/>拦截请求:@onReq<br/>状态:@status'
+          var t = '<div class="ext"><a href="@home">@name@@version</a><br/>日志:@log<br/>状态:@status'
           t += '<button type="button" onclick="del(\'@name\')" class="btn btn-danger btn--sm">删除</button>'
-          if (d.isRuning) {
+          if (d.status == -1) {
+            t += '<button type="button" onclick="install(\'@name\')" class="btn btn-warning btn--sm">安装</button>'
+          } else if (d.status == 2) {
             t += '<button type="button" onclick="stop(\'@name\')" class="btn btn-warning btn--sm">停用</button>'
           } else {
             t += '<button type="button" onclick="start(\'@name\')" class="btn btn-info btn--sm">启用</button>'
           }
           t += '</div>'
+          d.home = d.home&&d.home.replace(/@name/g, d.name)
+          d.des = d.des&&d.des.replace(/@name/g, d.name)
+          console.log(d)
           for (var i in d) t = t.replace(new RegExp("@" + i, 'g'), d[i]);
           html += t
         })
@@ -137,6 +141,19 @@
         }
 
       })
+    }
+    function install(name) {
+      var sid = localStorage.getItem('sid')
+      if (!sid) return log('请重新登录')
+      var url = 'https://api.wxext.cn/auth?app=1&install=1&name=' + name + '&sid=' + sid
+      wx({}, function (res) {
+        if (res.msg) return log(res.msg)
+        wx({ method: 'ext', action: 'install', zipurl: res.data.zipurl, name, sign: res.data.sign }, function (res) {
+          if (res.msg) return log(res.msg)
+          log('安装成功,请启用')
+          upadteList()
+        })
+      }, url)
     }
     function start(name) {
       wx({ method: "ext", "action": "start", name }, function (res) {

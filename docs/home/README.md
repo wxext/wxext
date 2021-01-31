@@ -369,7 +369,7 @@ info    flag(open,qrchange,auth,login,logout)
 auth    720                 
 open    721
 qrchange    723
-login   724  登录,可以工具time过期时间判断有没有自动授权
+login   724  登录,可以根据time过期时间判断有没有自动授权
 logout  725
 expired 729 到期前半小时通知/主动请求无效通知
 
