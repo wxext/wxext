@@ -73,7 +73,7 @@
 
 <body>
   <div class="container">
-    <h1>个人中心</h1>
+    <h1>个人中心(请更新最新版3.3.0.2)</h1>
     <div class="row">
       <div class="linkto">
         <div>
@@ -112,10 +112,11 @@
   <script src="../js/app.js"></script>
 
   <script>
-    function upadteList(url) {
+    function upadteList(fun) {
       wx({ method: "ext", action: "list" }, function (res) {
         console.log(res)
-        if (res.msg) return log(url)
+        if (res.msg) return log(res.msg)
+        if (fun) fun()
         var html = ''
         res.ext.forEach(function (d) {
           var t = '<div class="ext"><a href="@home">@name@@version</a><br/>日志:@log<br/>状态:@status'
@@ -128,8 +129,8 @@
             t += '<button type="button" onclick="start(\'@name\')" class="btn btn-info btn--sm">启用</button>'
           }
           t += '</div>'
-          d.home = d.home&&d.home.replace(/@name/g, d.name)
-          d.des = d.des&&d.des.replace(/@name/g, d.name)
+          d.home = d.home && d.home.replace(/@name/g, d.name)
+          d.des = d.des && d.des.replace(/@name/g, d.name)
           console.log(d)
           for (var i in d) t = t.replace(new RegExp("@" + i, 'g'), d[i]);
           html += t
@@ -149,31 +150,35 @@
       wx({}, function (res) {
         if (res.msg) return log(res.msg)
         wx({ method: 'ext', action: 'install', zipurl: res.data.zipurl, name, sign: res.data.sign }, function (res) {
-          if (res.msg) return log(res.msg)
-          log('安装成功,请启用')
-          upadteList()
+          upadteList(function () {
+            if (res.msg) return log(res.msg)
+            log(res.data)
+          })
         })
       }, url)
     }
     function start(name) {
       wx({ method: "ext", "action": "start", name }, function (res) {
-        if (res.msg) return
-        log('启用成功：' + name)
-        upadteList()
+        upadteList(function () {console.log('res',res)
+          if (res.msg) return log(res.msg)
+          log(res.data)
+        })
       })
     }
     function stop(name) {
       wx({ method: "ext", "action": "stop", name }, function (res) {
-        if (res.msg) return
-        log('停用成功：' + name)
-        upadteList()
+        upadteList(function () {
+          if (res.msg) return log(res.msg)
+          log(res.data)
+        })
       })
     }
     function del(name) {
       wx({ method: "ext", "action": "del", name }, function (res) {
-        if (res.msg) return
-        log('删除成功：' + name)
-        upadteList()
+        upadteList(function () {
+          if (res.msg) return log(res.msg)
+          log(res.data)
+        })
       })
     }
     upadteList()

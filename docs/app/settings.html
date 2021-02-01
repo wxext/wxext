@@ -78,13 +78,14 @@
                 </div>
 
                 <div class="form-group">
+                    <input type="text" class="form-control" id="addrUrl_name" placeholder="通知名称">
                     <input type="text" class="form-control" id="addrUrl_url" placeholder="通知地址">
                     <input type="text" class="form-control" id="addrUrl_msg" placeholder="包含消息">
                     <input type="text" class="form-control" id="addrUrl_reg" placeholder="匹配正则">
                     勾选需要通知的事件（包含消息和匹配正则才通知不需要设置时留空即可）
                     <div id="notifycheck"></div>
                 </div>
-
+                <h5>无法设置请下载更新</h5>
                 <button id="url_set" type="button" class="btn btn-primary">设置</button>
             </div>
         </div>
@@ -104,18 +105,40 @@
             , "725": "登录信息-微信退出", "726": "发起语音通过", "727": "拒绝语音通话", "728": "接受语音通话"
             , "802": "插件连接断开", "803": "微信连接断开", "810": "系统提示点击确定", "10000": "系统消息"
         }
+        //推送状态 1 停止 2 运行 3 错误
         function upadteNotifyList() {
-            wx({ method: 'notify' }, function (res) {
+            wx({ method: 'notify', action: 'list' }, function (res) {
                 if (res.msg) return log(res.msg)
                 var html = ''
                 res.data.forEach(function (d, i) {
                     var btn = '<button type="button" onclick="del(\'' + i + '\')" class="btn btn-warning btn--sm">删除</button>'
-                    html += '<tr><td>' + btn + '</td><td>' + d.url + '</td><td>' + d.type.join('|') + '</td><td>' + d.msg + '</td><td>' + d.reg + '</td></tr>'
+                    if (d.status == 1) {
+                        btn += '<br/><button type="button" onclick="start(\'' + i + '\')" class="btn btn-warning btn--sm">开启</button>'
+                        d.status = '停止'
+                    }
+                    else if (d.status == 2) {
+                        btn += '<br/><button type="button" onclick="stop(\'' + i + '\')" class="btn btn-warning btn--sm">停止</button>'
+                        d.status = '运行'
+                    }
+                    else if (d.status == 3) {
+                        btn += '<br/><button type="button" onclick="start(\'' + i + '\')" class="btn btn-warning btn--sm">开启</button>'
+                        d.status = '错误'
+                    }
+                    else {
+                        btn += '<br/><button type="button" onclick="start(\'' + i + '\')" class="btn btn-warning btn--sm">停止</button>'
+                        d.status = '未知'
+                    }
+                    if(d.log){
+                        d.log = '<button type="button" onclick="setlog(\'' + i + '\',0)" class="btn btn-warning btn--sm">关闭</button>'
+                    }else{
+                        d.log = '<button type="button" onclick="setlog(\'' + i + '\',1)" class="btn btn-warning btn--sm">开启</button>'
+                    }
+                    html += '<tr><td>' + btn + '</td><td>' + d.name + '</td><td>' + d.status + '</td><td>' + d.log + '</td><td>' + d.err+'|'+d.error + '</td><td>' + d.url + '</td><td>' + d.type.join('|') + '</td><td>' + d.msg + '</td><td>' + d.reg + '</td></tr>'
                 })
                 if (html == '') {
                     $("#notifylist").html('暂未设置推送')
                 } else {
-                    $("#notifylist").html('<table class="table table-bordered"><tr><th>操作</th><th>通知地址</th><th>类型</th><th>匹配才推送</th><th>符合正则才推送</th></tr>' + html + '</table>')
+                    $("#notifylist").html('<table class="table table-bordered"><tr><th>操作</th><th>通知名称</th><th>状态</th><th>日志</th><th>错误</th><th>通知地址</th><th>类型</th><th>匹配才推送</th><th>符合正则才推送</th></tr>' + html + '</table>')
                 }
 
             })
@@ -140,13 +163,33 @@
             upadteNotifyList()
         }
         function del(index) {
-            wx({ method: "notify", "type": "del", index }, function (res) {
+            wx({ method: "notify", "action": "del", index }, function (res) {
                 if (res.msg) return
                 log('删除成功')
                 upadteNotifyList()
             })
         }
-
+        function setlog(index, on) {
+            wx({ method: "setNotify", "log": on ? 1 : 2, index }, function (res) {
+                if (res.msg) return
+                log('设置成功')
+                upadteNotifyList()
+            })
+        }
+        function start(index) {
+            wx({ method: "setNotify", "start": "1", index }, function (res) {
+                if (res.msg) return
+                log('开启成功')
+                upadteNotifyList()
+            })
+        }
+        function stop(index) {
+            wx({ method: "setNotify", "stop": "1", index }, function (res) {
+                if (res.msg) return
+                log('停止成功')
+                upadteNotifyList()
+            })
+        }
         function auth_wxid(pid, wxid) {
             if (!wxid) return log('请填写wxid')
             wx({ pid, method: 'mac' }, function (res) {
@@ -170,17 +213,19 @@
 
             upadteList()
             $("#url_set").click(function () {
+                var name = $("#addrUrl_name").val()
                 var url = $("#addrUrl_url").val()
                 var msg = $("#addrUrl_msg").val()
                 var reg = $("#addrUrl_reg").val()
-                if (!url) return log('请填写 url')
+                if (!url) return log('请填写 通知地址')
+                if (!name) return log('请填写 名称')
                 var checknotify = []
                 $.each($('input:checkbox:checked'), function () {
                     checknotify.push($(this).val())
                 })
                 if (!checknotify.length) return log('请选择通知类型')
                 wx({
-                    method: 'notify', type: 'add', data: checknotify.join('|'), msg, reg, url
+                    method: 'notify', action: 'add', type: checknotify, name,msg, reg, url
                 }, function (res) {
                     if (res.msg) return log(res.msg)
                     log('添加成功')
