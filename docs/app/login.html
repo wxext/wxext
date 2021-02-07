@@ -92,6 +92,10 @@
         if (location.search.includes('exit')) localStorage.setItem('userkey', '')
         else if (window.setuserkey || localStorage.getItem('userkey')) location.href = '../home/i.html'
 
+        setTimeout(checkkey, 0)
+        function checkkey() {
+            if (window.setuserkey || localStorage.getItem('userkey')) location.href = '../home/i.html'
+        }
         function login() {
             var user = $('#i_user').val(), pwd = $('#i_pwd').val()
                 , ips = $('#i_ips').val()
