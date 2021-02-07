@@ -72,6 +72,11 @@
                     密码:<input type="password" class="form-control" id="i_pwd" placeholder="密码">
                     IP白名单:<textarea class="form-control" id="i_ips" rows="3">127.0.0.1</textarea>
                 </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="notkey">
+                    <label class="form-check-label" for="notkey">不设置key(3.3.0.4以上支持)</label>
+                    <small class="form-text text-muted">当软件已登录时可不设置key,点击软件管理面板打开使用旧key</small>
+                </div>
                 <p>无法登录请下载最新版安装</p>
                 <button onclick="login()" type="button" class="btn btn-primary">登录</button>
                 <a href="loginuser.html">成为开发者</a>
@@ -84,12 +89,13 @@
     <script src="../js/app.js"></script>
 
     <script>
-        if(location.search.includes('exit'))localStorage.setItem('userkey', '')
-        else if (localStorage.getItem('userkey')) location.href = '../home/i.html'
-        
+        if (location.search.includes('exit')) localStorage.setItem('userkey', '')
+        else if (window.setuserkey || localStorage.getItem('userkey')) location.href = '../home/i.html'
+
         function login() {
             var user = $('#i_user').val(), pwd = $('#i_pwd').val()
-            , ips = $('#i_ips').val()
+                , ips = $('#i_ips').val()
+                , notkey = $('#notkey').prop('checked')
             if (!user) return log('请填写用户名')
             if (!pwd) return log('请填写用户密码')
             if (!/^[0-9A-Za-z_]{2,20}$/.test(user)) return log('用户名为7-20位的数字或字母或下划线')
@@ -102,15 +108,19 @@
                 var url = 'https://api.wxext.cn/auth?login=1&pcid=' + res.id + '&user=' + user + '&pwd=' + pwd
                 wx({}, function (res) {
                     if (res.msg) return log(res.msg)
-                    var sid=res.data.sid,sign=res.data.sign
+                    var sid = res.data.sid, sign = res.data.sign
                     console.log('data', res.data)
                     wx({ method: 'key', user, ips, sign: sign }, function (res) {
                         if (res.msg) return log('登录失败,' + res.msg)
-                        log('登录成功')
-                        localStorage.setItem('userkey', res.key)
                         localStorage.setItem('user', user)
                         localStorage.setItem('sid', sid)
-                        location.href = '../home/i.html'
+                        if (notkey) {
+                            log('登录成功,请点击软件界面的管理面板打开网站获取key')
+                        } else {
+                            log('登录成功')
+                            localStorage.setItem('userkey', res.key)
+                            location.href = '../home/i.html'
+                        }
                     })
                 }, url)
             })

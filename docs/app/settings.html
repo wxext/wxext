@@ -101,9 +101,10 @@
             , "43": "视频消息", "47": "动画表情", "48": "位置消息", "49": "分享链接", "701": "群成员信息更新"
             , "702": "  群成员增加", "703": "群成员减少", "704": "联系人信息更新", "705": "收款结果"
             , "706": "好友验证结果", "707": "创建群聊结果", "708": "xml图片地址", "720": "登录信息-授权"
-            , "721": "登录信息-连接", "723": "登录信息-登录二维码变化", "724": "登录信息-微信登录"
-            , "725": "登录信息-微信退出", "726": "发起语音通过", "727": "拒绝语音通话", "728": "接受语音通话"
-            , "802": "插件连接断开", "803": "微信连接断开", "810": "系统提示点击确定", "10000": "系统消息"
+            , "721": "登录信息-连接", "723": "登录信息-登录二维码变化", "724": "微信登录-授权信息"
+            , "725": "登录信息-微信退出", "726": "发起语音通过", "727": "拒绝语音通话"
+            , "728": "接受语音通话", "729": "授权无效"
+            , "802": "插件连接断开", "803": "微信连接断开", "804": "http推送异常关闭", "810": "系统提示点击确定", "10000": "微信系统消息"
         }
         //推送状态 1 停止 2 运行 3 错误
         function upadteNotifyList() {
@@ -111,27 +112,27 @@
                 if (res.msg) return log(res.msg)
                 var html = ''
                 res.data.forEach(function (d, i) {
-                    var btn = '<button type="button" onclick="del(\'' + i + '\')" class="btn btn-warning btn--sm">删除</button>'
+                    var btn = '<button type="button" onclick="del(\'' + i + '\')" class="btn btn-warning btn-sm">删除</button>'
                     if (d.status == 1) {
-                        btn += '<br/><button type="button" onclick="start(\'' + i + '\')" class="btn btn-warning btn--sm">开启</button>'
+                        btn += '<br/><button type="button" onclick="start(\'' + i + '\')" class="btn btn-warning btn-sm">开启</button>'
                         d.status = '停止'
                     }
                     else if (d.status == 2) {
-                        btn += '<br/><button type="button" onclick="stop(\'' + i + '\')" class="btn btn-warning btn--sm">停止</button>'
+                        btn += '<br/><button type="button" onclick="stop(\'' + i + '\')" class="btn btn-warning btn-sm">停止</button>'
                         d.status = '运行'
                     }
                     else if (d.status == 3) {
-                        btn += '<br/><button type="button" onclick="start(\'' + i + '\')" class="btn btn-warning btn--sm">开启</button>'
+                        btn += '<br/><button type="button" onclick="start(\'' + i + '\')" class="btn btn-warning btn-sm">开启</button>'
                         d.status = '错误'
                     }
                     else {
-                        btn += '<br/><button type="button" onclick="start(\'' + i + '\')" class="btn btn-warning btn--sm">停止</button>'
+                        btn += '<br/><button type="button" onclick="start(\'' + i + '\')" class="btn btn-warning btn-sm">停止</button>'
                         d.status = '未知'
                     }
                     if(d.log){
-                        d.log = '<button type="button" onclick="setlog(\'' + i + '\',0)" class="btn btn-warning btn--sm">关闭</button>'
+                        d.log = '<button type="button" onclick="setlog(\'' + i + '\',0)" class="btn btn-warning btn-sm">关闭</button>'
                     }else{
-                        d.log = '<button type="button" onclick="setlog(\'' + i + '\',1)" class="btn btn-warning btn--sm">开启</button>'
+                        d.log = '<button type="button" onclick="setlog(\'' + i + '\',1)" class="btn btn-warning btn-sm">开启</button>'
                     }
                     html += '<tr><td>' + btn + '</td><td>' + d.name + '</td><td>' + d.status + '</td><td>' + d.log + '</td><td>' + d.err+'|'+d.error + '</td><td>' + d.url + '</td><td>' + d.type.join('|') + '</td><td>' + d.msg + '</td><td>' + d.reg + '</td></tr>'
                 })

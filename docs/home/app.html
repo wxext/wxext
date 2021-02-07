@@ -12,54 +12,7 @@
     <meta name=description content="e小天|创建应用">
     <link rel="shortcut icon" href="../logo.png">
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        .none {
-            display: none;
-        }
-
-        .alert {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            min-width: 300px;
-            max-width: 600px;
-            transform: translate(-50%, -50%);
-            z-index: 99999;
-            text-align: center;
-            padding: 15px;
-            border-radius: 3px;
-        }
-
-        .alert-success {
-            color: #3c763d;
-            background-color: #dff0d8;
-            border-color: #d6e9c6;
-        }
-
-        .alert-info {
-            color: #31708f;
-            background-color: #d9edf7;
-            border-color: #bce8f1;
-        }
-
-        .alert-warning {
-            color: #8a6d3b;
-            background-color: #fcf8e3;
-            border-color: #faebcc;
-        }
-
-        .alert-danger {
-            color: #a94442;
-            background-color: #f2dede;
-            border-color: #ebccd1;
-        }
-
-        .checkbox_notify {
-            display: inline-block;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/show.css">
 </head>
 
 <body>
@@ -163,7 +116,6 @@
     </div>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
-    <script src="https://cdn.bootcss.com/js-sha1/0.6.0/sha1.min.js"></script>
     <script src="../js/app.js"></script>
 
     <script>
@@ -216,8 +168,8 @@
                         <td>@name</td>
                         <td>@open</td>
                         <td>
-                            <button type="button" onclick="cz('@name')" class="btn btn-primary">编辑</button>
-                            <button type="button" onclick="add('@name')" class="btn btn-primary">添加</button>
+                            <button type="button" onclick="cz('@name')" class="btn btn-sm btn-primary">编辑</button>
+                            <button type="button" onclick="add('@name')" class="btn btn-sm btn-primary">添加</button>
                         </td>
 </tr>
 `

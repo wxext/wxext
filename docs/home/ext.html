@@ -77,11 +77,12 @@
         <a href="../home/i.html">个人中心</a>
 
         <form class="form-inline">
-            <div class="form-group mx-sm-3 mb-2">
-                <label for="name" class="sr-only">搜索应用</label>
+            <div class="form-group">
                 <input type="text" class="form-control" id="name" placeholder="应用名称">
+                <div class="input-group-addon">
+                    <button type="button" onclick="search()" class="btn btn-primary">搜索</button>
+                </div>
             </div>
-            <button type="button" onclick="search()" class="btn btn-primary mb-2">搜索</button>
         </form>
         <div id="ext"></div>
     </div>

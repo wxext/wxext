@@ -1,6 +1,6 @@
 //<script>hitokoto()</script>
 
-var api_url = 'http://127.0.0.1:8203/api?json'
+let api_url = 'http://127.0.0.1:8203/api?json', clientPC = {}
 function wx(data, fn, url) {
     $.LoadingOverlay("show")
     log()
@@ -20,14 +20,20 @@ function wx(data, fn, url) {
     })
 }
 function CheckLogin() {
-    if(!window.$)return
-    if(location.pathname.includes('login'))return;
-    if(!localStorage.getItem('userkey'))localStorage.setItem('userkey', 'key')
+    var key = /key=([A-Z0-9]{40})/.exec(location.search)
+    if (key) {
+        window.setuserkey = key[1]
+        localStorage.setItem('userkey', setuserkey)
+    }
+    if (!window.$) return
+    if (location.pathname.includes('login')) return;
+    if (!localStorage.getItem('userkey')) localStorage.setItem('userkey', 'key')
     wx({ method: 'mac' }, function (res) {
         if (res.msg) {
             localStorage.setItem('userkey', '')
             location.href = '../app/login.html'
         }
+        clientPC = res
         console.log('版本', res.ver)
         console.log('设备', res.id)
     })

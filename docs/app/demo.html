@@ -175,24 +175,23 @@
                         if (d.pid == pid) {
                             myIsRun = true
                         }
-                        var isLogin = ''
+                        var isLogin = '<button type="button" onclick="gongzhong(@pid)" class="btn btn-danger btn-sm">停用</button>'
                         if (!d.isLogin) {
-                            isLogin = '<button type="button" onclick="saoma(@pid)" class="btn btn-warning btn--sm">扫码登录</button>'
+                            isLogin += '<button type="button" onclick="saoma(@pid)" class="btn btn-warning btn-sm">扫码登录</button>'
                         } else {
-                            isLogin = '<button type="button" onclick="gongzhong(@pid)" class="btn btn-warning btn--sm">停用</button>'
                             if (!d.authTime) {
                                 isLogin += '<a href="settings.html">去授权</>'
                             }
 
                         }
-                        var t = '<tr class="wx_@pid"><td>@pid <button type="button" onclick="douyidou(@pid)" class="btn btn-warning btn--sm">抖一抖</button></td><td>' + isLogin + '</td><td>@alias</td><td>@nickName</td><td>@authTime</td>'
+                        var t = '<tr class="wx_@pid"><td>@pid <button type="button" onclick="douyidou(@pid)" class="btn btn-warning btn-sm">抖一抖</button></td><td>' + isLogin + '</td><td>@alias</td><td>@nickName</td><td>@authTime</td>'
                         t += '</tr>'
                         for (var i in d) t = t.replace(new RegExp("@" + i, 'g'), d[i]);
                         html += t
                     })
                     res.pids.forEach(function (d) {
                         if (cachePid.indexOf(d.pid) != -1) return;
-                        html += '<tr><td>' + d.pid + ' <button type="button" onclick="douyidou(' + d.pid + ')" class="btn btn-warning btn--sm">抖一抖</button></td><td><button type="button" onclick="lianjie(' + d.pid + ')" class="btn btn-warning btn--sm">连接</button></td><td></td><td></td><td>' + d.startTime + '</td></tr>';
+                        html += '<tr><td>' + d.pid + ' <button type="button" onclick="douyidou(' + d.pid + ')" class="btn btn-warning btn-sm">抖一抖</button></td><td><button type="button" onclick="lianjie(' + d.pid + ')" class="btn btn-warning btn-sm">连接</button></td><td></td><td></td><td>点击连接加入</td></tr>';
 
                     })
                     if (!myIsRun) localStorage.setItem("mypid", -1)

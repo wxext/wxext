@@ -65,8 +65,8 @@
     }
 
     .linkto div {
-      margin: 20px;
-      display: inline-block;
+      margin: 2px;
+      display: inline-block;font-size: 14px;
     }
   </style>
 </head>
@@ -87,6 +87,9 @@
         </div>
         <div>
           <a href="../app/settings.html">设置中心</a>
+        </div>
+        <div>
+          <a href="../home/auth.html">授权中心</a>
         </div>
         <div>
           <a href="../home/ext.html">应用中心</a>
@@ -121,13 +124,13 @@
         var html = ''
         res.ext.forEach(function (d) {
           var t = '<div class="ext"><a href="@home">@name@@version</a><br/>日志:@log<br/>状态:@status'
-          t += '<button type="button" onclick="del(\'@name\')" class="btn btn-danger btn--sm">删除</button>'
+          t += '<button type="button" onclick="del(\'@name\')" class="btn btn-danger btn-sm">删除</button>'
           if (d.status == -1) {
-            t += '<button type="button" onclick="install(\'@name\')" class="btn btn-warning btn--sm">安装</button>'
+            t += '<button type="button" onclick="install(\'@name\')" class="btn btn-warning btn-sm">安装</button>'
           } else if (d.status == 1||d.status == 2) {
-            t += '<button type="button" onclick="stop(\'@name\')" class="btn btn-warning btn--sm">停用</button>'
+            t += '<button type="button" onclick="stop(\'@name\')" class="btn btn-warning btn-sm">停用</button>'
           } else {
-            t += '<button type="button" onclick="start(\'@name\')" class="btn btn-info btn--sm">启用</button>'
+            t += '<button type="button" onclick="start(\'@name\')" class="btn btn-info btn-sm">启用</button>'
           }
           t += '</div>'
           d.home = d.home && d.home.replace(/@name/g, d.name)
