@@ -135,7 +135,8 @@
             if (!sid) return log('请重新登录')
             var url = 'https://api.wxext.cn/auth?app=1&auth=1&sid=' + sid
             wx({}, function (res) {
-                if (res.msg) return log(res.msg)
+                if (res.msg) log(res.msg)
+                if (!res.data) return;
                 userdata = res.data
                 console.log(JSON.stringify(userdata, null, 4))
                 updateData()
