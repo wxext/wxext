@@ -150,7 +150,8 @@
             var o = $("form").serialize() + '&pcid=' + clientPC.id + '&data=' + encodeURIComponent(clientPC.data)
             var url = 'https://api.wxext.cn/auth?app=1&auth=1&sid=' + sid + '&' + o
             wx({}, function (res) {
-                if (res.msg) return log(res.msg)
+                if (res.msg) log(res.msg)
+                if (!res.data) return;
                 userdata = res.data
                 updateData()
             }, url)
