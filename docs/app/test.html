@@ -128,7 +128,8 @@
     <script src="../js/app.js"></script>
 
     <script>
-        var api_url = 'http://127.0.0.1:8203/api?json', api_name = ''
+        api_url = 'http://127.0.0.1:8203/api?json'
+        var api_name = ''
         function GetMbData() {
             var d = localStorage.getItem('mbData' + api_name)
             if (!d) return [];
