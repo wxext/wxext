@@ -16,15 +16,6 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 + [PC微信安装](https://pc.weixin.qq.com/ "微信PC版")支持最新版微信（每个人最新版不一样咋办呀?那就都支持）
 
-# 更新日志
-
->+ 修复已知bug,稳定支持最新版
->+ 支持使用任意语言进行开发应用,使用WxExtApp.exe进行调试应用
->+ 请求同步响应数据,如 网络更新好友信息同步返回结果
->+ 部分参数变化,如同意好友请求参数encryptusername,一般接口返回 invalid xxx就是缺少xxx参数
->+ 提高安全性,访问需要key和IP白名单
->+ 默认关闭日志
-
 ## 成员贡献项目,仅供参考
 >+ [JAVA+HTTPAPI_DEMO](https://github.com/wxext/wechat-java-api-window "JAVA+HTTPAPI_DEMO")
 >+ [易语言](https://github.com/wxext/wechat-e "易语言模块")
