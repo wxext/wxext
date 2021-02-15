@@ -84,6 +84,12 @@
                 </div>
             </form>
         </div>
+
+        <div class="form-group">
+            <button onclick="auth_ls_wxid()" type="button" class="btn btn-primary">临时授权</button>
+            <small class="form-text text-muted">开发者测试用</small>
+        </div>
+
     </div>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
@@ -181,6 +187,24 @@
             wx({ pid: info.pid, method: 'auth', token: auth }, function (res) {
                 if (res.msg) return log('授权失败,token不匹配,' + res.msg)
                 log('授权成功')
+            })
+        }
+
+        function auth_ls_wxid(pid, wxid) {
+            var sid = localStorage.getItem('sid')
+            if (!sid) return log('请重新登录')
+            if (!clientPC.id) return log('请开启服务')
+            wx({ pid, method: 'mac' }, function (res) {
+                if (res.msg) return log(res.msg)
+                var o = 'pcid=' + clientPC.id + '&data=' + encodeURIComponent(clientPC.data)
+                var url = 'https://api.wxext.cn/auth?app=1&auth=2&sid=' + sid + '&' + o
+                wx({}, function (res) {
+                    if (res.msg) return log(res.msg)
+                    wx({ pid, method: 'auth', token: res.token }, function (res) {
+                        if (res.msg) return log('授权失败,token不匹配,' + res.msg)
+                        log('授权成功')
+                    })
+                }, url)
             })
         }
     </script>

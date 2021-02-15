@@ -1,6 +1,6 @@
 //<script>hitokoto()</script>
 
-let api_url = 'http://127.0.0.1:8203/api?json', clientPC = {}
+let api_url = localStorage.getItem('api_url')||'http://127.0.0.1:8203/api?json', clientPC = {}
 function wx(data, fn, url) {
     $.LoadingOverlay("show")
     log()

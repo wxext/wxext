@@ -68,6 +68,7 @@
             <div class="col-sm">
                 <h6 id="tip" style="color:red;"></h6>
                 <div class="form-group" style="max-width: 300px;">
+                    api地址:<input type="text" class="form-control" id="i_api_url" placeholder="api地址">
                     用户名:<input type="text" class="form-control" id="i_user" placeholder="用户名">
                     密码:<input type="password" class="form-control" id="i_pwd" placeholder="密码">
                     IP白名单:<textarea class="form-control" id="i_ips" rows="3">127.0.0.1</textarea>
@@ -97,6 +98,14 @@
         function checkkey() {
             if (window.setuserkey || localStorage.getItem('userkey')) location.href = '../home/i.html'
         }
+
+        let el = document.querySelector('#i_api_url')
+        el.value = api_url
+        el.addEventListener('input', e => {
+            localStorage.setItem('api_url', e.target.value)
+        })
+
+
         function login() {
             var user = $('#i_user').val(), pwd = $('#i_pwd').val()
                 , ips = $('#i_ips').val()

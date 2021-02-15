@@ -63,13 +63,7 @@
                 <h1>接口测试</h1>
                 <a href="../home/i.html">个人中心</a>
             </div><!-- /.col-lg-6 -->
-            <div class="col-md-4">
-                <div class="form-group">
-                    <input type="text" placeholder="接口地址" class="form-control" id="api_url"
-                        value="http://127.0.0.1:8203/api?json">
-                </div>
-            </div><!-- /.col-lg-6 -->
-            <div class="col-md-4">
+            <div class="col-sm-8">
                 <div class="form-inline">
                     <input type="text" placeholder="仓库名" class="form-control" id="api_name">
                     <div class="input-group-btn">
@@ -80,7 +74,7 @@
                             <li>默认</li>
                         </ul>
                     </div><!-- /btn-group -->
-                    <button id="api_new" class="btn btn-primary" type="button">刷新</button>
+                    <button id="api_new" class="btn btn-primary" type="button">切换保存数据</button>
                 </div><!-- /input-group -->
             </div><!-- /.col-lg-6 -->
         </div><!-- /.row -->
@@ -128,11 +122,14 @@
     <script src="../js/app.js"></script>
 
     <script>
-        api_url = 'http://127.0.0.1:8203/api?json'
         var api_name = ''
         function GetMbData() {
+            $('#api_name').val(api_name)
             var d = localStorage.getItem('mbData' + api_name)
-            if (!d) return [];
+            if (!d) {
+                localStorage.setItem('mbData' + api_name, '[]')
+                return [];
+            }
             return JSON.parse(d)
         }
         function SaveMbData(d) {
@@ -159,17 +156,14 @@
             })
         }
         function RefreshData() {
-            api_url = localStorage.getItem('api_url') || api_url
             var name = localStorage.getItem('api_name') || ""
             api_name = name == '默认' ? '' : name
-            $('#api_url').val(api_url)
-            $('#api_name').val(api_name)
 
             var d = GetMbData();
-            if (d.length == 0 || !d[0]) return
             var list = $("#list");
             var editName = $("#editName").val();
             var html = '';
+            if (d.length == 0 || !d[0]) return list.html(html)
             if (!editName) {
                 $("#editName").val(d[0].name);
                 $("#textDataDes").val(d[0].des);
@@ -215,8 +209,8 @@
                 $("#api_name_ul").html(k)
             })
             $("#api_new").click(function () {
-                localStorage.setItem('api_url', $('#api_url').val())
-                localStorage.setItem('api_name', $('#api_name').val())
+                api_name = $('#api_name').val()
+                localStorage.setItem('api_name', api_name)
                 RefreshData()
             })
             $("#wx_update").click(function () {
@@ -237,7 +231,7 @@
                 }
                 SaveMbData(mbData)
                 RefreshData()
-                log('更新成功');
+                log('保存成功');
             })
             $("#wx_deleteAll").click(function () {
                 localStorage.removeItem('mbData' + api_name)

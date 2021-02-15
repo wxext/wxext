@@ -68,8 +68,9 @@
         <div class="row">
             <div class="col-sm">
                 <h6 id="tip" style="color:red;"></h6>
-                授权列表
-                <div id="wxidlist"></div>
+                API地址:
+                <input type="text" class="form-control" id="i_api_url" placeholder="API地址">
+
                 <hr />
                 <h5>异步http推送设置</h5>
                 已配置的通知：
@@ -77,6 +78,7 @@
 
                 </div>
 
+                <hr/><h5>添加通知</h5>
                 <div class="form-group">
                     <input type="text" class="form-control" id="addrUrl_name" placeholder="通知名称">
                     <input type="text" class="form-control" id="addrUrl_url" placeholder="通知地址">
@@ -106,6 +108,11 @@
             , "728": "接受语音通话", "729": "授权无效"
             , "802": "插件连接断开", "803": "微信连接断开", "804": "http推送异常关闭", "810": "系统提示点击确定", "10000": "微信系统消息"
         }
+        let el = document.querySelector('#i_api_url')
+        el.value = api_url
+        el.addEventListener('input', e => {
+            localStorage.setItem('api_url', e.target.value)
+        })
         //推送状态 1 停止 2 运行 3 错误
         function upadteNotifyList() {
             wx({ method: 'notify', action: 'list' }, function (res) {
@@ -129,12 +136,12 @@
                         btn += '<br/><button type="button" onclick="start(\'' + i + '\')" class="btn btn-warning btn-sm">停止</button>'
                         d.status = '未知'
                     }
-                    if(d.log){
+                    if (d.log) {
                         d.log = '<button type="button" onclick="setlog(\'' + i + '\',0)" class="btn btn-warning btn-sm">关闭</button>'
-                    }else{
+                    } else {
                         d.log = '<button type="button" onclick="setlog(\'' + i + '\',1)" class="btn btn-warning btn-sm">开启</button>'
                     }
-                    html += '<tr><td>' + btn + '</td><td>' + d.name + '</td><td>' + d.status + '</td><td>' + d.log + '</td><td>' + d.err+'|'+d.error + '</td><td>' + d.url + '</td><td>' + d.type.join('|') + '</td><td>' + d.msg + '</td><td>' + d.reg + '</td></tr>'
+                    html += '<tr><td>' + btn + '</td><td>' + d.name + '</td><td>' + d.status + '</td><td>' + d.log + '</td><td>' + d.err + '|' + d.error + '</td><td>' + d.url + '</td><td>' + d.type.join('|') + '</td><td>' + d.msg + '</td><td>' + d.reg + '</td></tr>'
                 })
                 if (html == '') {
                     $("#notifylist").html('暂未设置推送')
@@ -145,24 +152,7 @@
             })
 
         }
-        function upadteList() {
-            wx({ method: 'list' }, function (res) {
-                if (res.msg) return log(res.msg)
-                var html = ''
-                res.data.forEach(function (d) {
-                    if (!d.wxid) d.auth = '请先登录'
-                    else d.auth = '<button onclick="auth_wxid(' + d.pid + ',\'' + d.wxid + '\')" type="button" class="btn btn-primary">授权</button>'
-                    html += '<tr><td>' + d.wxid + '</td><td>' + d.nickName + '</td><td>' + d.auth + '</td></tr>'
-                })
-                if (html == '') {
-                    $("#wxidlist").html('请先登录微信')
-                } else {
-                    $("#wxidlist").html('<table class="table table-bordered"><tr><th>wxid</th><th>昵称</th><th></th></tr>' + html + '</table>')
-                }
 
-            })
-            upadteNotifyList()
-        }
         function del(index) {
             wx({ method: "notify", "action": "del", index }, function (res) {
                 if (res.msg) return
@@ -191,20 +181,6 @@
                 upadteNotifyList()
             })
         }
-        function auth_wxid(pid, wxid) {
-            if (!wxid) return log('请填写wxid')
-            wx({ pid, method: 'mac' }, function (res) {
-                if (res.msg) return log(res.msg)
-                var url = 'https://api.wxext.cn/auth?wxid=' + wxid + '&data=' + encodeURIComponent(res.data)
-                wx({}, function (res) {
-                    if (res.msg) return log(res.msg)
-                    wx({ pid, method: 'auth', token: res.token }, function (res) {
-                        if (res.msg) return log('授权失败,token不匹配,' + res.msg)
-                        log('授权成功')
-                    })
-                }, url)
-            })
-        }
         $(function () {
             var notifyhtml = ''
             for (var i in notifyList) {
@@ -212,7 +188,6 @@
             }
             $("#notifycheck").html(notifyhtml)
 
-            upadteList()
             $("#url_set").click(function () {
                 var name = $("#addrUrl_name").val()
                 var url = $("#addrUrl_url").val()
@@ -226,7 +201,7 @@
                 })
                 if (!checknotify.length) return log('请选择通知类型')
                 wx({
-                    method: 'notify', action: 'add', type: checknotify, name,msg, reg, url
+                    method: 'notify', action: 'add', type: checknotify, name, msg, reg, url
                 }, function (res) {
                     if (res.msg) return log(res.msg)
                     log('添加成功')
