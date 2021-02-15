@@ -85,7 +85,8 @@
             </form>
         </div>
 
-        <div class="form-group">
+        <hr />
+        <div class="form-inline">
             <button onclick="auth_ls_wxid()" type="button" class="btn btn-primary">临时授权</button>
             <small class="form-text text-muted">开发者测试用</small>
         </div>
@@ -200,9 +201,9 @@
                 var url = 'https://api.wxext.cn/auth?app=1&auth=2&sid=' + sid + '&' + o
                 wx({}, function (res) {
                     if (res.msg) return log(res.msg)
-                    wx({ pid, method: 'auth', token: res.token }, function (res) {
+                    wx({ pid, method: 'auth', token: res.data.token }, function (res) {
                         if (res.msg) return log('授权失败,token不匹配,' + res.msg)
-                        log('授权成功')
+                        log('授权成功,到期时间:' + res.data.auth)
                     })
                 }, url)
             })
