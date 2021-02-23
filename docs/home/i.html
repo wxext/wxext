@@ -66,7 +66,8 @@
 
     .linkto div {
       margin: 2px;
-      display: inline-block;font-size: 14px;
+      display: inline-block;
+      font-size: 14px;
     }
   </style>
 </head>
@@ -127,7 +128,8 @@
           t += '<button type="button" onclick="del(\'@name\')" class="btn btn-danger btn-sm">删除</button>'
           if (d.status == -1) {
             t += '<button type="button" onclick="install(\'@name\')" class="btn btn-warning btn-sm">安装</button>'
-          } else if (d.status == 1||d.status == 2) {
+            t += '<button type="button" onclick="start(\'@name\')" class="btn btn-info btn-sm">启用</button>'
+          } else if (d.status == 1 || d.status == 2) {
             t += '<button type="button" onclick="stop(\'@name\')" class="btn btn-warning btn-sm">停用</button>'
           } else {
             t += '<button type="button" onclick="start(\'@name\')" class="btn btn-info btn-sm">启用</button>'
@@ -163,7 +165,8 @@
     }
     function start(name) {
       wx({ method: "ext", "action": "start", name }, function (res) {
-        upadteList(function () {console.log('res',res)
+        upadteList(function () {
+          console.log('res', res)
           if (res.msg) return log(res.msg)
           log(res.data)
         })
@@ -185,7 +188,7 @@
         })
       })
     }
-    setTimeout(upadteList,0)
+    setTimeout(upadteList, 0)
   </script>
 </body>
 
