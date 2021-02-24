@@ -47,15 +47,15 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 ```
 //应用导出Run方法即可
-extern "C" __declspec(dllexport) void __cdecl WxExt_Run(void) {
+extern "C" __declspec(dllexport) void __cdecl CN_WXEXT_RUN(void) {
     //执行应用启动代码
 }
 //无法导出函数的,以下形式创建对应的Run方法
-namespace WxExt
+namespace CN.WXEXT
 {
     public class WxExtApp
     {
-        public void WxExt_Run()
+        public void CN_WXEXT_RUN()
         {
             //执行应用启动代码
         }
@@ -67,6 +67,8 @@ namespace WxExt
 >+ ws://127.0.0.1:8202/wx?name=应用名称&key=连接密钥
 >+ 应用名称和连接密钥可在环境变量中取得
 >+ 测试应用可打开WxExtApp.exe查看密钥
+
+>+ [参考应用](https://github.com/wxext/cn.wxext.ext.ws "e小天|websocket")
 
 ## 调试应用
 把安装目录下的 WxExtApp.exe 复制到需要调试的开发目录,打开即可调试
