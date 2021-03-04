@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11" id="mixia_vpid"
+        name="mixia_vpid">
+    <title>e小天|授权中心</title>
+    <meta name=keywords content="e小天|赞赏">
+    <meta name=description content="e小天|赞赏">
+    <link rel="shortcut icon" href="../logo.png">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-select/1.14.0-beta/css/bootstrap-select.min.css"
+        rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h1>赞赏</h1>
+        <a href="../home/i.html">个人中心</a>
+        <div class="alert-primary">赞赏之后需等待人工登记,仅提取金额为1-4位整数账单,其他忽略</div>
+        <div class="alert-primary">支付时请确认支付信息中包含您的用户名,以便登记您的贡献值</div>
+        <div class="alert-primary">留意最新登记日期,对比支付日期,如有遗漏请联系群主</div>
+        <form class="form-inline" style="margin: 12px 0;">
+            <div class="form-group">
+                <label for="i_num">赞赏额度:</label>
+                <input type="number" name="i_num" value="100" class="form-control" id="i_num" placeholder="">
+                <button onclick="add_wxid()" type="button" class="btn btn-primary">生成支付宝二维码</button>
+            </div>
+        </form>
+        <div class="alert-danger">请确认这是您自愿赞赏行为,不提供退款服务,赞赏会提升贡献值</div>
+        <h5 id="u"></h5>
+        <div id="s_qr"></div>
+        <div>
+            <div>最新登记日期<b id="utime">2021-03-05</b></div>
+            <h5>您的贡献值记录</h5>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>贡献值</th>
+                        <th>说明</th>
+                        <th>时间</th>
+                    </tr>
+                </thead>
+                <tbody id="tr_ud"></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script>
+        function add_wxid() {
+            $('#s_qr').html('')
+            var v = i_num.value
+            if (!/^\d{1,4}$/.test(v)) return log('额度为1-4位数字')
+            var u = localStorage.getItem('user')
+            if (!u) return log('您需要登录才可进行赞赏')
+            $("#u").html('您的用户名(支付时核对清楚):' + u)
+            $('#s_qr').qrcode('alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s":"money","u":"2088012278116671","a":"' + v + '","m":"' + u + '"}')
+        }
+        var userdata = { time: '', items: [] }
+        setTimeout(updateList, 0)
+        function updateList() {
+            var sid = localStorage.getItem('sid')
+            if (!sid) return log('请到个人中心退出重新登录')
+            var url = 'https://api.wxext.cn/auth?app=1&auth=6&sid=' + sid
+            wx({}, function (res) {
+                if (res.msg) log(res.msg)
+                if (!res.data) return;
+                userdata = res.data
+                updateData()
+            }, url)
+        }
+        function updateData() {
+            $('#tr_ud').html(userdata.items.map(function (d) {
+                var temp = `
+<tr>
+                        <th scope="row">{@id}</th>
+                        <td>{@eva}</td>
+                        <td>{@des}</td>
+                        <td>{@ltime}</td>
+</tr>
+`
+                for (var i in d) temp = temp.replace(new RegExp("{@" + i + '}', 'g'), d[i]);
+                //<input value='@auth'/>
+                return temp
+            }))
+            $("#utime").html(userdata.time)
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11" id="mixia_vpid"
+        name="mixia_vpid">
+    <title>e小天|授权中心</title>
+    <meta name=keywords content="e小天|创建应用">
+    <meta name=description content="e小天|创建应用">
+    <link rel="shortcut icon" href="../logo.png">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-select/1.14.0-beta/css/bootstrap-select.min.css"
+        rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/show.css">
+    <style>
+        .showalert {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>授权中心</h1>
+        <a href="../home/i.html">个人中心</a>
+        <div class="row">
+            <div id="userinfo" class="alert-primary"></div>
+        </div>
+        <div class="row">
+            已授权列表
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>pcid</th>
+                        <th>授权信息</th>
+                        <th>到期时间</th>
+                        <th>使用</th>
+                    </tr>
+                </thead>
+                <tbody id="tr_ud"></tbody>
+            </table>
+        </div>
+
+
+        <h3 style="border-bottom: 1px solid #dee2e6;">选择操作账号</h3>
+        <div class="form-group">
+            <label for="select_wxid">选择账号:<a href="../app/demo.html">账号管理</a></label>
+            <select class="form-control" onchange="wxidChange()" name="wxid" id="select_wxid">
+                <option value="">请登录账号</option>
+            </select>
+            <div class="input-group-addon">
+                <button type="button" onclick="UpdateView()" class="btn btn-primary">刷新</button>
+            </div>
+        </div>
+        <h3 style="border-bottom: 1px solid #dee2e6;">兑换本机授权时长</h3>
+        <div style="max-width: 500px;">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="authname">授权显示名称:</label>
+                    <input type="text" name="authname" value="已授权" class="form-control" id="authname" placeholder="">
+                    <small class="form-text text-muted">授权信息中的msg</small>
+                </div>
+                <div class="form-group">
+                    <label for="authtime">授权时长:</label>
+                    <input type="number" value="1" name="authtime" value="已授权" class="form-control" id="authtime"
+                        placeholder="">
+                    <small class="form-text text-muted">月(按30天算)</small>
+                </div>
+                <div class="alert-danger">由于授权方式为离线授权,生成授权后不可撤销,请谨慎操作</div>
+                <div class="form-group">
+                    <button onclick="add_wxid()" type="button" class="btn btn-primary">兑换授权</button>
+                    <small class="form-text text-muted">授权一旦生成不可撤销,请谨慎操作</small>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
+    <script src="https://cdn.bootcss.com/js-sha1/0.6.0/sha1.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-select/1.14.0-beta/js/bootstrap-select.min.js"></script>
+    <script src="../js/app.js"></script>
+
+    <script>
+        let data = [], userdata = { user: '', auth: 0, authnum: 0, items: [] }, currentWxid
+        function getwx(wxid) {
+            let obj = data.find(o => o.wxid === wxid)
+            if (!obj) return log('未找到微信,请先登录')
+            return obj
+        }
+        function wxidChange() {
+            currentWxid = $("#select_wxid").val()
+            $("#authwxid").val(currentWxid)
+        }
+        setTimeout(UpdateView, 0)
+        function UpdateView() {
+            wx({ method: 'list' }, function (res) {
+                if (res.msg) return log(res.msg)
+                data = res.data
+                var html = res.data.map(function (d) {
+                    if (!d.wxid) return '<option value="">' + d.pid + ',请登录</option>'
+                    return '<option value="' + d.wxid + '">' + d.pid + ',' + d.alias + ',' + d.wxid + ',' + d.nickName + '</option>'
+                })
+                if (html == '') {
+                    $("#select_wxid").html('<option value="">请登录微信</option>')
+                } else {
+                    $("#select_wxid").html(html)
+                }
+                wxidChange()
+            })
+        }
+        setTimeout(getAuthData, 0)
+        function getAuthData() {
+            var sid = localStorage.getItem('sid')
+            if (!sid) return log('请重新登录')
+            var url = 'https://api.wxext.cn/auth?app=1&auth=11&sid=' + sid
+            wx({}, function (res) {
+                if (res.msg) log(res.msg)
+                if (!res.data) return;
+                userdata = res.data
+                console.log(JSON.stringify(userdata, null, 4))
+                updateData()
+            }, url)
+        }
+        function add_wxid() {
+            if (!currentWxid) return log('请选择账号')
+            var sid = localStorage.getItem('sid')
+            if (!sid) return log('请到个人中心退出重新登录')
+            if (!clientPC.id) return log('错呃误')
+            var o = $("form").serialize() + '&pcid=' + clientPC.id + '&data=' + encodeURIComponent(clientPC.data)
+            var url = 'https://api.wxext.cn/auth?app=1&auth=12&sid=' + sid + '&' + o
+            wx({}, function (res) {
+                if (res.msg) log(res.msg)
+                if (!res.data) return;
+                userdata = res.data
+                updateData()
+            }, url)
+        }
+        function updateData() {
+            $('#tr_ud').html(userdata.items.map(function (d) {
+                var temp = `
+<tr>
+                        <th scope="row">{@pcid}</th>
+                        <td>{@msg}</td>
+                        <td>{@authtime}</td>
+                        <td>
+                            <button type="button" onclick="auth_wxid('{@wxid}','{@auth}')" class="btn btn-sm btn-primary">使用</button>
+                        </td>
+</tr>
+`
+                d.pcid = d.pcid.substr(0, 4) + '...' + d.pcid.substr(-4)
+                for (var i in d) temp = temp.replace(new RegExp("{@" + i + '}', 'g'), d[i]);
+                //<input value='@auth'/>
+                return temp
+            }))
+            $("#userinfo").html(`您好<b>${userdata.user}</b>,贡献值:<b>${userdata.eva}</b>,您有<b>${userdata.auth}</b>个授权名额,已使用<b>${userdata.authnum}</b>个`)
+        }
+        function auth_wxid(wxid, auth) {
+            if (!wxid) return log('请填写wxid')
+            var info = getwx(wxid)
+            if (!info) return log('请在下方选择操作账号')
+            wx({ pid: info.pid, method: 'auth', token: auth }, function (res) {
+                if (res.msg) return log('授权失败,token不匹配,' + res.msg)
+                log('授权成功')
+            })
+        }
+
+    </script>
+
+</body>
+
+</html>

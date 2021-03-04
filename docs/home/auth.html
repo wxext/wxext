@@ -21,6 +21,10 @@
         .showalert {
             display: inline-block;
         }
+
+        .row {
+            margin: 5px;
+        }
     </style>
 </head>
 
@@ -28,170 +32,53 @@
     <div class="container">
         <h1>授权中心</h1>
         <a href="../home/i.html">个人中心</a>
-        <div class="jumbotron">
-            <div id="userinfo" class="alert-primary"></div>
-            <div class="alert-info">授权名额可通过贡献值兑换 <a href="user.html">去兑换</a></div>
-            <div class="alert-danger">由于授权方式为离线授权,生成授权后不可撤销,请谨慎操作</div>
-            <div class="alert-warning">授权时间自选,过期后释放授权名额可重新使用,未到期将一直占用名额</div>
-        </div>
+
+        <hr />
+        <h5>账号授权</h5>
         <div class="row">
-            已授权列表
-            <div id="wxidlist"></div>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>wxid</th>
-                        <th>授权信息</th>
-                        <th>到期时间</th>
-                        <th>使用</th>
-                    </tr>
-                </thead>
-                <tbody id="tr_ud"></tbody>
-            </table>
-        </div>
-
-
-        <h3 style="border-bottom: 1px solid #dee2e6;">选择操作账号</h3>
-        <div class="form-group">
-            <label for="select_wxid">选择账号:<a href="../app/demo.html">账号管理</a></label>
-            <select class="form-control" onchange="wxidChange()" name="wxid" id="select_wxid">
-                <option value="">请登录账号</option>
-            </select>
-            <div class="input-group-addon">
-                <button type="button" onclick="UpdateView()" class="btn btn-primary">刷新</button>
-            </div>
-        </div>
-        <h3 style="border-bottom: 1px solid #dee2e6;">添加授权</h3>
-        <div style="max-width: 500px;">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="authname">授权显示名称:</label>
-                    <input type="text" name="authname" value="已授权" class="form-control" id="authname" placeholder="">
-                    <small class="form-text text-muted">授权信息中的msg</small>
-                </div>
-                <div class="form-group">
-                    <label>授权账号:</label>
-                    <input type="text" name="wxid" value="" readonly="readonly" class="form-control" id="authwxid"
-                        placeholder="请在上方选择账号">
-                </div>
-                <div class="form-group">
-                    <label for="authtime">选择授权到期时间:</label>
-                    <input id="authtime" type="text" name="authtime" class="form-control">
-                </div>
-                <div class="form-group">
-                    <button onclick="add_wxid()" type="button" class="btn btn-primary">生成授权</button>
-                    <small class="form-text text-muted">授权一旦生成不可撤销,请谨慎操作</small>
-                </div>
-            </form>
+            <a href="./auth_account.html" class="btn btn-primary">长期授权</a>
+            <small class="form-text text-muted">通过名额进行授权,贡献值可兑换永久名额</small>
         </div>
 
         <hr />
-        <div class="form-inline">
+        <h5>设备授权</h5>
+        <div class="row">
             <button onclick="auth_ls_wxid()" type="button" class="btn btn-primary">临时授权</button>
-            <small class="form-text text-muted">开发者测试用</small>
+            <small class="form-text text-muted">开发者测试,免费使用</small>
         </div>
 
+        <div class="row">
+            <a href="./auth_pc.html" class="btn btn-primary">长期授权</a>
+            <small class="form-text text-muted">通过贡献值兑换授权时长</small>
+        </div>
+        <hr />
+        <h5>获取贡献值</h5>
+        <ul>
+            <li>编写一个应用获得500贡献值<a href="auth_app.html">去创建</a></li>
+            <li>定期评选优秀应用奖励贡献值<a href="auth_app_hot.html">去查看</a></li>
+            <li>发布应用开发教程获得100贡献值</li>
+            <li>定期评选优秀教程奖励贡献值</li>
+            <li>赞赏获得等额贡献值<a href="auth_appreciate.html">去赞赏</a></li>
+            <li>评审应用获取贡献值</li>
+            <li>有其他贡献的</li>
+        </ul>
+        <hr />
+        <h5>使用贡献值</h5>
+        <ul>
+            <li>赞赏支持应用开发者</li>
+            <li>500贡献值兑换一个永久名额</li>
+            <li>100贡献值兑换一个月设备授权</li>
+            <li>成为评审员</li>
+            <li>其他</li>
+        </ul>
     </div>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
-    <script src="https://cdn.bootcss.com/js-sha1/0.6.0/sha1.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-select/1.14.0-beta/js/bootstrap-select.min.js"></script>
-    <script
-        src="https://cdn.bootcdn.net/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.zh-CN.min.js"></script>
     <script src="../js/app.js"></script>
 
     <script>
-        $(function () {
-            $('#authtime').datepicker({
-                format: 'yyyy-mm-dd',
-                startDate: '+2d', endDate: '2100-12-21', autoclose: true,
-                language: 'zh-CN', todayHighlight: true,
-            }).datepicker("setDate", '+1m')
-        })
-        let data = [], userdata = { user: '', auth: 0, authnum: 0, items: [] }, currentWxid
-        function getwx(wxid) {
-            let obj = data.find(o => o.wxid === wxid)
-            if (!obj) return log('未找到微信,请先登录')
-            return obj
-        }
-        function wxidChange() {
-            currentWxid = $("#select_wxid").val()
-            $("#authwxid").val(currentWxid)
-        }
-        setTimeout(UpdateView, 0)
-        function UpdateView() {
-            wx({ method: 'list' }, function (res) {
-                if (res.msg) return log(res.msg)
-                data = res.data
-                var html = res.data.map(function (d) {
-                    if (!d.wxid) return '<option value="">' + d.pid + ',请登录</option>'
-                    return '<option value="' + d.wxid + '">' + d.pid + ',' + d.alias + ',' + d.wxid + ',' + d.nickName + '</option>'
-                })
-                if (html == '') {
-                    $("#select_wxid").html('<option value="">请登录微信</option>')
-                } else {
-                    $("#select_wxid").html(html)
-                }
-                wxidChange()
-            })
-        }
-        setTimeout(getAuthData, 0)
-        function getAuthData() {
-            var sid = localStorage.getItem('sid')
-            if (!sid) return log('请重新登录')
-            var url = 'https://api.wxext.cn/auth?app=1&auth=1&sid=' + sid
-            wx({}, function (res) {
-                if (res.msg) log(res.msg)
-                if (!res.data) return;
-                userdata = res.data
-                console.log(JSON.stringify(userdata, null, 4))
-                updateData()
-            }, url)
-        }
-        function add_wxid() {
-            if (!currentWxid) return log('请选择账号')
-            var sid = localStorage.getItem('sid')
-            if (!sid) return log('请重新登录')
-            if (!clientPC.id) return log('错呃误')
-            var o = $("form").serialize() + '&pcid=' + clientPC.id + '&data=' + encodeURIComponent(clientPC.data)
-            var url = 'https://api.wxext.cn/auth?app=1&auth=1&sid=' + sid + '&' + o
-            wx({}, function (res) {
-                if (res.msg) log(res.msg)
-                if (!res.data) return;
-                userdata = res.data
-                updateData()
-            }, url)
-        }
-        function updateData() {
-            $('#tr_ud').html(userdata.items.map(function (d) {
-                var temp = `
-<tr>
-                        <th scope="row">{@wxid}</th>
-                        <td>{@msg}</td>
-                        <td>{@authtime}</td>
-                        <td>
-                            <button type="button" onclick="auth_wxid('{@wxid}','{@auth}')" class="btn btn-sm btn-primary">使用</button>
-                        </td>
-</tr>
-`
-                for (var i in d) temp = temp.replace(new RegExp("{@" + i + '}', 'g'), d[i]);
-                //<input value='@auth'/>
-                return temp
-            }))
-            $("#userinfo").html(`您好<b>${userdata.user}</b>,您有<b>${userdata.auth}</b>个授权名额,已使用<b>${userdata.authnum}</b>个`)
-        }
-        function auth_wxid(wxid, auth) {
-            if (!wxid) return log('请填写wxid')
-            var info = getwx(wxid)
-            if (!info) return log('请先登录该账号')
-            wx({ pid: info.pid, method: 'auth', token: auth }, function (res) {
-                if (res.msg) return log('授权失败,token不匹配,' + res.msg)
-                log('授权成功')
-            })
-        }
-
-        function auth_ls_wxid(pid, wxid) {
+        function auth_ls_wxid() {
+            var pid = -1
             var sid = localStorage.getItem('sid')
             if (!sid) return log('请重新登录')
             if (!clientPC.id) return log('请开启服务')
