@@ -28,7 +28,7 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 >+ [功能测试](https://www.wxext.cn/app/test.html "e小天|功能测试")
 
->+ [软件授权](https://www.wxext.cn/app/settings.html "e小天|设置中心")
+>+ [软件授权](https://www.wxext.cn/home/auth.html "e小天|设置中心")
 
 >+ [管理插件](https://www.wxext.cn/home/i.html "e小天|个人中心")
 
@@ -87,7 +87,7 @@ namespace CN.WXEXT
     "allowNet": 1,//1开启外网,已新增key和ip白名单验证,可安全使用
 }
 ```
-### 配置
+### 应用配置
 >+ 消息日志,插件日志,http推送日志,都有单独的配置.无论是否开启日志,都会记录错误日志
 ```
 {
@@ -190,6 +190,7 @@ namespace CN.WXEXT
 }
 ```
 ### 设置群公告
+>+ 会自动添加@所有人
 ```
 {
     "method": "setRoomAnnouncement",
@@ -296,13 +297,21 @@ namespace CN.WXEXT
     "atid": "",
     "pid": 0
 }
+艾特消息
+{
+    "method": "sendText",
+    "wxid": "23942162341@chatroom",
+    "msg": "@昵称1 @昵称2 艾特消息",
+    "atid": "wxid_xxx1|wxid_xxx2",
+    "pid": 0
+}
 ```
 ### 转发图片
 ```
 {
     "method": "sendImage",
     "wxid": "filehelper",
-    "img": "图片本地路径",
+    "img": "图片本地路径",//自动下载的路径通过xmlinfo推送来获取
     "imgType": "file",
     "pid": 0
 }
@@ -312,7 +321,7 @@ namespace CN.WXEXT
 {
     "method": "sendEmojiForward",
     "wxid": "filehelper",
-    "xml": "type=47收到的msg中的xml",
+    "xml": "type=47收到的msg中的xml",//参考接收到的xml
     "pid": 0
 }
 ```
@@ -321,7 +330,7 @@ namespace CN.WXEXT
 {
     "method": "sendAppmsgForward",
     "wxid": "filehelper",
-    "xml": "type=49收到的msg中的xml",
+    "xml": "type=49收到的msg中的xml",//参考接收到的xml
     "pid": 0
 }
 ```
@@ -341,6 +350,57 @@ namespace CN.WXEXT
     "pid": -1//全部
 }
 ```
+### 其他
+>+ 长时间运行建议清空聊天记录
+```
+//获取文件数据
+{
+    "method": "getfile",
+    "path": "C:\\Users\\....7fadd4bfe.dat"
+}
+同意好友
+{
+    "method": "agreeUser",
+    "encryptusername": "收到的xml中获取",
+    "ticket": "收到的xml中获取",
+    "scene": 收到的xml中获取
+}
+接收转账收款
+{
+    "method": "agreeCash",
+    "wxid": "对方wxid",
+    "transferid": "收到的xml中获取",
+    "pid": 0
+}
+夜间忙时不自动下载
+{
+    "method": "downrange1",
+    "data": "18:00-23:15"
+}
+{
+    "method": "downrange2",
+    "data": "18:00-23:30"
+}
+向应用发送请求
+{
+    "method": "e",
+    "name": "测试插件",
+    "xxx","xxx"
+}
+网络获取详细信息,昵称 头像 是否好友拉黑
+{
+    "method": "netGetUser",
+    "wxid": "wxid_vw2prmx8xv5n22|wxid_vryy2hqz4mv212",
+    "pid": 0
+}
+退出登录key
+{
+    "method": "key",
+    "sign": "xxx",
+    "user": "test",
+    "exit": "1"
+}
+```
 ## 事件通知
 >+ 设置通知地址后会将事件推送到指定地址  [去设置](https://www.wxext.cn/app/settings.html "e小天|设置中心")
 >+ 可以推送到php等服务地址接收消息，然后通过http(需ip白名单带key请求)回复发送消息
@@ -356,7 +416,7 @@ getcontact  704                 联系人信息更新
 tenpay  705                 收款结果
 verifyuser  706             好友验证结果
 createchatroom  707         创建群聊结果
-xmlinfo 708                 对应xml图片地址
+xmlinfo 708                 对应xml资源下载到本机事件
 
 登录相关信息通知
 info    flag(open,qrchange,auth,login,logout)
@@ -365,7 +425,7 @@ open    721
 qrchange    723
 login   724  登录,可以根据time过期时间判断有没有自动授权
 logout  725
-expired 729 到期前半小时通知/主动请求无效通知
+expired 729 授权到期前半小时通知/主动请求未授权通知
 
 callVoipAudio  726  发起电话
 callVoipAudio  727  挂断电话
