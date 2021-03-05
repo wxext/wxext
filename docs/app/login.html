@@ -102,7 +102,8 @@
         let el = document.querySelector('#i_api_url')
         el.value = api_url
         el.addEventListener('input', e => {
-            localStorage.setItem('api_url', e.target.value)
+            api_url = e.target.value
+            localStorage.setItem('api_url', api_url)
         })
 
 

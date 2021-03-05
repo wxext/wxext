@@ -78,7 +78,8 @@
 
                 </div>
 
-                <hr/><h5>添加通知</h5>
+                <hr />
+                <h5>添加通知</h5>
                 <div class="form-group">
                     <input type="text" class="form-control" id="addrUrl_name" placeholder="通知名称">
                     <input type="text" class="form-control" id="addrUrl_url" placeholder="通知地址">
@@ -111,7 +112,8 @@
         let el = document.querySelector('#i_api_url')
         el.value = api_url
         el.addEventListener('input', e => {
-            localStorage.setItem('api_url', e.target.value)
+            api_url = e.target.value
+            localStorage.setItem('api_url', api_url)
         })
         //推送状态 1 停止 2 运行 3 错误
         function upadteNotifyList() {
