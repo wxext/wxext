@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11" id="mixia_vpid"
+        name="mixia_vpid">
+    <title>e小天|提交应用</title>
+    <meta name=keywords content="e小天|提交应用">
+    <meta name=description content="e小天|提交应用">
+    <link rel="shortcut icon" href="../logo.png">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-select/1.14.0-beta/css/bootstrap-select.min.css"
+        rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/show.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>提交应用</h1>
+        <a href="../home/i.html">个人中心</a>
+        <form>
+            <div class="form-group" style="max-width: 300px;">
+                GitHub项目地址:<input type="text" name="url" class="form-control">
+                项目描述:<textarea class="form-control" name="txt" rows="3"></textarea>
+            </div>
+        </form>
+        <button onclick="add_wxid()" type="button" class="btn btn-primary">提交</button>
+        <div>
+            <h5>您的提交记录</h5>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>贡献值</th>
+                        <th>说明</th>
+                        <th>地址</th>
+                        <th>描述</th>
+                        <th>状态</th>
+                        <th>时间</th>
+                    </tr>
+                </thead>
+                <tbody id="tr_ud"></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script>
+        function add_wxid() {
+            var sid = localStorage.getItem('sid')
+            if (!sid) return log('请到个人中心退出重新登录')
+            var o = $("form").serialize()
+            var url = 'https://api.wxext.cn/auth?app=1&appup=2&sid=' + sid + '&' + o
+            wx({}, function (res) {
+                if (res.msg) log(res.msg)
+                if (!res.data) return;
+                userdata = res.data
+                updateData()
+            }, url)
+        }
+        var userdata = { time: '', items: [] }
+        setTimeout(updateList, 0)
+        function updateList() {
+            var sid = localStorage.getItem('sid')
+            if (!sid) return log('请到个人中心退出重新登录')
+            var url = 'https://api.wxext.cn/auth?app=1&appup=1&sid=' + sid
+            wx({}, function (res) {
+                if (res.msg) log(res.msg)
+                if (!res.data) return;
+                userdata = res.data
+                updateData()
+            }, url)
+        }
+        var states = ['创建', '审核', '公审', '公示', '失败', '成功']
+        function updateData() {
+            $('#tr_ud').html(userdata.items.map(function (d) {
+                var temp = `
+<tr>
+                        <th>{@id}</th>
+                        <td>{@eva}</td>
+                        <td>{@des}</td>
+                        <td>{@url}</td>
+                        <td>{@txt}</td>
+                        <td>{@s}</td>
+                        <td>{@ltime}</td>
+</tr>
+`
+                d.s = states[d.state]
+                for (var i in d) temp = temp.replace(new RegExp("{@" + i + '}', 'g'), d[i]);
+                //<input value='@auth'/>
+                return temp
+            }))
+            $("#utime").html(userdata.time)
+        }
+    </script>
+</body>
+
+</html>

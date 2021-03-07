@@ -88,7 +88,19 @@
                     勾选需要通知的事件（包含消息和匹配正则才通知不需要设置时留空即可）
                     <div id="notifycheck"></div>
                 </div>
-                <h5>无法设置请下载更新</h5>
+                <h5>错误设置</h5>
+                <div>
+                    <div class="checkbox">
+                        <label><input id="keep" value='1' type="checkbox">忽略错误</label>
+                        <small>
+                            <div>默认不忽略错误,http服务需要返回200状态码表示收到了,否则5秒后重试(2次)</div>
+                            <div>出错次数超过30此停止该推送</div>
+                            <div>如果忽略错误,推送失败不会重发,不记错误次数</div>
+                        </small>
+                    </div>
+                </div>
+
+                <h5>设置有问题请更新到最新版</h5>
                 <button id="url_set" type="button" class="btn btn-primary">设置</button>
             </div>
         </div>
@@ -103,11 +115,14 @@
             "1": "文本消息", "3": "图片消息", "34": "语音消息", "37": "好友确认消息"
             , "43": "视频消息", "47": "动画表情", "48": "位置消息", "49": "分享链接", "701": "群成员信息更新"
             , "702": "  群成员增加", "703": "群成员减少", "704": "联系人信息更新", "705": "收款结果"
-            , "706": "好友验证结果", "707": "创建群聊结果", "708": "xml图片地址", "720": "登录信息-授权"
+            , "706": "好友验证结果", "707": "创建群聊结果", "708": "xml资源路径", "720": "登录信息-授权"
             , "721": "登录信息-连接", "723": "登录信息-登录二维码变化", "724": "微信登录-授权信息"
             , "725": "登录信息-微信退出", "726": "发起语音通过", "727": "拒绝语音通话"
             , "728": "接受语音通话", "729": "授权无效"
-            , "802": "插件连接断开", "803": "微信连接断开", "804": "http推送异常关闭", "810": "系统提示点击确定", "10000": "微信系统消息"
+            , "802": "插件连接断开", "803": "微信连接断开", "804": "http推送异常关闭"
+            , "810": "系统提示点击确定"
+            , "840": "插件发出的通知"
+            , "10000": "微信系统消息"
         }
         let el = document.querySelector('#i_api_url')
         el.value = api_url
@@ -198,12 +213,13 @@
                 if (!url) return log('请填写 通知地址')
                 if (!name) return log('请填写 名称')
                 var checknotify = []
-                $.each($('input:checkbox:checked'), function () {
+                $.each($('.checkbox_notify input:checked'), function () {
                     checknotify.push($(this).val())
                 })
                 if (!checknotify.length) return log('请选择通知类型')
+                var keep = $("#keep").prop('checked') ? 1 : 0;
                 wx({
-                    method: 'notify', action: 'add', type: checknotify, name, msg, reg, url
+                    method: 'notify', action: 'add', type: checknotify, name, msg, reg, url, keep
                 }, function (res) {
                     if (res.msg) return log(res.msg)
                     log('添加成功')
