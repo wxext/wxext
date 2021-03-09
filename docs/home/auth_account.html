@@ -84,6 +84,10 @@
                         placeholder="">
                 </div>
                 <div class="form-group">
+                    <label for="auth_val">所需贡献值:</label>
+                    <input type="number" readonly="readonly" value="100" name="auth_val" class="form-control" id="auth_val" placeholder="">
+                </div>
+                <div class="form-group">
                     <button onclick="add_wxid_1()" type="button" class="btn btn-primary">兑换名额</button>
                     <small class="form-text text-muted">兑换名额不可撤销,请谨慎操作</small>
                 </div>
@@ -107,6 +111,10 @@
                 language: 'zh-CN', todayHighlight: true,
             }).datepicker("setDate", '+1m')
         })
+        document.querySelector("#auth_num").addEventListener('input', e => {
+            document.querySelector("#auth_val").value = e.target.value * 500
+        })
+
         let data = [], userdata = { user: '', auth: 0, authnum: 0, items: [] }, currentWxid
         function getwx(wxid) {
             let obj = data.find(o => o.wxid === wxid)
@@ -163,11 +171,12 @@
         }
         function add_wxid_1() {
             var auth_num = $("#auth_num").val()
+            var auth_val = $("#auth_val").val()
             if (!/^\d{1,4}$/.test(auth_num)) return log('数量为1-4位数字')
             var sid = localStorage.getItem('sid')
             if (!sid) return log('请到个人中心退出重新登录')
             if (!clientPC.id) return log('错呃误')
-            var o = 'auth_num=' + auth_num + '&pcid=' + clientPC.id + '&data=' + encodeURIComponent(clientPC.data)
+            var o = 'auth_num=' + auth_num + '&auth_val=' + auth_val + '&pcid=' + clientPC.id + '&data=' + encodeURIComponent(clientPC.data)
             var url = 'https://api.wxext.cn/auth?app=1&auth=3&sid=' + sid + '&' + o
             wx({}, function (res) {
                 if (res.msg) log(res.msg)

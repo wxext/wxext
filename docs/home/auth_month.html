@@ -71,6 +71,11 @@
                         placeholder="">
                     <small class="form-text text-muted">月(按30天算)</small>
                 </div>
+                <div class="form-group">
+                    <label for="auth_val">所需贡献值:</label>
+                    <input type="number" readonly="readonly" value="100" name="auth_val" class="form-control" id="auth_val" placeholder="">
+                </div>
+
                 <div class="alert-danger">由于授权方式为离线授权,生成授权后不可撤销,请谨慎操作</div>
                 <div class="form-group">
                     <button onclick="add_wxid()" type="button" class="btn btn-primary">兑换授权</button>
@@ -93,6 +98,10 @@
             if (!obj) return log('未找到微信,请先登录')
             return obj
         }
+        document.querySelector("#authtime").addEventListener('input', e => {
+            document.querySelector("#auth_val").value = e.target.value * 13
+        })
+
         function wxidChange() {
             currentWxid = $("#select_wxid").val()
             $("#authwxid").val(currentWxid)
