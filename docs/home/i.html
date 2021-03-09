@@ -125,7 +125,9 @@
         if (fun) fun()
         var html = ''
         res.ext.forEach(function (d) {
-          var t = '<div class="ext"><a href="@home">@name@@version</a><br/>日志:@log<br/>状态:@status'
+          var t = '<div class="ext"><a href="@home">@name@@version</a><br/>日志:@log'
+          if (d.url) t += '<a href="' + d.url + '">文档</a>'
+          t += '状态:@status'
           t += '<button type="button" onclick="del(\'@name\')" class="btn btn-danger btn-sm">删除</button>'
           if (d.status == -1) {
             t += '<button type="button" onclick="install(\'@name\')" class="btn btn-warning btn-sm">安装</button>'
