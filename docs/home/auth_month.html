@@ -99,7 +99,7 @@
             return obj
         }
         document.querySelector("#authtime").addEventListener('input', e => {
-            document.querySelector("#auth_val").value = e.target.value * 13
+            document.querySelector("#auth_val").value = e.target.value * 13 * (e.target.value == 12 ? 0.5 : 1)
         })
 
         function wxidChange() {

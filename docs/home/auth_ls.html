@@ -32,7 +32,7 @@
             </select>
             <div class="input-group-addon">
                 <button type="button" onclick="UpdateView()" class="btn btn-primary">刷新</button>
-                <button type="button" onclick="auth_ls_wxid()" class="btn btn-primary">授权</button>
+                <button type="button" id="show" class="btn btn-primary">授权</button>
             </div>
         </div>
 
@@ -42,10 +42,11 @@
     <script src="https://cdn.bootcss.com/js-sha1/0.6.0/sha1.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-select/1.14.0-beta/js/bootstrap-select.min.js"></script>
+    <script src="https://api.adfortest.com/js/Adf_plugin.min.js"></script>
     <script src="../js/app.js"></script>
 
     <script>
-        var data = [],currentWxid
+        var data = [], currentWxid
         function getwx(wxid) {
             let obj = data.find(o => o.wxid === wxid)
             if (!obj) return log('未找到微信,请先登录')
@@ -71,7 +72,13 @@
                 wxidChange()
             })
         }
-        function auth_ls_wxid() {
+        AdforTest.el('#show').type().success(function (data) {
+            console.log(data.data.checkToken, data.data.checkToken.length)
+            auth_ls_wxid(data.data.checkToken)
+        }).error(function () {
+            log('验证失败')
+        }).name('07ff0f03d3e44fb82186197c1460056b').show();
+        function auth_ls_wxid(checkToken) {
             var sid = localStorage.getItem('sid')
             if (!sid) return log('请重新登录')
             if (!clientPC.id) return log('请开启服务')
@@ -81,6 +88,7 @@
             wx({ pid, method: 'mac' }, function (res) {
                 if (res.msg) return log(res.msg)
                 var o = 'wxid=' + currentWxid + '&pcid=' + clientPC.id + '&data=' + encodeURIComponent(clientPC.data)
+                o += '&checkToken=' + checkToken
                 var url = 'https://api.wxext.cn/auth?app=1&auth=ls&sid=' + sid + '&' + o
                 wx({}, function (res) {
                     if (res.msg) return log(res.msg)
