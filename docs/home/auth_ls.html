@@ -72,9 +72,12 @@
                 wxidChange()
             })
         }
+        $(function(){
+            $('#show').click(function(){document.querySelector("#adfortest_plugin_refresh").click()})
+        })
         AdforTest.el('#show').type().success(function (data) {
             console.log(data.data.checkToken, data.data.checkToken.length)
-            auth_ls_wxid(data.data.checkToken)
+            auth_ls_wxid(data.data.checkToken)            
         }).error(function () {
             log('验证失败')
         }).name('07ff0f03d3e44fb82186197c1460056b').show();
