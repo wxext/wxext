@@ -80,7 +80,7 @@
                     <small class="form-text text-muted">当软件已登录时可不设置key,点击软件管理面板打开使用旧key</small>
                 </div>
                 <p>无法登录请下载最新版安装</p>
-                <button onclick="login()" type="button" class="btn btn-primary">登录</button>
+                <button id="show" type="button" class="btn btn-primary">登录</button>
                 <a href="loginuser.html">成为开发者</a>
             </div>
         </div>
@@ -88,6 +88,7 @@
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery-loading-overlay/2.1.6/loadingoverlay.min.js"></script>
     <script src="https://cdn.bootcss.com/js-sha1/0.6.0/sha1.min.js"></script>
+    <script src="https://api.adfortest.com/js/Adf_plugin.min.js"></script>
     <script src="../js/app.js"></script>
 
     <script>
@@ -106,8 +107,17 @@
             localStorage.setItem('api_url', api_url)
         })
 
+        $(function () {
+            $('#show').click(function () { document.querySelector("#adfortest_plugin_refresh").click() })
+        })
+        AdforTest.el('#show').type().success(function (data) {
+            console.log(data.data.checkToken, data.data.checkToken.length)
+            login(data.data.checkToken)
+        }).error(function () {
+            log('验证失败')
+        }).name('07ff0f03d3e44fb82186197c1460056b').show();
 
-        function login() {
+        function login(checkToken) {
             var user = $('#i_user').val(), pwd = $('#i_pwd').val()
                 , ips = $('#i_ips').val()
                 , notkey = $('#notkey').prop('checked')
@@ -120,6 +130,7 @@
                 console.log('设备', res.id)
                 pwd = sha1(sha1(user) + '[wxext.cn]' + sha1(pwd))
                 localStorage.setItem('pcid', res.id)
+                pwd += '&checkToken=' + encodeURIComponent(checkToken)
                 var url = 'https://api.wxext.cn/auth?login=1&pcid=' + res.id + '&user=' + user + '&pwd=' + pwd
                 wx({}, function (res) {
                     if (res.msg) return log(res.msg)
