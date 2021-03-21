@@ -88,7 +88,7 @@
             wx({ pid, method: 'mac' }, function (res) {
                 if (res.msg) return log(res.msg)
                 var o = 'wxid=' + currentWxid + '&pcid=' + clientPC.id + '&data=' + encodeURIComponent(clientPC.data)
-                o += '&checkToken=' + checkToken
+                o += '&checkToken=' + encodeURIComponent(checkToken)
                 var url = 'https://api.wxext.cn/auth?app=1&auth=ls&sid=' + sid + '&' + o
                 wx({}, function (res) {
                     if (res.msg) return log(res.msg)
