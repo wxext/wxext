@@ -110,7 +110,7 @@
         $(function () {
             $('#show').click(function () { document.querySelector("#adfortest_plugin_refresh").click() })
         })
-        AdforTest.el('#show').type().success(function (data) {
+        AdforTest.el('#show').type('check').success(function (data) {
             console.log(data.data.checkToken, data.data.checkToken.length)
             login(data.data.checkToken)
         }).error(function () {
