@@ -130,7 +130,11 @@
                 localStorage.setItem('mbData' + api_name, '[]')
                 return [];
             }
-            return JSON.parse(d)
+            try {
+                return JSON.parse(d)
+            } catch (error) {
+                return [];
+            }
         }
         function SaveMbData(d) {
             if (!d) return;
@@ -149,7 +153,8 @@
 
         }
         function initData() {
-            if (localStorage.getItem('mbData')) return RefreshData();
+            var d = GetMbData()
+            if (d.length) return RefreshData();
             $.getJSON("testData.json", function (data) {
                 localStorage.setItem('mbData', JSON.stringify(data))
                 RefreshData()

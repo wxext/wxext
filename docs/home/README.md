@@ -12,9 +12,14 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 # 开发准备
 
-+ [安装服务端](https://api.wxext.cn/auth?down=wxext "安装e小天")
++ [下载服务端](https://pan.wyfxw.cn/plainwizard/Setup_wxext.msi "下载e小天")
+
+>+ 3.3.3.0更新了应用环境变量设置到一个中,解决部分电脑设置慢的问题
+>+ 应用开发已经过测试稳定运行,欢迎开发应用兑换永久授权名额
 
 + [PC微信安装](https://pc.weixin.qq.com/ "微信PC版")支持最新版微信（每个人最新版不一样咋办呀?那就都支持）
+
++ [按需安装vc运行环境](https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x86.exe "vc_redist2015")
 
 ## 成员贡献项目,仅供参考
 >+ [JAVA+HTTPAPI_DEMO](https://github.com/wxext/wechat-java-api-window "JAVA+HTTPAPI_DEMO")
