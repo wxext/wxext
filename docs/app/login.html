@@ -140,7 +140,9 @@
                     if (res.msg) return log(res.msg)
                     var sid = res.data.sid, sign = res.data.sign
                     console.log('data', res.data)
-                    wx({ method: 'key', user, ips, sign: sign, exit }, function (res) {
+                    var obj = { method: 'key', user, ips, sign: sign }
+                    if (exit) obj.exit = exit
+                    wx(obj, function (res) {
                         if (res.msg) return log('登录失败,' + res.msg)
                         localStorage.setItem('user', user)
                         localStorage.setItem('sid', sid)
