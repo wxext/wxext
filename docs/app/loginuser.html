@@ -89,7 +89,7 @@
     <script>
         if(location.pathname.includes('exit'))localStorage.setItem('userkey', '')
         else if (localStorage.getItem('userkey')) location.href = '../home/i.html'
-        function login() {
+        function login(checkToken) {
             var user = $('#i_user').val(), pwd = $('#i_pwd').val()
             , qq = $('#i_qq').val()
             , code = $('#i_code').val()
@@ -98,6 +98,7 @@
             if (!code) return log('请填写code')
             if (!/^[0-9A-Za-z_]{7,20}$/.test(user)) return log('用户名为7-20位的数字或字母或下划线')
             pwd = sha1(sha1(user) + '[wxext.cn]' + sha1(pwd))
+            pwd += '&checkToken=' + encodeURIComponent(checkToken)
             var url = 'https://api.wxext.cn/auth?reg=1&code=' + code + '&user=' + user + '&pwd=' + pwd+ '&qq=' + qq
             wx({}, function (res) {
                 if (res.msg) return log(res.msg)
