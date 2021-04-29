@@ -14,9 +14,6 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 + [下载服务端](https://pan.wyfxw.cn/plainwizard/Setup_wxext.msi "下载e小天")
 
->+ 3.3.3.2优化部分问题
->+ 原授权接口将于5月关停,欢迎开发应用兑换永久授权名额
-
 + [PC微信安装](https://pc.weixin.qq.com/ "微信PC版")支持最新版微信（每个人最新版不一样咋办呀?那就都支持）
 
 + [按需安装vc运行环境](https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x86.exe "vc_redist2015")
@@ -371,10 +368,16 @@ namespace CN.WXEXT
     "xx": "xx",
     "xxx": "xxx"
 }
-//获取文件数据
+获取文件数据
 {
     "method": "getfile",
     "path": "C:\\Users\\....7fadd4bfe.dat"
+}
+保存数据
+{
+    "method": "savefile",
+    "path": "hello.txt"
+    "data": "hello world"
 }
 同意好友
 {
