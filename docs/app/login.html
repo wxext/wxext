@@ -73,16 +73,10 @@
                     密码:<input type="password" class="form-control" id="i_pwd" placeholder="密码">
                     IP白名单:<textarea class="form-control" id="i_ips" rows="3">127.0.0.1</textarea>
                 </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="notkey">
-                    <label class="form-check-label" for="notkey">不设置key(3.3.0.4以上支持)</label>
-                    <small class="form-text text-muted">登录会刷新key,导致无法使用原有key</small>
-                    <small class="form-text text-muted">当软件已登录时可不设置key,点击软件管理面板打开使用旧key</small>
-                </div>
+
                 <p>无法登录请下载最新版安装</p>
                 <div id="show"></div>
                 <button id="show0" type="button" class="btn btn-primary">登录</button>
-                <button id="show2" type="button" class="btn btn-primary">退出已登录用户</button>
                 <a href="loginuser.html">成为开发者</a>
             </div>
         </div>
@@ -140,20 +134,12 @@
                     if (res.msg) return log(res.msg)
                     var sid = res.data.sid, sign = res.data.sign
                     console.log('data', res.data)
-                    var obj = { method: 'key', user, ips, sign: sign }
-                    if (exit) obj.exit = exit
-                    wx(obj, function (res) {
-                        if (res.msg) return log('登录失败,' + res.msg)
-                        localStorage.setItem('user', user)
-                        localStorage.setItem('sid', sid)
-                        if (notkey) {
-                            log('登录成功,请点击软件界面的管理面板打开网站获取key')
-                        } else {
-                            log('登录成功')
-                            localStorage.setItem('userkey', res.key)
-                            location.href = '../home/i.html'
-                        }
-                    })
+                    localStorage.setItem('user', user)
+                    localStorage.setItem('sid', sid)
+                    log('登录成功')
+                    localStorage.setItem('userkey', res.key)
+                    location.href = '../home/i.html'
+
                 }, url)
             })
         }
