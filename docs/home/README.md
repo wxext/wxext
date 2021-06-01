@@ -68,8 +68,19 @@ namespace CN.WXEXT
 
 >+ 应用启动后,通过websocket连接即可,连接链接为
 >+ ws://127.0.0.1:8202/wx?name=应用名称&key=连接密钥
->+ 应用名称和连接密钥可在环境变量中取得
+>+ 应用名称和连接密钥可在环境变量cn.wxext.app中取得
 >+ 测试应用可打开WxExtApp.exe查看密钥
+
+```
+应用运行填写示例:
+运行程序 cmd  主程序 /c node app.js
+说明:通过cmd执行node app.js命令
+
+运行程序 node  主程序 app.js
+说明:通过node程序执行app.js
+
+两种填法都可以实现运行app.js应用
+```
 
 >+ [参考应用](https://github.com/wxext/cn.wxext.ext.ws "e小天|websocket")
 
@@ -373,11 +384,17 @@ namespace CN.WXEXT
     "method": "getfile",
     "path": "C:\\Users\\....7fadd4bfe.dat"
 }
-保存数据
+保存数据(可选type:base64,hex,url,默认为保存文本)
 {
     "method": "savefile",
     "path": "hello.txt"
     "data": "hello world"
+}
+保存图片
+{
+    "method": "saveimg",
+    "type": "url"
+    "data": "https://www.baidu.com/img/flexible/logo/pc/result.png"
 }
 同意好友
 {
@@ -408,12 +425,15 @@ namespace CN.WXEXT
     "wxid": "wxid_vw2prmx8xv5n22|wxid_vryy2hqz4mv212",
     "pid": 0
 }
+### HTTPKEY
+key计算方式:sha1("httpkey|wxext.cn|MachineName|密码")
+MachineName为本机机器名,密码初始为空
 退出登录key
 {
     "method": "key",
-    "sign": "xxx",
-    "user": "test",
-    "exit": "1"
+    "old": "",//就密码,默认为空
+    "pwd": "",//设置新密码
+    "ips": "127.0.0.1"//设置ip白名单
 }
 ```
 ## 事件通知
