@@ -135,7 +135,7 @@
                     if (res.msg) return log(res.msg)
                     $('.pid').html(pid)
                     $('.loginQR').html('')
-                    $('.loginQR').qrcode('http://weixin.qq.com/x/' + res.data.qr)
+                    $('.loginQR').qrcode('http://weixin.qq.com/x/' + res.data)
                     $('#myModal_login').modal("show");
                 })
 
