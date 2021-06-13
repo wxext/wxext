@@ -9,6 +9,7 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 [:memo: 编辑本文档](https://github.com/wxext/wxext/blob/master/docs/home/README.md)
 
 > 本框架使用门槛较高,需要开发者有一定的编码能力
+> 最新版3.3.5.3,支持微信版本2.6-3.3,支持接收朋友圈
 
 # 开发准备
 
@@ -410,14 +411,16 @@ namespace CN.WXEXT
     "transferid": "收到的xml中获取",
     "pid": 0
 }
-夜间忙时不自动下载
+忙时段设置图片等不自动下载
+有三个时间段可以单独设置
+flag=1 2 3 分别设置三个时间段
+flag=0同时设置3个时间段
+请求后会返回三个时间段
+设置成 00:00-00:00 24小时自动下载
 {
-    "method": "downrange1",
+    "method": "downrange",
+    "flag": "1",
     "data": "18:00-23:15"
-}
-{
-    "method": "downrange2",
-    "data": "18:00-23:30"
 }
 网络获取详细信息,昵称 头像 是否好友拉黑
 {
@@ -428,6 +431,7 @@ namespace CN.WXEXT
 ### HTTPKEY
 key计算方式:sha1("httpkey|wxext.cn|MachineName|密码")
 MachineName为本机机器名,密码初始为空
+本地请求带上referer可免key
 退出登录key
 {
     "method": "key",
@@ -465,6 +469,11 @@ expired 729 授权到期前半小时通知/主动请求未授权通知
 callVoipAudio  726  发起电话
 callVoipAudio  727  挂断电话
 callVoipAudio  728  接通电话
+
+mmsns 731 朋友圈红点点
+mmsns 732 新朋友圈推送
+mmsns 733 朋友圈列表
+
 
 exterr  802 插件连接断开通知
 exterr  803 微信连接断开通知
