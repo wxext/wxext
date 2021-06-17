@@ -83,7 +83,7 @@
         }).name('07ff0f03d3e44fb82186197c1460056b').show();
         function auth_ls_wxid(checkToken) {
             var sid = localStorage.getItem('sid')
-            if (!sid) return log('请重新登录')
+            //if (!sid) return log('请重新登录')
             if (!clientPC.id) return log('请开启服务')
             var info = getwx(currentWxid)
             if (!info) return
