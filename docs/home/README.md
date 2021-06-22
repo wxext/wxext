@@ -9,7 +9,9 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 [:memo: 编辑本文档](https://github.com/wxext/wxext/blob/master/docs/home/README.md)
 
 > 本框架使用门槛较高,需要开发者有一定的编码能力
-> 最新版3.3.5.3,支持微信版本2.6-3.3,支持朋友圈接收
+> 最新版3.3.5.6,支持微信版本2.6-3.3,支持朋友圈接收
+> 修复已知问题
+> 插件传key方式变更,取消环境变量设置
 
 # 开发准备
 
@@ -69,9 +71,23 @@ namespace CN.WXEXT
 
 >+ 应用启动后,通过websocket连接即可,连接链接为
 >+ ws://127.0.0.1:8202/wx?name=应用名称&key=连接密钥
->+ 应用名称和连接密钥可在环境变量cn.wxext.app中取得
->+ 测试应用可打开WxExtApp.exe查看密钥
+>+ 应用名称和连接密钥可在启动参数中取得(程序内获取应用的启动参数)
+>+ 测试应用会在应用目录下写入key,应用名称为www开头时,可通过http获取密钥
+>+ 可打开WxExtApp.exe查看密钥
 
+### web应用示例
+```
+应用中心搜索www
+https://www.wxext.cn/home/ext.html
+输入密钥:123按回车添加应用
+到个人中心启动应用https://www.wxext.cn/home/i.html
+此时可以通过http获取ws连接密钥
+http://127.0.0.1:8203/ext/www/key.ini
+
+```
+
+
+### 创建应用
 ```
 应用运行填写示例:
 运行程序 cmd  主程序 /c node app.js
