@@ -146,7 +146,7 @@
         function getAuthData() {
             var sid = localStorage.getItem('sid')
             if (!sid) return log('请重新登录')
-            var url = 'https://api.wxext.cn/auth?app=1&auth=1&sid=' + sid
+            var url = 'https://api.wxext.cn/auth?app=1&auth=1&sid=' + sid+ '&ver='+clientPC.ver+ '&pcid=' + clientPC.id+ '&data=' + encodeURIComponent(clientPC.data)
             wx({}, function (res) {
                 if (res.msg) log(res.msg)
                 if (!res.data) return;
