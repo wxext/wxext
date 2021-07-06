@@ -120,7 +120,7 @@
         function getAuthData() {
             var sid = localStorage.getItem('sid')
             if (!sid) return log('请重新登录')
-            var url = 'https://api.wxext.cn/auth?app=1&auth=11&sid=' + sid
+            var url = 'https://api.wxext.cn/auth?app=1&auth=11&sid=' + sid+ '&ver='+clientPC.ver+ '&pcid=' + clientPC.id+ '&data=' + encodeURIComponent(clientPC.data)
             wx({}, function (res) {
                 if (res.msg) log(res.msg)
                 if (!res.data) return;
@@ -163,9 +163,8 @@
             $("#userinfo").html(`您好<b>${userdata.user}</b>,贡献值:<b>${userdata.eva}</b>,您有<b>${userdata.auth}</b>个授权名额,已使用<b>${userdata.authnum}</b>个`)
         }
         function auth_wxid(wxid, auth) {
-            if (!wxid) return log('请填写wxid')
             var info = getwx(wxid)
-            if (!info) return log('请在下方选择操作账号')
+            if (!info) info = { pid: -1 };
             wx({ pid: info.pid, method: 'auth', token: auth }, function (res) {
                 if (res.msg) return log('授权失败,token不匹配,' + res.msg)
                 log('授权成功')
