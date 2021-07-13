@@ -1,6 +1,6 @@
 //<script>hitokoto()</script>
 
-let api_url = localStorage.getItem('api_url')||'http://127.0.0.1:8203/api?json', clientPC = {}
+let api_url = localStorage.getItem('api_url') || 'http://127.0.0.1:8203/api?json', clientPC = {}
 function wx(data, fn, url) {
     $.LoadingOverlay("show")
     log()
@@ -42,6 +42,8 @@ function CheckLogin() {
         console.log('版本', res.ver)
         console.log('设备', res.id)
     })
+    var key = localStorage.getItem('userkey')
+    document.querySelectorAll('a').forEach(function (e) { if (e.href.includes('auth')) e.href += '?key=' + key })
 }
 setTimeout(CheckLogin, 0)
 
