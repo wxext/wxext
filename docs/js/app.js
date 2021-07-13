@@ -6,7 +6,7 @@ function wx(data, fn, url) {
     log()
     $.ajax({
         type: "POST",
-        url: url || (api_url + '&key=' + localStorage.getItem('userkey')), data,
+        url: url || (api_url + '&key=' + userkey), data,
         success: function (res, status) {
             if (res.msg) log(res.msg)
             fn(res)
@@ -19,6 +19,7 @@ function wx(data, fn, url) {
         }
     })
 }
+window.userkey = localStorage.getItem('userkey')
 function CheckLogin() {
     var key = /key=([A-Z0-9]{40})/.exec(location.search)
     if (key) {
@@ -27,16 +28,14 @@ function CheckLogin() {
     }
     if (!window.$) return
     if (location.pathname.includes('login')) return;
-    if (!localStorage.getItem('userkey')) localStorage.setItem('userkey', 'key')
     wx({ method: 'mac' }, function (res) {
-        if (res.msg) {
-            localStorage.setItem('userkey', '')
+        if (res.msg) return log(res.msg)
+        if (!userkey) {
             wx({ method: 'setConfig' }, function (res) {
                 if (res.msg) return log(res.msg)
-                console.log('userkey', res.config.key)
-                localStorage.setItem('userkey', res.config.key)
+                userkey = res.config.key
+                localStorage.setItem('userkey', userkey)
             })
-            //location.href = '../app/login.html'
         }
         clientPC = res
         console.log('版本', res.ver)

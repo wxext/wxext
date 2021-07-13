@@ -27,13 +27,12 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 # 功能页面
 
+>+ [管理插件](../home/i.html ":ignore e小天|个人中心")
+
 >+ [展示页面](../app/demo.html ":ignore e小天|展示页面")
 
 >+ [功能测试](../app/test.html ":ignore e小天|功能测试")
 
->+ [软件授权](../home/auth.html ":ignore e小天|设置中心")
-
->+ [管理插件](../home/i.html ":ignore e小天|个人中心")
 
 # 应用开发
 >+ 插件应用通过websocket进行连接通讯
