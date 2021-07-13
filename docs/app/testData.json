@@ -105,7 +105,7 @@
         "data": {
             "method": "deqr",
             "type": "url",
-            "data": "https://www.wxext.cn/qr.png"
+            "data": "http://127.0.0.1:8203/tmp/wxext/www/wxext-master/docs/qr.png"
         },
         "des": "识别二维码图片，type可以为 base64,url,path,\npath为本机路径"
     },
@@ -488,7 +488,7 @@
         "name": "设置首页",
         "data": {
             "method": "setHome",
-            "url": "https://www.wxext.cn/home/i.html"
+            "url": "http://127.0.0.1:8203/"
         },
         "des": "设置打开e小天时显示的首页"
     },

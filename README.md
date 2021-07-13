@@ -16,6 +16,4 @@ Windows系统
 支持最新版微信
 
 + [下载扩展软件e小天](https://pan.wyfxw.cn/plainwizard/Setup_wxext.msi "e小天")
-安装运行后,点击管理面板即可开始管理本机微信程序
-
-+ [开发文档](https://www.wxext.cn/home/developer.html 'e小天 开发文档')
+安装运行后,点击管理面板即可开始管理本机微信程序,可在管理面板中查看开发文档

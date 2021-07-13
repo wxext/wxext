@@ -76,9 +76,8 @@ namespace CN.WXEXT
 ### web应用示例
 ```
 应用中心搜索www
-https://www.wxext.cn/home/ext.html
 输入密钥:123按回车添加应用
-到个人中心启动应用https://www.wxext.cn/home/i.html
+到个人中心启动应用
 此时可以通过http获取ws连接密钥
 http://127.0.0.1:8203/ext/www/key.ini
 
