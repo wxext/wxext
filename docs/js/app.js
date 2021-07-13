@@ -6,7 +6,7 @@ function wx(data, fn, url) {
     log()
     $.ajax({
         type: "POST",
-        url: url || (api_url + '&key=' + localStorage.getItem('userkey')), data,
+        url: url || api_url, data,//(api_url + '&key=' + localStorage.getItem('userkey'))
         success: function (res, status) {
             if (res.msg) log(res.msg)
             fn(res)
@@ -31,7 +31,7 @@ function CheckLogin() {
     wx({ method: 'mac' }, function (res) {
         if (res.msg) {
             localStorage.setItem('userkey', '')
-            location.href = '../app/login.html'
+            //location.href = '../app/login.html'
         }
         clientPC = res
         console.log('版本', res.ver)
