@@ -27,13 +27,13 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 # 功能页面
 
->+ [展示页面](https://www.wxext.cn/app/demo.html "e小天|展示页面")
+>+ [展示页面](../app/demo.html ":ignore e小天|展示页面")
 
->+ [功能测试](https://www.wxext.cn/app/test.html "e小天|功能测试")
+>+ [功能测试](../app/test.html ":ignore e小天|功能测试")
 
->+ [软件授权](https://www.wxext.cn/home/auth.html "e小天|设置中心")
+>+ [软件授权](../home/auth.html ":ignore e小天|设置中心")
 
->+ [管理插件](https://www.wxext.cn/home/i.html "e小天|个人中心")
+>+ [管理插件](../home/i.html ":ignore e小天|个人中心")
 
 # 应用开发
 >+ 插件应用通过websocket进行连接通讯
@@ -42,7 +42,7 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 ## 创建应用
 
->+ [创建应用](https://www.wxext.cn/home/app.html "e小天|创建应用")
+>+ [创建应用](../home/app.html ":ignore e小天|创建应用")
 
 ## 开发应用
 >+ 框架支持启动命令行运行应用,如 node,python,java 等
@@ -465,7 +465,7 @@ MachineName为本机机器名,密码初始为空
 }
 ```
 ## 事件通知
->+ 设置通知地址后会将事件推送到指定地址  [去设置](https://www.wxext.cn/app/settings.html "e小天|设置中心")
+>+ 设置通知地址后会将事件推送到指定地址  [去设置](../app/settings.html ":ignore e小天|设置中心")
 >+ 可以推送到php等服务地址接收消息，然后通过http(需ip白名单带key请求)回复发送消息
 >+ 插件通过websocket实时接收消息
 >+ 每一个事件都有一个 type 字段表示含义
