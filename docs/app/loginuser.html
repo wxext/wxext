@@ -101,8 +101,6 @@
             pwd += '&checkToken=' + encodeURIComponent(checkToken)
             var url = 'https://api.wxext.cn/auth?reg=1&code=' + code + '&user=' + user + '&pwd=' + pwd+ '&qq=' + qq
             wx({}, function (res) {
-                if (res.msg) return log(res.msg)
-
                 if (res.msg) return log('注册失败,' + res.msg)
                 log('注册成功')
                 location.href = '../app/login.html'
