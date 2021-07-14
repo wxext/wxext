@@ -88,12 +88,13 @@
     <script src="../js/app.js"></script>
 
     <script>
-        if (location.search.includes('exit')) localStorage.setItem('userkey', '')
-        else if (window.setuserkey || localStorage.getItem('userkey')) location.href = '../home/i.html'
-
+        if (location.search.includes('exit')) {
+            localStorage.setItem('user', '')
+            localStorage.setItem('sid', '')
+        }
         setTimeout(checkkey, 0)
         function checkkey() {
-            if (window.setuserkey || localStorage.getItem('userkey')) location.href = '../home/i.html'
+            if (window.setuserkey || localStorage.getItem('sid')) location.href = '../home/i.html'
         }
 
         let el = document.querySelector('#i_api_url')
@@ -137,7 +138,6 @@
                     localStorage.setItem('user', user)
                     localStorage.setItem('sid', sid)
                     log('登录成功')
-                    localStorage.setItem('userkey', res.key)
                     location.href = '../home/i.html'
 
                 }, url)
