@@ -103,7 +103,7 @@
           <a href="../app/login.html?exit=1">退出</a>
         </div>
         <div>
-          <a id='clearfile' href="javascript:void(0)">清理缓存</a>
+          <a onclick='clearfile()' href="javascript:void(0)">清理缓存</a>
         </div>
       </div>
     </div>
@@ -124,7 +124,6 @@
     function clearfile() {
       wx({ method: 'savefile', path: 'wxext/www/datainfo.ini', data: JSON.stringify({ ver: 1 }) }, function (res) {
         console.log('res', res)
-        if (res.data) return log(res.msg)
         location.href = '/'
       })
     }
