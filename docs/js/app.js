@@ -1,6 +1,6 @@
 //<script>hitokoto()</script>
 
-let api_url = localStorage.getItem('api_url') || 'http://127.0.0.1:8203/api?json', clientPC = {}
+let api_url = localStorage.getItem('api_url') || '/api?json', clientPC = {}
 function wx(data, fn, url) {
     $.LoadingOverlay("show")
     log()
@@ -55,7 +55,7 @@ function TipMsg(message) {
         .delay(3000)
         .fadeOut();
 };
-function log(msg) { $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
+function log(msg) { if (msg.includes('重新登录')) { location.href = '../app/login.html?exit=1' } $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
 function loadScript(src) {
     var hm = document.createElement('script');
     hm.src = src;

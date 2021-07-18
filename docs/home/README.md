@@ -8,9 +8,6 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 [:memo: 编辑本文档](https://github.com/wxext/wxext/blob/master/docs/home/README.md)
 
-> 本框架使用门槛较高,需要开发者有一定的编码能力
-> 最新版3.3.5.7,支持微信版本2.6-3.3,支持朋友圈接收
-
 # 开发准备
 
 + [下载服务端](https://pan.wyfxw.cn/plainwizard/Setup_wxext.msi "下载e小天")
