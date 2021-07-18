@@ -68,10 +68,6 @@
         <div class="row">
             <div class="col-sm">
                 <h6 id="tip" style="color:red;"></h6>
-                API地址:
-                <input type="text" class="form-control" id="i_api_url" placeholder="API地址">
-
-                <hr />
                 <h5>异步http推送设置</h5>
                 已配置的通知：
                 <div id="notifylist">
@@ -124,12 +120,7 @@
             , "840": "插件发出的通知"
             , "10000": "微信系统消息"
         }
-        let el = document.querySelector('#i_api_url')
-        el.value = api_url
-        el.addEventListener('input', e => {
-            api_url = e.target.value
-            localStorage.setItem('api_url', api_url)
-        })
+
         //推送状态 1 停止 2 运行 3 错误
         function upadteNotifyList() {
             wx({ method: 'notify', action: 'list' }, function (res) {
