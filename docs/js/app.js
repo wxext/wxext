@@ -55,7 +55,7 @@ function TipMsg(message) {
         .delay(3000)
         .fadeOut();
 };
-function log(msg) { if (msg.includes('重新登录')) { location.href = '../app/login.html?exit=1' } $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
+function log(msg) { if (msg&&msg.includes('重新登录')) { location.href = '../app/login.html?exit=1' } $("#tip").text(msg || ''); if (msg) TipMsg(msg) }
 function loadScript(src) {
     var hm = document.createElement('script');
     hm.src = src;
