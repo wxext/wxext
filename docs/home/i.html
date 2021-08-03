@@ -75,7 +75,7 @@
 <body>
   <div class="container">
     <h1>个人中心</h1>
-    <small class="form-text text-muted">i</small>
+    <small class="form-text" id="uptip" style="color:red;"></small>
     <div class="row">
       <div class="linkto">
         <div>
@@ -114,6 +114,14 @@
         <div id="wxidlist"></div>
       </div>
     </div>
+    <hr />
+    <h5>推荐应用</h5>
+    <div class="row">
+      <div class="col-sm">
+        <div id="toplist"></div>
+      </div>
+    </div>
+
   </div>
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
@@ -121,6 +129,68 @@
   <script src="../js/app.js"></script>
 
   <script>
+    function dateFormat(fmt, date) {
+      if (!date) date = new Date()
+      var ret;
+      var opt = {
+        "Y+": date.getFullYear().toString(),        // 年
+        "m+": (date.getMonth() + 1).toString(),     // 月
+        "d+": date.getDate().toString(),            // 日
+        "H+": date.getHours().toString(),           // 时
+        "M+": date.getMinutes().toString(),         // 分
+        "S+": date.getSeconds().toString()          // 秒
+        // 有其他格式化字符需求可以继续添加，必须转化成字符串
+      };
+      for (var k in opt) {
+        ret = new RegExp("(" + k + ")").exec(fmt);
+        if (ret) {
+          fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+        };
+      };
+      return fmt;
+    }
+    function appinfo(o) {
+      if (clientPC.ver < o.ver) document.querySelector('#uptip').innerHTML = '当前版本:' + clientPC.ver + ',最新版本:' + o.ver + ',请及时更新'
+      upadteApp(o)
+    }
+    function addext(name) {
+      var binduser = localStorage.getItem('user')
+      if (!binduser) return log('请重新登录')
+      var sid = localStorage.getItem('sid')
+      if (!sid) return log('请重新登录')
+      var extauth = '&name=' + name + '&binduser=' + binduser
+      var url = 'https://api.wxext.cn/auth?app=1&add=1&sid=' + sid + extauth
+      wx({}, function (res) {
+        if (res.msg) return log(res.msg)
+        wx({ method: 'ext', action: 'add', del: '强制安装', name, data: res.data.add }, function (res) {
+          if (res.msg) return log(res.msg)
+          log('添加成功,请到个人中心查看')
+        })
+      }, url)
+    }
+    function upadteApp(res) {
+      console.log(res)
+      if (res.msg) return log(res.msg)
+      var html = ''
+      res.ext.forEach(function (d) {
+        var t = '<div class="ext"><a target="_blank" href="@url">@name</a><br/>'
+        t += '<button type="button" onclick="addext(\'@name\')" class="btn btn-danger btn-sm">添加</button>'
+        t += '<button type="button" onclick="install(\'@name\')" class="btn btn-warning btn-sm">安装</button>'
+        t += '<br/>@des'
+        t += '</div>'
+        d.home = d.home && d.home.replace(/@name/g, d.name)
+        d.des = d.des && d.des.replace(/@name/g, d.name)
+        console.log(d)
+        for (var i in d) t = t.replace(new RegExp("@" + i, 'g'), d[i]);
+        html += t
+      })
+      if (html == '') {
+        $("#toplist").html('暂无插应用')
+      } else {
+        $("#toplist").html(html)
+      }
+    }
+    loadScript('https://api.wxext.cn/appinfo1.js?app=info&t=' + dateFormat('YYYYmmddHH'))
     function clearfile() {
       wx({ method: 'savefile', path: 'wxext/www/datainfo.ini', data: JSON.stringify({ ver: 1 }) }, function (res) {
         console.log('res', res)
@@ -134,10 +204,9 @@
         if (fun) fun()
         var html = ''
         res.ext.forEach(function (d) {
-          var t = '<div class="ext"><a href="@home">@name@@version</a><br/>日志:@log'
+          var t = '<div class="ext"><a target="_blank" href="@home">@name</a><br/>日志:@log'
           if (d.url) t += '<a href="' + d.url + '">文档</a>'
-          t += '状态:@status'
-          t += '<button type="button" onclick="install(\'@name\')" class="btn btn-warning btn-sm">安装</button>'
+          t += '状态:@status<br/>'
           t += '<button type="button" onclick="del(\'@name\')" class="btn btn-danger btn-sm">删除</button>'
           if (d.status == 1 || d.status == 2) {
             t += '<button type="button" onclick="stop(\'@name\')" class="btn btn-warning btn-sm">停用</button>'
@@ -165,7 +234,10 @@
       var url = 'https://api.wxext.cn/auth?app=1&install=1&name=' + name + '&sid=' + sid
       wx({}, function (res) {
         if (res.msg) return log(res.msg)
-        wx({ method: 'ext', action: 'install', zipurl: res.data.zipurl, name, sign: res.data.sign }, function (res) {
+        res.data.method = 'ext'
+        res.data.action = 'install'
+        res.data.name = name
+        wx(res.data, function (res) {
           upadteList(function () {
             if (res.msg) return log(res.msg)
             log(res.data)

@@ -12,15 +12,7 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 + [下载服务端](https://pan.wyfxw.cn/plainwizard/Setup_wxext.msi "下载e小天")
 
-+ [PC微信安装](https://pc.weixin.qq.com/ "微信PC版")支持最新版微信（每个人最新版不一样咋办呀?那就都支持）
-
-+ [按需安装vc运行环境](https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x86.exe "vc_redist2015")
-
-## 成员贡献项目,仅供参考
->+ [JAVA+HTTPAPI_DEMO](https://github.com/wxext/wechat-java-api-window "JAVA+HTTPAPI_DEMO")
->+ [易语言](https://github.com/wxext/wechat-e "易语言模块")
->+ [Python](https://gitee.com/KratosMax/WxextBasedWeChatBot "Python调用")
->+ [nodejs微信复读机](https://github.com/wxext/wxext/blob/master/docs/ext/wxext/demo.js "微信复读机demo")，可复读文字、图片、动态表情、文章链接、小程序，群成员变化通知等
++ [PC微信安装](https://pc.weixin.qq.com/ "微信PC版")自适应匹配最新版PC微信
 
 # 功能页面
 
@@ -36,14 +28,19 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 >+ 数据为json格式
 >+ 开发者交流群:321620171
 
-## 创建应用
+## 应用开发
 
 >+ [创建应用](../home/app.html ":ignore e小天|创建应用")
-
-## 开发应用
 >+ 框架支持启动命令行运行应用,如 node,python,java 等
 >+ 框架启动DLL类型应用时,会执行应用的 WxExt_Run 方法
 >+ 应用启动后在第一时间连接框架,否则会关闭应用
+
+### web应用示例
+
+关键词回复应用 https://github.com/wxext/ext-nodejs-keyhelp
+web复读机应用 https://github.com/wxext/ext-js-demo
+
+### dll应用开发
 
 ```
 //应用导出Run方法即可
@@ -65,9 +62,9 @@ namespace CN.WXEXT
 
 >+ 应用启动后,通过websocket连接即可,连接链接为
 >+ ws://127.0.0.1:8202/wx?name=应用名称&key=连接密钥
->+ 应用名称和连接密钥可在启动参数中取得(程序内获取应用的启动参数)
+>+ 应用名称和连接密钥可在启动参数中取得(程序内获取应用的启动参数),参考 关键词回复应用
 >+ 测试应用会在应用目录下写入key,应用名称为www开头时,可通过http获取密钥
->+ 可打开WxExtApp.exe查看密钥
+>+ 测试应用可打开WxExtApp.exe查看密钥
 
 ### web应用示例
 ```
@@ -91,8 +88,6 @@ http://127.0.0.1:8203/ext/www/key.ini
 
 两种填法都可以实现运行app.js应用
 ```
-
->+ [参考应用](https://github.com/wxext/cn.wxext.ext.ws "e小天|websocket")
 
 ## 调试应用
 把安装目录下的 WxExtApp.exe 复制到需要调试的开发目录,打开即可调试

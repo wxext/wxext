@@ -62,44 +62,58 @@
                     <label for="url" class="col-sm-3 col-form-label text-right">安装说明</label>
                     <div class="col-sm-9">
                         <input type="text" value="https://github.com/wxext/ext-cpp-@name" class="form-control" id="url" name="url">
+                        <small class="form-text text-muted">GitHub项目地址,介绍详细使用说明</small>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="home" class="col-sm-3 col-form-label text-right">首页地址</label>
+                    <label for="home" class="col-sm-3 col-form-label text-right">管理地址</label>
                     <div class="col-sm-9">
                         <input type="text" value="http://127.0.0.1:8203/ext/@name/www/" class="form-control" id="home"
                             name="home">
+                        <small class="form-text text-muted">应用管理界面地址,用户进入这个地址配置应用</small>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="main" class="col-sm-3 col-form-label text-right">主程序(调试留空)</label>
+                    <label for="zip" class="col-sm-3 col-form-label text-right">下载地址</label>
                     <div class="col-sm-9">
-                        <input type="text" value="app.js" class="form-control" id="main" name="main">
+                        <input type="text" value="" class="form-control" id="zip" name="zip">
+                        <small class="form-text text-muted">zip链接或者 GitHub仓库(/用户名/项目名/目录名)</small>
                     </div>
                 </div>
+                
                 <div class="form-group row">
-                    <label for="md5" class="col-sm-3 col-form-label text-right">主程序md5</label>
-                    <div class="col-sm-9">
-                        <input type="text" value="" class="form-control" id="md5" name="md5">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="run" class="col-sm-3 col-form-label text-right">运行命令</label>
+                    <label for="run" class="col-sm-3 col-form-label text-right">启动程序</label>
                     <div class="col-sm-9">
                         <input type="text" value="node" class="form-control" id="run" name="run">
+                        <small class="form-text text-muted">调试应用留空</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="main" class="col-sm-3 col-form-label text-right">运行参数</label>
+                    <div class="col-sm-9">
+                        <input type="text" value="app.js" class="form-control" id="main" name="main">
+                        <small class="form-text text-muted">调试应用留空</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="encoding" class="col-sm-3 col-form-label text-right">输出编码</label>
+                    <div class="col-sm-9">
+                        <input type="text" value="utf-8" class="form-control" id="encoding" name="encoding">
+                        <small class="form-text text-muted">日志输出编码</small>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="secret" class="col-sm-3 col-form-label text-right">密钥</label>
                     <div class="col-sm-9">
-                        <input type="text" value="123" class="form-control" id="secret" name="secret">
+                        <input type="text" value="" class="form-control" id="secret" name="secret">
+                        <small class="form-text text-muted">添加应用需要的密钥,可空</small>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="val" class="col-sm-3 col-form-label text-right">价值</label>
                     <div class="col-sm-9">
-                        <input type="text" value="9" class="form-control" id="val" name="val">
+                        <input type="text" value="" class="form-control" id="val" name="val">
+                        <small class="form-text text-muted">添加应用需要的贡献值,可空</small>
                     </div>
                 </div>
                 <div class="form-group row">
