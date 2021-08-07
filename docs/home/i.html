@@ -200,10 +200,10 @@
       })
     }
     function datainfo(d) {
-      wx({ method: "ext", action: "list" }, function (res) {
+      wx({}, function (res) {
         if (res.ver == d.ver) return
         clearfile()
-      })
+      }, '/tmp/wxext/www/datainfo.ini')
     }
 
     function upadteList(fun) {
