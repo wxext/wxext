@@ -201,6 +201,7 @@
     }
     function datainfo(d) {
       wx({}, function (res) {
+        res = JSON.parse(res)
         if (res.ver == d.ver) return
         clearfile()
       }, '/tmp/wxext/www/datainfo.ini')
