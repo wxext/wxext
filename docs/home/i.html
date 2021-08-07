@@ -190,13 +190,22 @@
         $("#toplist").html(html)
       }
     }
-    loadScript('https://api.wxext.cn/appinfo1.js?app=info&t=' + dateFormat('YYYYmmddHH'))
+    var updateT = dateFormat('YYYYmmddHH')
+    loadScript('https://api.wxext.cn/appinfo.js?app=info&t=' + updateT)
+    loadScript('https://cdn.jsdelivr.net/gh/wxext/wxext/docs/info.js?t=' + updateT)
     function clearfile() {
       wx({ method: 'savefile', path: 'wxext/www/datainfo.ini', data: JSON.stringify({ ver: 1 }) }, function (res) {
         console.log('res', res)
         location.href = '/'
       })
     }
+    function datainfo(d) {
+      wx({ method: "ext", action: "list" }, function (res) {
+        if (res.ver == d.ver) return
+        clearfile()
+      })
+    }
+
     function upadteList(fun) {
       wx({ method: "ext", action: "list" }, function (res) {
         console.log(res)
