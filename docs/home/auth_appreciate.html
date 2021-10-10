@@ -26,6 +26,12 @@
         <div class="alert-primary">赞赏之后需等待人工登记,仅提取数值为1-4位整数账单,其他忽略</div>
         <div class="alert-primary">支付时请确认支付信息中包含您的用户名,以便登记您的贡献值</div>
         <div class="alert-primary">留意最新登记日期,对比支付日期,如有遗漏请联系群主</div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">用户凭据(sid):</span>
+            </div>
+            <input type="text" class="form-control" id="i_sid">
+        </div>
         <form class="form-inline" style="margin: 12px 0;">
             <div class="form-group">
                 <label for="i_num">赞赏贡献值:</label>
@@ -68,6 +74,7 @@
             $('#s_qr').qrcode('alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s":"money","u":"2088012278116671","a":"' + v + '","m":"' + u + '"}')
         }
         var userdata = { time: '', items: [] }
+        $('#i_sid').val(localStorage.getItem('sid'))
         setTimeout(updateList, 0)
         function updateList() {
             var sid = localStorage.getItem('sid')
