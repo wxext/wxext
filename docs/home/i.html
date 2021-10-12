@@ -149,10 +149,14 @@
       };
       return fmt;
     }
-    function appinfo(o) {
+    function appinfo(o) {      
       if (clientPC.ver < o.ver) document.querySelector('#uptip').innerHTML = '当前版本:' + clientPC.ver + ',最新版本:' + o.ver + ',请及时更新'
       else document.querySelector('#uptip').innerHTML = o.tip
       upadteApp(o)
+      wx({}, function (res) {
+        if (res == o.web) return
+        clearfile()
+      }, '/tmp/wxext/www/datainfo.ini')
     }
     function addext(name) {
       var binduser = localStorage.getItem('user')
@@ -193,21 +197,12 @@
     }
     var updateT = dateFormat('YYYYmmddHH')
     loadScript('https://api.wxext.cn/appinfo.js?app=info&t=' + updateT)
-    loadScript('https://cdn.jsdelivr.net/gh/wxext/wxext/docs/info.js?t=' + updateT)
     function clearfile() {
       wx({ method: 'savefile', path: 'wxext/www/datainfo.ini', data: JSON.stringify({ ver: 1 }) }, function (res) {
         console.log('res', res)
         location.href = '/'
       })
     }
-    function datainfo(d) {
-      wx({}, function (res) {
-        res = JSON.parse(res)
-        if (res.ver == d.ver) return
-        clearfile()
-      }, '/tmp/wxext/www/datainfo.ini')
-    }
-
     function upadteList(fun) {
       wx({ method: "ext", action: "list" }, function (res) {
         console.log(res)
