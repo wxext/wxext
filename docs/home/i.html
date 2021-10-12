@@ -151,6 +151,7 @@
     }
     function appinfo(o) {
       if (clientPC.ver < o.ver) document.querySelector('#uptip').innerHTML = '当前版本:' + clientPC.ver + ',最新版本:' + o.ver + ',请及时更新'
+      else document.querySelector('#uptip').innerHTML = o.tip
       upadteApp(o)
     }
     function addext(name) {

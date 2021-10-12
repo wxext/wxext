@@ -17,3 +17,5 @@ Windows系统
 
 + [下载扩展软件e小天](https://pan.wyfxw.cn/plainwizard/Setup_wxext.msi "e小天")
 安装运行后,访问 127.0.0.1:8203 查看开发文档及管理本机微信程序
+
++ 安装<a href="https://www.wxext.cn/">e小天</a>软件后,可点击管理面板查看开发文档

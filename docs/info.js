@@ -1,3 +1,0 @@
-datainfo({
-    "ver": 7
-})
