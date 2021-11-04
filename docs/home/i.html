@@ -149,9 +149,9 @@
       };
       return fmt;
     }
-    function appinfo(o) {      
-      if (clientPC.ver < o.ver) document.querySelector('#uptip').innerHTML = '当前版本:' + clientPC.ver + ',最新版本:' + o.ver + ',请及时更新'
-      else document.querySelector('#uptip').innerHTML = o.tip
+    function appinfo(o) {
+      if (clientPC.ver < o.ver) o.tip = '当前版本:' + clientPC.ver + ',最新版本:' + o.ver + ',请及时更新<br/>' + o.tip
+      document.querySelector('#uptip').innerHTML = o.tip
       upadteApp(o)
       wx({}, function (res) {
         if (res == o.web) return

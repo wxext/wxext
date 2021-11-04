@@ -436,10 +436,17 @@ flag=0同时设置3个时间段
     "flag": "1",
     "data": "18:00-23:15"
 }
-网络获取详细信息,昵称 头像 是否好友拉黑
+网络获取详细信息,昵称 头像
 {
     "method": "netGetUser",
     "wxid": "wxid_vw2prmx8xv5n22|wxid_vryy2hqz4mv212",
+    "pid": 0
+}
+判断是否需要好友验证,对方为好友或者关闭验证时不需要验证
+被加入黑名单时,返回:对方拒绝接收你的消息
+{
+    "method": "userid",
+    "wxid": "wxid_vw2prmx8xv5n22",
     "pid": 0
 }
 ### HTTPKEY
