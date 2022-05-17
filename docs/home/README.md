@@ -26,7 +26,10 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 ```
 移除xmlpath,cdntask等通知消息
 新增主动获取消息能力
-如需获取消息的图片可查询{ "method": "getMsg", "sid": "xxxxx" }
+如需获取消息的图片可查询{"method": "getMsg", "sid": "xxxxx" }
+如需获取dat图片可获取{"method": "getfile", "path": "C:\\Users\\xxx.dat" }
+如需开启全天自动下载可设置不下载时段{"method": "downrange","flag": "1","data": "00:00-00:00"}
+如消息接收有延迟可抖一抖窗口保持活跃状态
 
 获取消息
 {
