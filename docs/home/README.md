@@ -46,10 +46,26 @@ fromid:返回指定对象消息
 memid:返回指定群成员消息
 
 
-检查是否需要好友验证
+检查是否需要好友验证(无需验证则直接添加好友)
 {
     "method": "addUserCheck",
     "wxid": "wxid_xxx"
+}
+发送好友验证
+{
+    "method": "addUserCheck",
+    "msg": "hi",
+    "groupid": "群id",可选
+    "scene": "来源",可选 14=群聊
+    "wxid": "wxid_xxx"
+}
+同意验证好友
+{
+    "method": "agreeUser",
+    "encryptusername": "v3_xxx@stranger",
+    "ticket": "v4_xxx@stranger",
+    "msg": "回复消息",可选,回复消息而不直接同意
+    "scene": 14
 }
 网络获取群成员邀请信息
 {
