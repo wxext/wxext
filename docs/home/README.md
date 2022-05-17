@@ -10,8 +10,6 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 # 开发准备
 
-+ [下载服务端](https://pan.wyfxw.cn/plainwizard/Setup_wxext.msi "下载e小天")
-
 + [PC微信安装](https://pc.weixin.qq.com/ "微信PC版")自适应匹配最新版PC微信
 
 # 功能页面
@@ -22,6 +20,41 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 >+ [功能测试](../app/test.html ":ignore e小天|功能测试")
 
+# 更新
+
+[v3.6.0.1](https://pan.wyfxw.cn/plainwizard/Setup_wxext_3.6.0.1.msi "e小天")
+```
+移除xmlpath,cdntask等通知消息
+新增主动获取消息能力
+如需获取消息的图片可查询{ "method": "getMsg", "sid": "xxxxx" }
+
+获取消息
+{
+    "method": "getMsg",
+    "type": 1
+}
+可选参数:
+sid:返回等于该id的消息(sid为消息通知中的18位id)
+id:返回大于该id的消息
+flag:返回小于上述id的消息
+type:返回指定类型的消息
+msg:返回包含相关内容的消息(搜xml加前缀x:)
+fromid:返回指定对象消息
+memid:返回指定群成员消息
+
+
+检查是否需要好友验证
+{
+    "method": "addUserCheck",
+    "wxid": "wxid_xxx"
+}
+网络获取群成员邀请信息
+{
+    "method": "getchatroommemberdetail",
+    "wxid": "xxx@chatroom"
+}
+
+```
 
 # 应用开发
 >+ 插件应用通过websocket进行连接通讯

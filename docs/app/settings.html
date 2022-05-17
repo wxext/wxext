@@ -81,7 +81,7 @@
                     <input type="text" class="form-control" id="addrUrl_url" placeholder="通知地址">
                     <input type="text" class="form-control" id="addrUrl_msg" placeholder="包含消息">
                     <input type="text" class="form-control" id="addrUrl_reg" placeholder="匹配正则">
-                    勾选需要通知的事件（包含消息和匹配正则才通知不需要设置时留空即可）
+                    勾选需要通知的事件(不勾选则全部通知)（包含消息和匹配正则才通知不需要设置时留空即可）
                     <div id="notifycheck"></div>
                 </div>
                 <h5>错误设置</h5>
@@ -109,7 +109,7 @@
     <script>
         var notifyList = {
             "1": "文本消息", "3": "图片消息", "34": "语音消息", "37": "好友确认消息"
-            , "43": "视频消息", "47": "动画表情", "48": "位置消息", "49": "分享链接", "701": "群成员信息更新"
+            , "43": "视频消息", "47": "动画表情", "48": "位置消息", "49": "分享链接", "700": "群版本更新", "701": "群成员信息更新"
             , "702": "  群成员增加", "703": "群成员减少", "704": "联系人信息更新", "705": "收款结果"
             , "706": "好友验证结果", "707": "创建群聊结果", "708": "xml资源路径", "720": "登录信息-授权"
             , "721": "登录信息-连接", "723": "登录信息-登录二维码变化", "724": "微信登录-授权信息"
@@ -207,10 +207,10 @@
                 $.each($('.checkbox_notify input:checked'), function () {
                     checknotify.push($(this).val())
                 })
-                if (!checknotify.length) return log('请选择通知类型')
+                //if (!checknotify.length) return log('请选择通知类型')
                 var keep = $("#keep").prop('checked') ? 1 : 0;
                 wx({
-                    method: 'notify', action: 'add', type: checknotify, name, msg, reg, url, keep
+                    method: 'notify', action: 'add', type: checknotify||'', name, msg, reg, url, keep
                 }, function (res) {
                     if (res.msg) return log(res.msg)
                     log('添加成功')
