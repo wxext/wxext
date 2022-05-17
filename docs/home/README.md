@@ -53,7 +53,33 @@ memid:返回指定群成员消息
     "method": "getchatroommemberdetail",
     "wxid": "xxx@chatroom"
 }
-
+网络获取群成员详细信息
+{
+    "method": "netUpdateUser",
+    "wxid": "wxid_xxx"
+    "groupid": "xxx@chatroom"
+}
+退回
+{
+    "method": "agreeCash",
+    "wxid": "wxid_xxx",
+    "transferid": "op=refuse&trans_id=10000500012xxx",
+    "pid": 0
+}
+查询状态
+{
+    "method": "agreeCash",
+    "wxid": "wxid_xxx",
+    "transferid": "trans_id=10000500012xxx",
+    "pid": 0
+}
+接收
+{
+    "method": "agreeCash",
+    "wxid": "wxid_xxx",
+    "transferid": "10000500012xxx",
+    "pid": 0
+}
 ```
 
 # 应用开发
