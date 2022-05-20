@@ -30,6 +30,7 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 如需获取dat图片可获取{"method": "getfile", "path": "C:\\Users\\xxx.dat" }
 如需开启全天自动下载可设置不下载时段{"method": "downrange","flag": "0","data": "00:00-00:00"}
 如消息接收有延迟可抖一抖窗口保持活跃状态
+获取撤回消息sid是通知消息中"type":10002中的newmsgid
 
 获取消息
 {
@@ -37,7 +38,7 @@ pc微信小助手,软件本地运行，不联网，安全可靠
     "type": 1
 }
 可选参数:
-sid:返回等于该id的消息(sid为消息通知中的18位id)
+sid:返回等于该id的消息(sid为消息通知中的19位id)
 id:返回大于该id的消息
 flag:返回小于上述id的消息
 type:返回指定类型的消息
@@ -53,7 +54,7 @@ memid:返回指定群成员消息
 }
 发送好友验证
 {
-    "method": "addUserCheck",
+    "method": "addUser",
     "msg": "hi",
     "groupid": "群id",可选
     "scene": "来源",可选 14=群聊
@@ -75,8 +76,22 @@ memid:返回指定群成员消息
 网络获取群成员详细信息
 {
     "method": "netUpdateUser",
-    "wxid": "wxid_xxx"
+    "wxid": "wxid_xxx",
     "groupid": "xxx@chatroom"
+}
+查找微信号
+{
+    "method": "netSearchUser",
+    "wxid": "wxid_xxx"
+}
+转发消息
+{
+    "method": "forwardMsg",
+    "id": "getMsg中返回的id"
+}
+刷新朋友圈
+{
+    "method": "mmsnstimeline"
 }
 退回
 {
