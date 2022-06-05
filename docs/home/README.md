@@ -26,7 +26,14 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 
 # 更新
 
-[v3.6.0.1](https://pan.wyfxw.cn/plainwizard/Setup_wxext_3.6.0.1.msi "e小天")
+[v3.7.0.1](https://pan.wyfxw.cn/plainwizard/Setup_wxext_3.7.0.1.msi "e小天")
+```
+修复了一些已知问题
+提高稳定性和适应能力
+移除添加同意好友相关功能
+```
+
+[v3.6.0.1]
 ```
 移除xmlpath,cdntask等通知消息
 新增主动获取消息能力
@@ -51,27 +58,6 @@ fromid:返回指定对象消息
 memid:返回指定群成员消息
 
 
-检查是否需要好友验证(无需验证则直接添加好友)
-{
-    "method": "addUserCheck",
-    "wxid": "wxid_xxx"
-}
-发送好友验证
-{
-    "method": "addUser",
-    "msg": "hi",
-    "groupid": "群id",可选
-    "scene": "来源",可选 14=群聊
-    "wxid": "wxid_xxx"
-}
-同意验证好友
-{
-    "method": "agreeUser",
-    "encryptusername": "v3_xxx@stranger",
-    "ticket": "v4_xxx@stranger",
-    "msg": "回复消息",可选,回复消息而不直接同意
-    "scene": 14
-}
 网络获取群成员邀请信息
 {
     "method": "getchatroommemberdetail",
@@ -507,13 +493,6 @@ http://127.0.0.1:8203/ext/www/key.ini
     "method": "saveimg",
     "type": "url"
     "data": "https://www.baidu.com/img/flexible/logo/pc/result.png"
-}
-同意好友
-{
-    "method": "agreeUser",
-    "encryptusername": "收到的xml中获取",
-    "ticket": "收到的xml中获取",
-    "scene": 收到的xml中获取
 }
 接收转账收款
 {

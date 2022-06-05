@@ -342,27 +342,6 @@
         }
     },
     {
-        "id": 1584779865384,
-        "name": "添加好友",
-        "data": {
-            "method": "addUser",
-            "wxid": "wxid_vw2prmx8xv5n22",
-            "msg": "在吗",
-            "pid": 0
-        }
-    },
-    {
-        "id": 1584779865386,
-        "name": "同意好友",
-        "data": {
-            "method": "agreeUser",
-            "encryptusername": "v3_020b3826fd03010000000000ad463294328b16000000501ea9a3dba12f95f6b60a0536a1adb6114ca0d6bffb8bcd219b8f8870c00ce88c136e6b8ab2e112d2fdb046d07be0264864159d414c4a3fd286aaf77fa4d619107a4b81c9135f3ffb2aa86b@stranger",
-            "ticket": "v4_000b708f0b040000010000000000fe2f5b1369801696c16f6df703601000000050ded0b020927e3c97896a09d47e6e9ed50569df5776d8a64ec685901aee6a50477c8e338718fd7124a915e6aa878c4d7e5910f38600af51ea5ed89de3ab1c20b17406a754cd2584ae75821f15955074743b83313a01555cf07b51ce5bbc23e00ba79ec386bc453c85838d4418d8c094f9a600ccf71ffc82@stranger",
-            "scene": 14
-        },
-        "des": ""
-    },
-    {
         "id": 1584779865389,
         "name": "更新好友",
         "data": {
