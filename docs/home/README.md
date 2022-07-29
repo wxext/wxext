@@ -2,7 +2,7 @@
 
 pc微信小助手,软件本地运行，不联网，安全可靠
 
-本机进程管理工具,方便管理本机微信
+本机进程管理工具,方便管理本机微信,扩展功能
 
 旨在提高生产生活效率，禁止骚扰营销
 
@@ -24,13 +24,51 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 如遇微信崩溃,可下载该程序获取崩溃信息进行反馈
 [TxBugClear](https://pan.wyfxw.cn/plainwizard/TxBugClear.exe "TxBugClear")
 
-# 更新
+# 下载
+[e小天安装包](https://pan.wyfxw.cn/plainwizard/Setup_wxext.msi "e小天")
 
-[v3.7.0.1](https://pan.wyfxw.cn/plainwizard/Setup_wxext_3.7.0.1.msi "e小天")
+# 更新
+[v3.7.5.0]
+```
+修复已知问题
+新增配置管理,方便启动指定微信,换机不异常
+启动时指定wxid,方便自动进入无需确认
+换机时,点击软件上的查看配置,将wxconfig目录复制到新机
+传入指定wxid启动,则使用就设备配置,不会出现新设备异常
+
+获取配置列表
+{
+    "method": "wxconfig_list",
+}
+启动微信
+{
+    "method": "run",
+    "pid": -1  //-1 为始终启动新的,可省略
+    "path":"c:\\a\\bb\\Wechat.exe" // 指定安装路径,可省略
+    "wxid":"配置列表中的wxid"//指定使用该wxid的配置运行微信,可省略
+}
+删除配置
+{
+    "method": "wxconfig_del",
+    "wxid": "配置列表中的wxid"
+}
+
+
+转发消息
+{
+    "method": "forwardMsg",
+    "id": "本地id或服务端id"
+}
+图片视频等需要先下载才能转发,收到消息时延时转发
+如果转发失败,请检查是否开启自动下载
+设置所有时段自动下载{"method": "downrange","flag": "0","data": "00:00-00:00"}
+```
+
+[v3.7.0.1]
 ```
 修复了一些已知问题
 提高稳定性和适应能力
-移除添加同意好友相关功能
+移除添加好友相关功能
 ```
 
 [v3.6.0.1]
@@ -74,10 +112,12 @@ memid:返回指定群成员消息
     "method": "netSearchUser",
     "wxid": "wxid_xxx"
 }
-转发消息
+同意好友
 {
-    "method": "forwardMsg",
-    "id": "getMsg中返回的id"
+    "method": "agreeUser",
+    "encryptusername": "v3_020b6b@stranger",
+    "ticket": "v4_000b701ffc82@stranger",
+    "scene": 收到消息中的scene字段内容
 }
 刷新朋友圈
 {
