@@ -33,6 +33,7 @@
         <div class="alert-primary">赞赏之后需等待人工登记,登记时间为09:00-23:59</div>
         <div class="alert-primary">支付时请确认支付备注信息中包含您的用户名,以便登记您的贡献值</div>
         <div class="alert-primary">生成二维码会自动为您备注账号,请勿修改备注</div>
+        <h5 id="u"></h5>
         <form class="form-inline" style="margin: 12px 0;">
             <div class="form-group">
                 <label for="i_num">赞赏贡献值:</label>
@@ -41,7 +42,6 @@
             </div>
         </form>
         <div class="alert-danger">请确认这是您自愿赞赏行为,不提供退款服务,赞赏会提升贡献值</div>
-        <h5 id="u"></h5>
         <div id="s_qr"></div>
         <h3>自由赞赏</h3>
         <div class="alert-success">您可以输入任意额度赞赏,备注账号时会为您自动登记</div>
@@ -83,7 +83,6 @@
             if (!/^\d{1,4}$/.test(v)) return log('额度为1-4位数字')
             var u = localStorage.getItem('user')
             if (!u) return log('您需要登录才可进行赞赏')
-            $("#u").html('您的用户名(支付时核对清楚):' + u)
             $('#s_qr').qrcode({
                 text: 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s":"money","u":"2088012278116671","a":"' + v + '","m":"' + u + '"}',
                 width: 150,
@@ -110,6 +109,9 @@
                 width: 150,
                 height: 150,
             })
+            var u = localStorage.getItem('user')
+            $("#u").html('您的用户名:' + u)
+
             updateList()
         }
         function updateList() {

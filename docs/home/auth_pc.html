@@ -166,7 +166,7 @@
                 //<input value='@auth'/>
                 return temp
             }))
-            $("#userinfo").html(`您好<b>${userdata.user}</b>,贡献值:<b>${userdata.eva}</b>,您有<b>${userdata.auth}</b>个授权名额,已使用<b>${userdata.authnum}</b>个`)
+            $("#userinfo").html(`您好<b>${userdata.user}</b>,贡献值:<b>${userdata.eva}</b><a href="auth_appreciate.html">(去赞赏)</a>,您有<b>${userdata.auth}</b>个授权名额,已使用<b>${userdata.authnum}</b>个`)
         }
         function auth_wxid(wxid, auth) {
             var info = getwx(wxid)
