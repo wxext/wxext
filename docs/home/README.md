@@ -576,6 +576,11 @@ flag=0同时设置3个时间段
     "wxid": "wxid_vw2prmx8xv5n22|wxid_vryy2hqz4mv212",
     "pid": 0
 }
+
+搜索文章下一页
+searchID:"返回的searchID"
+searchOffset:"返回的偏移offset"
+
 判断是否需要好友验证,对方为好友或者关闭验证时不需要验证
 被加入黑名单时,返回:对方拒绝接收你的消息
 {

@@ -62,6 +62,7 @@
       background-color: aqua;
       text-align: center;
       display: inline-block;
+      vertical-align:top;
     }
 
     .linkto div {
@@ -116,6 +117,7 @@
     </div>
     <hr />
     <h5>推荐应用</h5>
+    <p>添加后把代码下载到对应插件目录</p>
     <div class="row">
       <div class="col-sm">
         <div id="toplist"></div>
@@ -180,7 +182,7 @@
       res.ext.forEach(function (d) {
         var t = '<div class="ext"><a target="_blank" href="@url">@name</a><br/>'
         t += '<button type="button" onclick="addext(\'@name\')" class="btn btn-danger btn-sm">添加</button>'
-        t += '<button type="button" onclick="install(\'@name\')" class="btn btn-warning btn-sm">安装</button>'
+        t += '<button type="button" onclick="install(\'@url\')" class="btn btn-warning btn-sm">安装</button>'
         t += '<br/>@des'
         t += '</div>'
         d.home = d.home && d.home.replace(/@name/g, d.name)
@@ -234,7 +236,9 @@
 
       })
     }
-    function install(name) {
+    function install(url) {
+      window.open(url, '_blank')
+      return
       var sid = localStorage.getItem('sid')
       if (!sid) return log('请重新登录')
       var url = 'https://api.wxext.cn/auth?app=1&install=1&name=' + name + '&sid=' + sid
