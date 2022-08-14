@@ -42,7 +42,6 @@
             </div>
         </form>
         <div class="alert-danger">请确认这是您自愿赞赏行为,不提供退款服务,赞赏会提升贡献值</div>
-        <div id="s_qr"></div>
         <h3>自由赞赏</h3>
         <div class="alert-success">您可以输入任意额度赞赏,备注账号时会为您自动登记</div>
         <div class="alert-success">忘记备注或者备注错误,您可以复制订单号进行登记</div>
@@ -78,13 +77,18 @@
     <script src="../js/app.js"></script>
     <script>
         function add_wxid() {
-            $('#s_qr').html('')
+            show_qr()
             var v = i_num.value
             if (!/^\d{1,4}$/.test(v)) return log('额度为1-4位数字')
             var u = localStorage.getItem('user')
             if (!u) return log('您需要登录才可进行赞赏')
-            $('#s_qr').qrcode({
-                text: 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s":"money","u":"2088012278116671","a":"' + v + '","m":"' + u + '"}',
+            show_qr('alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s":"money","u":"2088012278116671","a":"' + v + '","m":"' + u + '"}')
+        }
+        function show_qr(qr) {
+            $('#s_qr_user').html('')
+            qr = qr || 'https://qr.alipay.com/tsx13224ztn3cvhnfiz1v6a'
+            $('#s_qr_user').qrcode({
+                text: qr,
                 width: 150,
                 height: 150,
             })
@@ -104,11 +108,7 @@
         var userdata = { time: '', items: [] }
         setTimeout(initpage, 0)
         function initpage() {
-            $('#s_qr_user').qrcode({
-                text: 'https://qr.alipay.com/tsx13224ztn3cvhnfiz1v6a',
-                width: 150,
-                height: 150,
-            })
+            show_qr()
             var u = localStorage.getItem('user')
             $("#u").html('您的用户名:' + u)
 
