@@ -92,7 +92,7 @@
         }
         function add_wxid_user() {
             var v = i_num_user.value
-            if (!/^\d{4,32}$/.test(v)) return log('订单交易号')
+            if (!/^\d{4,32}$/.test(v)) return log('订单交易号错误')
             var sid = localStorage.getItem('sid')
             if (!sid) return log('请到个人中心退出重新登录')
             var url = 'https://api.wxext.cn/auth?app=userAddEvaByNo&sid=' + sid + '&no=' + v
