@@ -18,7 +18,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="../css/show.css">
     <style>
-        #s_qr_user img {
+        .qrlogo {
             position: absolute;
             margin-top: 59px;
             margin-left: 59px;
@@ -38,7 +38,7 @@
             <div class="form-group">
                 <label for="i_num">赞赏贡献值:</label>
                 <input type="number" name="i_num" value="100" class="form-control" id="i_num" placeholder="">
-                <button onclick="add_wxid()" type="button" class="btn btn-primary">生成支付宝二维码</button>
+                <button onclick="add_wxid()" type="button" class="btn btn-primary">生成带账号二维码</button>
             </div>
         </form>
         <div class="alert-danger">请确认这是您自愿赞赏行为,不提供退款服务,赞赏会提升贡献值</div>
@@ -46,9 +46,10 @@
         <div class="alert-success">您可以输入任意额度赞赏,备注账号时会为您自动登记</div>
         <div class="alert-success">忘记备注或者备注错误,您可以复制订单号进行登记</div>
         <div class="alert-success">登记时间为09:00-23:59,登记大约需要五分钟时间</div>
-        <div id="s_qr_user">
-            <img
+        <div>
+            <img class="qrlogo"
                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAA3VJREFUWEftl2tMzWEcxz//c6lIKRKiJDJFLrMilzRtkq3cLzNszGWYeWPTonmhMLPllhfMvHCbuWyubRjDaFITwrSpU8ldNEJJf3s8p3PK+f/POYV643lxzvb//Z7v7/v8rs+jYF2916pD6oykKwoxqkpI4/e/+a8oWFSVfLORzMrNSqHAVsRPj1R1ZYPKTsD0Nw06wao3KKx5tVXZq1hPXtCGxht51ZuNRCuB69QTwMw2OvnvZk4q3VPVstbEfMU4CAuQeC+qIetqy48gckJ4QG35VrifBj185c6iF5CwqzUo8J+Arge2TYNRofpu7RcAJqOUf/sOlip93SN5sO+WtlyXQGIEBPvrg6YlgrenlL+shuwb+rr3KiC/vIUEXKVU0Qbo1ukfJ2FPXxjaW5vK7tng6yVlZVWQfk5b78pT+NGgfxynVZASBTtmufJFc3lHMyi/GjyUvIPY7c73t7oMtWD9O0LRenty7rkOm3LakMCCGNg+3W5wcjYUVLSSQFBnmBgBgT7g1wHe18Dzj9KtDyqhtt4R+OJKGGEd5E9fQ1yW6/A5hCDEH7ZMgQkDwGDQBqirh/uVcLsELj2RpxwZCmeW2/VXHYeT91pIYFBPOLEEunrDhy9QUA6fasFkkH0/Kgi8zI6gbz/Dlzro00XKLO9l8jW4MWVsHjAocHm1NJR2Fs49dAQQRGJCYdZwSBkCnayN6HdKuSWw8YL0kqtlIzA+HI4tgqRs9zZ6e8DCkbBsLIh80VrFb2QYThdCxQdtHRuB1IkwPBjmHHDFubk8awbMi3a+Rwx80YrPP4SLj6C8CRkbgfQkEAm49Kj7BDZMgtXxUl9URUYOJAyE+HDnGE9ewbViyC1tch+YOwI2TobobfC51jmAlwkyU2B+jNT7/gMWH5YVIZZIZnFjmjoUzNaJqYdo84Do6wWpMvOXH4Pqr9pbRodBRrI0IlZNLYiSy3nsqN/dBxbFylwRlaW1mvWB5CjYP082nVOFcMcCbz5BgDf0D4Tkwc2H090yaVwMI2fL0wTTh8HSMXbijfoOjUg0oF2z7aNWC1jE8GAuHMpzr9abYozqC0tGQ1KknBmaw8jDCImRENcfevmBKLnyKnnrufkM8izuJ6qepug3IjTiWl6qqji5fP25Md0EtF7L2/dh0u5PM+Gedn2cNsanvZ7nPwHmZUngZbYY/QAAAABJRU5ErkJggg==">
+            <div id="s_qr_user"></div>
         </div>
         <div class="form-group">
             <label for="i_num_user">输入订单号(两小时内只需输入后四位):</label>
@@ -112,7 +113,7 @@
             var u = localStorage.getItem('user')
             $("#u").html('您的用户名:' + u)
 
-            updateList()
+            //updateList()
         }
         function updateList() {
             var sid = localStorage.getItem('sid')
