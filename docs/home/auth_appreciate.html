@@ -55,6 +55,7 @@
             <label for="i_num_user">输入订单号(两小时内只需输入后四位):</label>
             <input type="number" name="i_num_user" class="form-control" id="i_num_user" placeholder="年月日开头的交易号">
             <button onclick="add_wxid_user()" type="button" class="btn btn-primary">登记订单号</button>
+            <button onclick="show_qr()" type="button" class="btn btn-primary">生成自助输入二维码</button>
         </div>
         <div>
             <h5>您的贡献值记录</h5>
@@ -112,8 +113,7 @@
             show_qr()
             var u = localStorage.getItem('user')
             $("#u").html('您的用户名:' + u)
-
-            //updateList()
+            updateList()
         }
         function updateList() {
             var sid = localStorage.getItem('sid')
