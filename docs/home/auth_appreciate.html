@@ -30,33 +30,7 @@
     <div class="container">
         <h1>赞赏</h1>
         <a href="../home/i.html">个人中心</a>
-        <div class="alert-primary">赞赏之后需等待人工登记,登记时间为09:00-23:59</div>
-        <div class="alert-primary">支付时请确认支付备注信息中包含您的用户名,以便登记您的贡献值</div>
-        <div class="alert-primary">生成二维码会自动为您备注账号,请勿修改备注</div>
-        <h5 id="u"></h5>
-        <form class="form-inline" style="margin: 12px 0;">
-            <div class="form-group">
-                <label for="i_num">赞赏贡献值:</label>
-                <input type="number" name="i_num" value="100" class="form-control" id="i_num" placeholder="">
-                <button onclick="add_wxid()" type="button" class="btn btn-primary">生成带账号二维码</button>
-            </div>
-        </form>
-        <div class="alert-danger">请确认这是您自愿赞赏行为,不提供退款服务,赞赏会提升贡献值</div>
-        <h3>自由赞赏</h3>
-        <div class="alert-success">您可以输入任意额度赞赏,备注账号时会为您自动登记</div>
-        <div class="alert-success">忘记备注或者备注错误,您可以复制订单号进行登记</div>
-        <div class="alert-success">登记时间为09:00-23:59,登记大约需要五分钟时间</div>
-        <div>
-            <img class="qrlogo"
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAA3VJREFUWEftl2tMzWEcxz//c6lIKRKiJDJFLrMilzRtkq3cLzNszGWYeWPTonmhMLPllhfMvHCbuWyubRjDaFITwrSpU8ldNEJJf3s8p3PK+f/POYV643lxzvb//Z7v7/v8rs+jYF2916pD6oykKwoxqkpI4/e/+a8oWFSVfLORzMrNSqHAVsRPj1R1ZYPKTsD0Nw06wao3KKx5tVXZq1hPXtCGxht51ZuNRCuB69QTwMw2OvnvZk4q3VPVstbEfMU4CAuQeC+qIetqy48gckJ4QG35VrifBj185c6iF5CwqzUo8J+Arge2TYNRofpu7RcAJqOUf/sOlip93SN5sO+WtlyXQGIEBPvrg6YlgrenlL+shuwb+rr3KiC/vIUEXKVU0Qbo1ukfJ2FPXxjaW5vK7tng6yVlZVWQfk5b78pT+NGgfxynVZASBTtmufJFc3lHMyi/GjyUvIPY7c73t7oMtWD9O0LRenty7rkOm3LakMCCGNg+3W5wcjYUVLSSQFBnmBgBgT7g1wHe18Dzj9KtDyqhtt4R+OJKGGEd5E9fQ1yW6/A5hCDEH7ZMgQkDwGDQBqirh/uVcLsELj2RpxwZCmeW2/VXHYeT91pIYFBPOLEEunrDhy9QUA6fasFkkH0/Kgi8zI6gbz/Dlzro00XKLO9l8jW4MWVsHjAocHm1NJR2Fs49dAQQRGJCYdZwSBkCnayN6HdKuSWw8YL0kqtlIzA+HI4tgqRs9zZ6e8DCkbBsLIh80VrFb2QYThdCxQdtHRuB1IkwPBjmHHDFubk8awbMi3a+Rwx80YrPP4SLj6C8CRkbgfQkEAm49Kj7BDZMgtXxUl9URUYOJAyE+HDnGE9ewbViyC1tch+YOwI2TobobfC51jmAlwkyU2B+jNT7/gMWH5YVIZZIZnFjmjoUzNaJqYdo84Do6wWpMvOXH4Pqr9pbRodBRrI0IlZNLYiSy3nsqN/dBxbFylwRlaW1mvWB5CjYP082nVOFcMcCbz5BgDf0D4Tkwc2H090yaVwMI2fL0wTTh8HSMXbijfoOjUg0oF2z7aNWC1jE8GAuHMpzr9abYozqC0tGQ1KknBmaw8jDCImRENcfevmBKLnyKnnrufkM8izuJ6qepug3IjTiWl6qqji5fP25Md0EtF7L2/dh0u5PM+Gedn2cNsanvZ7nPwHmZUngZbYY/QAAAABJRU5ErkJggg==">
-            <div id="s_qr_user"></div>
-        </div>
-        <div class="form-group">
-            <label for="i_num_user">输入订单号(两小时内只需输入后四位):</label>
-            <input type="number" name="i_num_user" class="form-control" id="i_num_user" placeholder="年月日开头的交易号">
-            <button onclick="add_wxid_user()" type="button" class="btn btn-primary">登记订单号</button>
-            <button onclick="show_qr()" type="button" class="btn btn-primary">生成自助输入二维码</button>
-        </div>
+        <div id="app"></div>
         <div>
             <h5>您的贡献值记录</h5>
             <table class="table table-striped">
@@ -78,43 +52,9 @@
     <script src="../js/loading-overlay.min.js"></script>
     <script src="../js/app.js"></script>
     <script>
-        function add_wxid() {
-            show_qr()
-            var v = i_num.value
-            if (!/^\d{1,4}$/.test(v)) return log('额度为1-4位数字')
-            var u = localStorage.getItem('user')
-            if (!u) return log('您需要登录才可进行赞赏')
-            show_qr('alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s":"money","u":"2088012278116671","a":"' + v + '","m":"' + u + '"}')
-        }
-        function show_qr(qr) {
-            $('#s_qr_user').html('')
-            qr = qr || 'https://qr.alipay.com/tsx13224ztn3cvhnfiz1v6a'
-            $('#s_qr_user').qrcode({
-                text: qr,
-                width: 150,
-                height: 150,
-            })
-        }
-        function add_wxid_user() {
-            var v = i_num_user.value
-            if (!/^\d{4,32}$/.test(v)) return log('订单交易号错误')
-            var sid = localStorage.getItem('sid')
-            if (!sid) return log('请到个人中心退出重新登录')
-            var url = 'https://api.wxext.cn/auth?app=userAddEvaByNo&sid=' + sid + '&no=' + v
-            wx({}, function (res) {
-                if (res.msg) log(res.msg)
-                if (!res.data) return;
-                updateList()
-            }, url)
-        }
         var userdata = { time: '', items: [] }
-        setTimeout(initpage, 0)
-        function initpage() {
-            show_qr()
-            var u = localStorage.getItem('user')
-            $("#u").html('您的用户名:' + u)
-            updateList()
-        }
+        setTimeout(updateList, 0)
+        loadScript('https://api.wxext.cn/auth?app=payjs&t=' + Date.now().toString().substring(0, 7))
         function updateList() {
             var sid = localStorage.getItem('sid')
             if (!sid) return log('请到个人中心退出重新登录')
