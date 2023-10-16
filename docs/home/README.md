@@ -27,6 +27,229 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 # 下载
 [e小天安装包](https://pan.wyfxw.cn/plainwizard/Setup_wxext.msi "e小天")
 
+
+# 更新 3.9.7.1
++ 解决网络问题
++ 支持x86最新版
++ 修复已知问题
++ 新增标签管理、群设置、转发引用等功能
++ 详见文档
+
+
+
+
+# 这是最后一次更新
+
+通过proxy访问后，不再以此项目作为界面代码，后续将不再更新此文档。
+
+# proxy 本地代理
+由于网络环境复杂，通过本机代理进行互联网访问  
+用户可根据自身网络环境自选最优节点IP  
+也可自行使用稳定的云服务进行中转访问  
+可自行开发网页界面,仅支持https
+```
+{
+    "method": "proxy",
+    "addr": "节点服务地址IP或域名",
+    "host": "wxext.cn.wscdns.com",
+    "name": "节点名称"
+}
+```
+设置中转节点后可访问 http://127.0.0.1:8203/proxy/app/demo.html
+
+# 已支持CDN列表 
++ 各地区自选最优IP不同
++ 从自选IP列表中选择最优IP填入addr即可
++ host每个cdn对应不同，自建可不填或任意
++ name 自定义名称方便识别
+## cloudflare 
+自选IP列表:https://www.cloudflare.com/ips-v4
+```
+{
+    "method": "proxy",
+    "addr": "pcwx.wxext.cn",
+    "host": "pcwx.wxext.cn",
+    "name": "cloudflare"
+}
+```
+## cachefly 
+自选IP列表:https://cachefly.cachefly.net/ips/cdn.txt
+```
+{
+    "method": "proxy",
+    "addr": "wxext.cachefly.net",
+    "host": "wxext.cachefly.net",
+    "name": "cachefly"
+}
+```
+## gcore 
+自选IP列表:https://api.gcore.com/cdn/public-ip-list
+```
+{
+    "method": "proxy",
+    "addr": "gcore.com",
+    "host": "wxext.cn.wscdns.com",
+    "name": "gcore"
+}
+```
+## alwaysdata 
+自选IP列表:https://help.alwaysdata.com/en/security/ip-ranges/
+```
+{
+    "method": "proxy",
+    "addr": "www.wechat.com",
+    "host": "www.wechat.com",
+    "name": "alwaysdata"
+}
+```
+
++ 设置节点时，各cdn对应的host不可变，addr填写自选IP
+
+>如自选 cloudflare 的IP地址 216.24.57.1
+```
+{
+    "method": "proxy",
+    "addr": "216.24.57.1",
+    "host": "pcwx.wxext.cn",
+    "name": "自选节点"
+}
+```
+# 使用nginx做cdn转发自建节点
+
+1. 直接https透传，内容不可修改，无需证书  
+stream放在和http同一级
+```
+stream {
+    map $ssl_preread_server_name $name {
+        pcwx.wxext.cn node1;
+    }
+    upstream node1 {
+        server pcwx.wxext.cn:443;
+    }
+    server {
+        listen 443;
+        proxy_pass $name;
+        ssl_preread on;
+    }
+}
+```
+2 .转发配置，可用自己服务器内容替代，需要配置ssl证书  
+server放在http内部
+```
+server
+{
+        listen 443;
+        server_name wxext.cn;
+        ssl on;
+        ssl_certificate /ssl/wxext.cn/fullchain.pem;
+        ssl_certificate_key /ssl/wxext.cn/privkey.pem;
+        location / {
+            proxy_pass https://pcwx.wxext.cn;
+            proxy_set_header Host pcwx.wxext.cn;
+        }
+}
+```
+
+# 功能列表
+```
+getcontactlabellist 获取标签
+{
+    "method": "getcontactlabellist"
+}
+addcontactlabel 添加标签
+{
+    "method": "addcontactlabel",
+    "name": "标签名字"
+}
+updatecontactlabel 修改标签
+{
+    "method": "updatecontactlabel",
+    "id": "6",
+    "name": "新名字"
+}
+delcontactlabel 删除标签
+{
+    "method": "delcontactlabel",
+    "id": "6,"
+}
+modifycontactlabellist 修改联系人标签
+{
+    "method": "modifycontactlabellist",
+    "data": [
+        {
+            "wxid": "wxid11111",
+            "tag": "6,"
+        },
+        {
+            "wxid": "wxid222",
+            "tag": "6,7,8,"
+        }
+    ]
+}
+
+back_ 后台调用功能，界面上无显示
+back_send_quote 发送引用
+默认引用回复当前聊天对象，toid可指定其他
+{
+    "method": "back_send_quote",
+    "msg": "文本内容",
+    "tag": "",
+    "sid": "引用sid"
+}
+back_send_emoji 转发表情
+{
+    "method": "back_send_emoji",
+    "wxid": "filehelper",
+    "sid": "sid"
+}
+back_send_appmsg 转发文章小程序
+{
+    "method": "back_send_appmsg",
+    "wxid": "filehelper",
+    "sid": "sid"
+}
+back_get_sns 获取朋友圈
+填写wxid获取指定人的朋友圈，不填获取所有人的
+填写返回的tag和id翻下一页，不填获取首页
+{
+    "method": "back_get_sns",
+    "wxid": "wxid11",
+    "tag": "",
+    "id": ""
+}
+back_set_op 保存通讯录
+{
+    "method": "back_set_op",
+    "wxid": "44728791513@chatroom",
+    "type": "save",
+    "flag": "1"
+}
+set_group_mute 设置免打扰
+{
+    "method": "set_group_mute",
+    "wxid": "44728791513@chatroom",
+    "flag": "1"
+}
+set_group_minimize 设置折叠
+{
+    "method": "set_group_minimize",
+    "wxid": "44728791513@chatroom",
+    "flag": "1"
+}
+inviteName 获取群邀请人信息
+系统默认会自动获取，接收事件即可
+手动更新可以获取指定版本之后的动态
+可通过netUpdateUser获取chatroomVersion
+或接收chatroommember事件中的ver属性
+{
+    "method": "inviteName",
+    "wxid": "15849946639@chatroom",
+    "ver": "700003586",
+    "pid": 0
+}
+```
+
+
 # 更新
 [v3.8.0.1]
 ```
