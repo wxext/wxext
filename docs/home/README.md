@@ -151,6 +151,9 @@ server
 ```
 
 # 功能列表
+
+> 新增更新检查始终返回最新版，如何更新请卸载功能后再检查更新  
+
 ```
 getcontactlabellist 获取标签
 {
@@ -217,17 +220,17 @@ back_get_sns 获取朋友圈
     "tag": "",
     "id": ""
 }
+set_group_mute 设置免打扰（"1" 取消 "2" 开启）
+{
+    "method": "set_group_mute",
+    "wxid": "44728791513@chatroom",
+    "flag": "1"
+}
 back_set_op 保存通讯录
 {
     "method": "back_set_op",
     "wxid": "44728791513@chatroom",
     "type": "save",
-    "flag": "1"
-}
-set_group_mute 设置免打扰
-{
-    "method": "set_group_mute",
-    "wxid": "44728791513@chatroom",
     "flag": "1"
 }
 set_group_minimize 设置折叠
