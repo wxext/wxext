@@ -21,8 +21,8 @@ pc微信小助手,软件本地运行，不联网，安全可靠
 >+ [功能测试](../app/test.html ":ignore e小天|功能测试")
 
 # 问题反馈
-如遇微信崩溃,可下载该程序获取崩溃信息进行反馈
-[TxBugClear](https://pan.wyfxw.cn/plainwizard/TxBugClear.exe "TxBugClear")
+有任何问题，可进行联系反馈
+[feedback](https://s.wxext.cn/feedback "feedback")
 
 # 下载
 [e小天安装包](https://pan.wyfxw.cn/plainwizard/Setup_wxext.msi "e小天")
