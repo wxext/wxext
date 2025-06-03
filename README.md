@@ -21,3 +21,5 @@ Windows系统
 安装运行后,访问 127.0.0.1:8203 查看开发文档及管理本机微信程序
 
 + 安装<a href="https://www.wxext.cn/">e小天</a>软件后,可点击管理面板查看开发文档
+
+[![Powered by DartNode](https://dartnode.com/branding/DN-Open-Source-sm.png)](https://dartnode.com "Powered by DartNode - Free VPS for Open Source")
